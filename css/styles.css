@@ -1,22 +1,40 @@
 body {
-  background-image: url(../Images/clouds.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  font-family: 'Patrick Hand', cursive;
-  color: #2c2c3a;
+  font-family: 'Neucha', cursive;
+  color: #242424;
+  background-color: #e8e8e9;
+  margin:0;
+padding:0;
 }
 
 .perfilImg {
   height: 250px;
   float: left;
   margin-right: 30px;
-
 }
 
-.links:hover{
+h1{
+  font-family: 'Caveat', cursive;
+  font-size: 8rem;
+}
+
+h2, h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 4rem;
+}
+
+.links:hover {
   transition: transform .3s;
   transform: scale(1.2);
+}
+
+a{
+  color: #4e515f;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #081135;
+  text-decoration: none;
 }
 
 .whoAmI {
@@ -26,16 +44,6 @@ body {
   font-size: 2.75rem;
   padding-top: 10px;
   padding-bottom: 30px;
-}
-
-.pixelDiv {
-  padding-top: 10px;
-  padding-bottom: 20px;
-  left: 0;
-  text-align: center;
-  font-size: 1.75rem;
-  min-height: 500px;
-  border: 5px solid black;
 }
 
 .pixelimg {
@@ -53,56 +61,42 @@ body {
   transition: transform .3s;
 }
 
-.linhazinha {
+hr {
   border-top: 10px solid #9d9db4;
   border-style: dotted none none none;
   width: 7%;
+  margin: 70px auto;
 }
 
-.gameDesignerDiv {
+.divPadrão {
   padding-top: 10px;
   padding-bottom: 30px;
   margin: 0;
   text-align: center;
   font-size: 1.75rem;
-  width: 100%;
-  border: 5px solid black;
 }
 
-.aboutDiv {
-  padding-top: 10px;
-  padding-bottom: 30px;
-  margin: 0;
+.footer {
+  background-color: #9a9a9e;
+  bottom: 0;
   text-align: center;
-  font-size: 1.75rem;
-  border: 5px solid black;
+  padding: 2rem;
 }
 
-.aboutDentroDiv{
+.aboutDentroDiv {
   width: 60%;
-  margin:auto;
+  margin: auto;
   text-align: left;
-
 }
 
-.tools{
+.tools {
   width: 30%;
   margin: auto;
   text-align: left;
-
 }
 
-.contactDiv {
-  height: 400px;
-  padding-top: 10px;
-  background-color: #d6e4f0;
-  left: 0;
-  text-align: center;
-  font-size: 1.75rem;
-  border: 5px solid black;
-}
 
-.parallaxPix {
+#parallaxPix {
   background-image: url("../Images/fundo.png");
   background-attachment: fixed;
   background-position: center;
@@ -110,7 +104,7 @@ body {
   background-size: cover;
 }
 
-.parallaxDev {
+#parallaxDev {
   background-image: url("../Images/fundoDev.png");
   width: auto;
   background-attachment: fixed;
@@ -119,7 +113,7 @@ body {
   background-size: cover;
 }
 
-.parallaxWeb{
+#parallaxWeb {
   background-image: url("../Images/fundoWeb.png");
   width: auto;
   background-attachment: fixed;
@@ -128,7 +122,7 @@ body {
   background-size: cover;
 }
 
-.parallaxAbout{
+#parallaxAbout {
   background-image: url("../Images/fundoAbout.png");
   width: auto;
   background-attachment: fixed;
