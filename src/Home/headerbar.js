@@ -1,21 +1,27 @@
 import React from "react";
+import { getText } from "./text";
+import LangToggle from "./langToggle";
 
-const Headerbar = () => {
+const Headerbar = ({ lang, toggle }) => {
+  const [show, setShow] = React.useState(true);
+
   return (
-    <div className="headerbar">
-      <div>
-        <p>FlavioEBN</p>
-      </div>
-      <div className="topics">
-        <p>1_main</p>
-        <p>2_about</p>
-        <p>3_projects</p>
-        <p>4_contact</p>
-        <div className="lang-selector">
-          <p>PT</p> <p>/</p> <p>EN</p>
+    <>
+      {show && (
+        <div className="headerbar">
+          <div className="name">
+            <p>FlavioEBN</p>
+          </div>
+          <div className="topics">
+            <a href="#main">{getText(lang, "headerTextOne")}</a>
+            <a href="#about">{getText(lang, "headerTextTwo")}</a>
+            <a href="#projects">{getText(lang, "headerTextThree")}</a>
+            <a href="#contact">{getText(lang, "headerTextFour")}</a>
+            <LangToggle toggle={toggle} lang={lang} />
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

@@ -7,6 +7,8 @@ import linkedinIcon from "../icons/linkedin.svg";
 import instagram from "../icons/instagram.svg";
 import gmail from "../icons/email.svg";
 import github from "../icons/github.svg";
+import { getText } from "./text";
+import LangToggle from "./langToggle";
 
 const BuildThings = ({ thing }) => {
   return (
@@ -21,19 +23,7 @@ const BuildThings = ({ thing }) => {
   );
 };
 
-const RenderProject = ({ project, index, handleImage }) => {
-  const RenderImages = () => {
-    return [1, 2, 3, 4].map((i) => {
-      return (
-        <img
-          onClick={(project) => handleImage(project, i)}
-          src={`/images/${project.images}${i}.png`}
-          alt={project.images + i}
-        />
-      );
-    });
-  };
-
+const RenderProject = ({ project, index }) => {
   return (
     <div className="project">
       <h2 className="title">{project.title}</h2>
@@ -41,7 +31,7 @@ const RenderProject = ({ project, index, handleImage }) => {
       <div className="two-grids">
         {index % 2 !== 0 ? (
           <div className="images">
-            <RenderImages />
+            <ImageViewer img={project} />
           </div>
         ) : (
           <></>
@@ -51,7 +41,7 @@ const RenderProject = ({ project, index, handleImage }) => {
         </p>
         {index % 2 === 0 ? (
           <div className="images">
-            <RenderImages />
+            <ImageViewer img={project} />
           </div>
         ) : (
           <></>
@@ -62,50 +52,12 @@ const RenderProject = ({ project, index, handleImage }) => {
 };
 
 const Home = () => {
-  const [image, setImage] = useState({
-    title: "backoffice",
-    idx: 1,
-  });
   const [pre, setPre] = useState();
-  const [imageViewer, setImageViewer] = useState(false);
+  const [lang, setLang] = useState("EN");
 
   React.useEffect(() => {
     setPre(document.querySelector("pre"));
   }, []);
-
-  const handleImage = (project) => {
-    const name = project.target.alt.slice(0, project.target.alt.length - 1);
-    const idx = project.target.alt.slice(
-      project.target.alt.length - 1,
-      project.target.alt.length
-    );
-    setImage({
-      title: name,
-      idx: parseInt(idx),
-    });
-    setImageViewer(true);
-  };
-
-  const next = () => {
-    let newIndex;
-    if (image.idx === 4) {
-      newIndex = 1;
-    } else {
-      newIndex = image.idx + 1;
-    }
-    setImage({ ...image, idx: newIndex });
-  };
-
-  const previous = () => {
-    let newIndex;
-    if (image.idx === 1) {
-      newIndex = 4;
-    } else {
-      newIndex = image.idx - 1;
-    }
-    setImage({ ...image, idx: newIndex });
-    console.log(newIndex);
-  };
 
   document.addEventListener("mousemove", (e) => {
     rotateElement(e, pre);
@@ -133,34 +85,37 @@ const Home = () => {
     element?.style.setProperty("--rotateY", -1 * offsetY + "deg");
   }
 
+  const handleToggle = () => {
+    setLang(lang === "PT" ? "EN" : "PT");
+  };
+
+  const handleText = (text) => {
+    return getText(lang, text);
+  };
+
   return (
     <div>
-      <Headerbar />
-      {imageViewer && (
-        <ImageViewer
-          img={image}
-          handleLeft={previous}
-          handleRight={next}
-          close={() => setImageViewer(false)}
-        />
-      )}
+      <div className="mobile-only">
+        <LangToggle lang={lang} toggle={handleToggle} />
+      </div>
+      <Headerbar lang={lang} toggle={handleToggle} />
       <div id="main" className="main two-grids">
         <div className="text">
           <div className="desc">
-            <p>Oi, eu sou o</p>
-            <span>Flávio,</span>
-            <p>e eu faço web-coisas.</p>
+            <p>{handleText("mainTextOne")}</p>
+            <span>{handleText("mainTextTwo")}</span>
+            <p>{handleText("mainTextThree")}</p>
           </div>
         </div>
         <pre>
           <img className="eudem" src={euDem} alt={"eu demonio"} />
         </pre>
       </div>
-      <div className="about">
-        <h1>Sobre mim</h1>
+      <div id="about" className="about">
+        <h1>{handleText("aboutHeader")}</h1>
         <div className="two-grids">
           <div className="who-am">
-            <h2>Quem sou eu</h2>
+            <h2>{handleText("aboutOne")}</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
               varius lacus quis imperdiet pulvinar. Curabitur eget iaculis eros,
@@ -175,7 +130,7 @@ const Home = () => {
             </p>
           </div>
           <div className="things">
-            <h2>Do que eu manjo</h2>
+            <h2>{handleText("aboutTwo")}</h2>
             <div className="things-container">
               {things.map((i) => {
                 return <BuildThings thing={i} />;
@@ -184,20 +139,15 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="projects-container">
-        <h1>Projetos profissionais</h1>
+      <div id="projects" className="projects-container">
+        <h1>{handleText("professionalHeader")}</h1>
         {projects.map((i, idx) => {
-          return (
-            <RenderProject project={i} index={idx} handleImage={handleImage} />
-          );
+          return <RenderProject project={i} index={idx} />;
         })}
       </div>
-      <div className="contact">
-        <h1>Contato</h1>
-        <p>
-          Se gostou do que viu ou quer saber mais sobre qualquer coisa, fique a
-          vontade pra me contatar como preferir:
-        </p>
+      <div id="contact" className="contact">
+        <h1>{handleText("contactHeader")}</h1>
+        <p>{handleText("contactDesc")}</p>
         <div>
           <a
             className="effect-link email"
