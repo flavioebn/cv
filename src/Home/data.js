@@ -46,6 +46,10 @@ export const thingsIKnow = [
   { title: "Postman", link: "https://www.postman.com/" },
   { title: "MongoDB", link: "https://www.mongodb.com/" },
   {
+    title: "Firestore",
+    link: "https://firebase.google.com/docs/firestore?hl=pt-br",
+  },
+  {
     title: "Componentization",
     link: "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_components",
   },
