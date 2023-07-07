@@ -23,10 +23,22 @@ const BuildThings = ({ thing }) => {
   );
 };
 
-const RenderProject = ({ project, index }) => {
+const RenderProject = ({ project, index, lang }) => {
   return (
     <div className="project">
-      <h2 className="title">{project.title}</h2>
+      {project.link ? (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noreferrer"
+          className="title"
+        >
+          {project.title}
+        </a>
+      ) : (
+        <h2 className="title">{project.title}</h2>
+      )}
+
       <hr />
       <div className="two-grids">
         {index % 2 !== 0 ? (
@@ -37,7 +49,12 @@ const RenderProject = ({ project, index }) => {
           <></>
         )}
         <p className={index % 2 === 0 ? "left" : "right"}>
-          {project.description}
+          {getText(lang, project.description)}
+          <br /> <br />
+          <span>{project.tecs}</span>
+          {/* {project.tecs?.map((i) => {
+            return <span>{i}</span>;
+          })} */}
         </p>
         {index % 2 === 0 ? (
           <div className="images">
@@ -103,7 +120,7 @@ const Home = () => {
         <div className="text">
           <div className="desc">
             <p>{handleText("mainTextOne")}</p>
-            <span>{handleText("mainTextTwo")}</span>
+            <span className="purple">{handleText("mainTextTwo")}</span>
             <p>{handleText("mainTextThree")}</p>
           </div>
         </div>
@@ -116,18 +133,7 @@ const Home = () => {
         <div className="two-grids">
           <div className="who-am">
             <h2>{handleText("aboutOne")}</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-              varius lacus quis imperdiet pulvinar. Curabitur eget iaculis eros,
-              a pharetra lorem. Curabitur aliquam, metus vel volutpat ornare,
-              nibh diam egestas purus, at volutpat elit nulla ut dui. Proin quis
-              turpis id sapien gravida luctus. Nam ac nunc dapibus, ornare risus
-              id, rutrum quam. Vestibulum viverra, purus vel placerat viverra,
-              diam sapien facilisis dolor, ac ultricies dolor dolor nec massa.
-              Vestibulum mattis dignissim arcu. Sed id orci ut lorem imperdiet
-              mattis. Ut eget aliquet sapien. Proin in ex posuere, interdum
-              sapien a, sodales est.
-            </p>
+            {handleText("aboutText")}
           </div>
           <div className="things">
             <h2>{handleText("aboutTwo")}</h2>
@@ -142,7 +148,7 @@ const Home = () => {
       <div id="projects" className="projects-container">
         <h1>{handleText("professionalHeader")}</h1>
         {projects.map((i, idx) => {
-          return <RenderProject project={i} index={idx} />;
+          return <RenderProject project={i} index={idx} lang={lang} />;
         })}
       </div>
       <div id="contact" className="contact">

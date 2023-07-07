@@ -1,15 +1,19 @@
 import b1 from "../assets/backoffice1.png";
-import b2 from "../assets/backoffice2.png";
+import b2 from "../assets/xiplanding.png";
 import b3 from "../assets/backoffice3.png";
 import b4 from "../assets/backoffice4.png";
 import k1 from "../assets/kynd1.png";
 import k2 from "../assets/kynd2.png";
 import k3 from "../assets/kynd3.png";
 import k4 from "../assets/kynd4.png";
-import x1 from "../assets/xip1.png";
-import x2 from "../assets/xip2.png";
-import x3 from "../assets/xip3.png";
-import x4 from "../assets/xip4.png";
+import x1 from "../assets/x1.png";
+import x2 from "../assets/x2.png";
+import x3 from "../assets/x3.png";
+import x4 from "../assets/x4.png";
+import g1 from "../assets/g1.png";
+import g2 from "../assets/g2.png";
+import g3 from "../assets/g3.png";
+import g4 from "../assets/g4.png";
 import c1 from "../assets/cartesian1.png";
 import c2 from "../assets/cartesian2.png";
 import c3 from "../assets/cartesian3.png";
@@ -21,12 +25,26 @@ const lorem =
 export const projects = [
   {
     title: "Conta XIP - Web",
-    description: lorem,
-    images: [b1, b2, b3, b4],
+    description: "xipWeb",
+    images: [b2, b1, b3, b4],
+    tecs: "React | MongoDB | SASS",
+    link: "https://www.contaxip.com/",
   },
-  { title: "Conta XIP - Mobile", description: lorem, images: [x1, x2, x3, x4] },
+  {
+    title: "Conta XIP - Mobile",
+    description: "xipApp",
+    images: [x1, x2, x3, x4],
+    tecs: "React Native | MongoDB ",
+    link: "https://apps.apple.com/us/app/conta-xip/id1553506089",
+  },
   { title: "Cartesian", description: lorem, images: [c1, c2, c3, c4] },
-  { title: "Kynd Wellness", description: lorem, images: [k1, k2, k3, k4] },
+  {
+    title: "Kynd Wellness",
+    description: lorem,
+    images: [k1, k2, k3, k4],
+    link: "https://apps.apple.com/us/app/kynd-wellness/id1178897528?platform=iphone",
+  },
+  { title: "GD", description: lorem, images: [g1, g2, g3, g4] },
 ];
 
 export const thingsIKnow = [
@@ -38,6 +56,7 @@ export const thingsIKnow = [
   },
   { title: "HTML", link: "https://developer.mozilla.org/pt-BR/docs/Web/HTML" },
   { title: "CSS", link: "https://developer.mozilla.org/pt-BR/docs/Web/CSS" },
+  { title: "SASS", link: "https://sass-lang.com/" },
   { title: "TypeScript", link: "https://www.typescriptlang.org/" },
   { title: "Node.js", link: "https://nodejs.org/en" },
   { title: "REST Api", link: "https://aws.amazon.com/what-is/restful-api/" },

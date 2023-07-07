@@ -13,7 +13,9 @@ const Headerbar = ({ lang, toggle }) => {
             <p>FlavioEBN</p>
           </div>
           <div className="topics">
-            <a href="#main">{getText(lang, "headerTextOne")}</a>
+            <a className="purple" href="#main">
+              {getText(lang, "headerTextOne")}
+            </a>
             <a href="#about">{getText(lang, "headerTextTwo")}</a>
             <a href="#projects">{getText(lang, "headerTextThree")}</a>
             <a href="#contact">{getText(lang, "headerTextFour")}</a>
