@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Headerbar from "./headerbar";
 import euDem from "../assets/dem.png";
 import { projects, thingsIKnow as things } from "./data";
@@ -9,6 +9,7 @@ import gmail from "../icons/email.svg";
 import github from "../icons/github.svg";
 import { getText } from "./text";
 import LangToggle from "./langToggle";
+import link from "../icons/link.svg";
 
 const BuildThings = ({ thing }) => {
   return (
@@ -23,18 +24,23 @@ const BuildThings = ({ thing }) => {
   );
 };
 
-const RenderProject = ({ project, index, lang }) => {
+const RenderProject = ({ project, index, lang, sys }) => {
   return (
     <div className="project">
       {project.link ? (
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noreferrer"
-          className="title"
-        >
-          {project.title}
-        </a>
+        <>
+          <a
+            href={
+              project.mobile && sys === "ios" ? project.linkIos : project.link
+            }
+            target="_blank"
+            rel="noreferrer"
+            className="title"
+          >
+            {project.title}
+            <img className="title-link" src={link} alt="link-img" />
+          </a>
+        </>
       ) : (
         <h2 className="title">{project.title}</h2>
       )}
@@ -71,14 +77,24 @@ const RenderProject = ({ project, index, lang }) => {
 const Home = () => {
   const [pre, setPre] = useState();
   const [lang, setLang] = useState("EN");
+  const [sys, setSys] = useState("");
 
   React.useEffect(() => {
     setPre(document.querySelector("pre"));
+
+    if (
+      /iPad|iPhone|iPod/.test(navigator.userAgent || navigator.vendor) &&
+      !window.MSStream
+    ) {
+      setSys("ios");
+    }
   }, []);
 
-  document.addEventListener("mousemove", (e) => {
-    rotateElement(e, pre);
-  });
+  if (window.innerWidth > 800) {
+    document.addEventListener("mousemove", (e) => {
+      rotateElement(e, pre);
+    });
+  }
 
   function rotateElement(event, element) {
     // get mouse position
@@ -148,7 +164,9 @@ const Home = () => {
       <div id="projects" className="projects-container">
         <h1>{handleText("professionalHeader")}</h1>
         {projects.map((i, idx) => {
-          return <RenderProject project={i} index={idx} lang={lang} />;
+          return (
+            <RenderProject project={i} index={idx} lang={lang} sys={sys} />
+          );
         })}
       </div>
       <div id="contact" className="contact">

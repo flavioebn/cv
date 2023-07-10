@@ -35,14 +35,19 @@ export const projects = [
     description: "xipApp",
     images: [x1, x2, x3, x4],
     tecs: "React Native | MongoDB ",
-    link: "https://apps.apple.com/us/app/conta-xip/id1553506089",
+    mobile: true,
+    link: "https://play.google.com/store/apps/details?id=com.solarpay.contaxip&pli=1",
+    linkIos: "https://apps.apple.com/us/app/conta-xip/id1553506089",
   },
   { title: "Cartesian", description: lorem, images: [c1, c2, c3, c4] },
   {
     title: "Kynd Wellness",
     description: lorem,
     images: [k1, k2, k3, k4],
-    link: "https://apps.apple.com/us/app/kynd-wellness/id1178897528?platform=iphone",
+    mobile: true,
+    link: "https://play.google.com/store/apps/details?id=com.ionicframework.kyndclientlocal91965301&hl=en_NZ",
+    linkIos:
+      "https://apps.apple.com/us/app/kynd-wellness/id1178897528?platform=iphone",
   },
   { title: "GD", description: lorem, images: [g1, g2, g3, g4] },
 ];

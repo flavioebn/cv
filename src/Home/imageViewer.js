@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import arrowLeft from "../icons/arrow-left.svg";
 import arrowRight from "../icons/arrow-right.svg";
 
@@ -8,7 +8,6 @@ const ImageViewer = ({ img, handleRight, handleLeft, close }) => {
   const [image, setImage] = React.useState();
 
   const handleImage = (i) => {
-    console.log(i);
     setIdx(i);
     setImage(img.images[i]);
     setOpen(true);
@@ -34,7 +33,6 @@ const ImageViewer = ({ img, handleRight, handleLeft, close }) => {
     } else {
       newIndex = idx + 1;
     }
-    console.log(newIndex);
     setIdx(newIndex);
     setImage(img.images[newIndex]);
   };
@@ -48,7 +46,6 @@ const ImageViewer = ({ img, handleRight, handleLeft, close }) => {
     }
     setIdx(newIndex);
     setImage(img.images[newIndex]);
-    console.log(newIndex);
   };
 
   return (
