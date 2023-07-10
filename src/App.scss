@@ -1,9 +1,10 @@
 $base-purple: #a467bd;
 $light-purple: #cca9da;
+$background: rgb(14, 14, 14);
 
 html {
   scroll-behavior: smooth;
-  background-color: rgb(0, 0, 0);
+  background-color: $background;
   color: rgb(255, 255, 255);
 }
 
@@ -32,7 +33,7 @@ body::-webkit-scrollbar {
   left: 0;
   font-size: 18px;
   box-shadow: 0px 5px 20px rgba(255, 255, 255, 0.089);
-  background-color: black;
+  background-color: $background;
   color: white;
   transition: right 0.2s ease;
 
@@ -154,6 +155,20 @@ body::-webkit-scrollbar {
   @media (max-width: 800px) {
     margin-top: 0px;
     grid-template-columns: 1fr;
+  }
+}
+
+.mobile-social {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  margin-top: 24px;
+
+  img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(77deg)
+      brightness(103%) contrast(106%);
+    width: 36px;
   }
 }
 
@@ -349,7 +364,7 @@ h1 {
 
     hr {
       max-width: 50px;
-      border: 2px solid black;
+      border: 2px solid $light-purple;
       border-radius: 16px;
       margin-bottom: 48px;
 

@@ -19,9 +19,6 @@ import c2 from "../assets/cartesian2.png";
 import c3 from "../assets/cartesian3.png";
 import c4 from "../assets/cartesian4.png";
 
-const lorem =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur varius lacus quis imperdiet pulvinar. Curabitur eget iaculis eros, a pharetra lorem. Curabitur aliquam, metus vel volutpat ornare, nibh diam egestas purus, at volutpat elit nulla ut dui. Proin quis turpis id sapien gravida luctus. Nam ac nunc dapibus, ornare risus id, rutrum quam. Vestibulum viverra, purus vel placerat viverra, diam sapien facilisis dolor, ac ultricies dolor dolor nec massa. Vestibulum mattis dignissim arcu. Sed id orci ut lorem imperdiet mattis. Ut eget aliquet sapien. Proin in ex posuere, interdum sapien a, sodales est.";
-
 export const projects = [
   {
     title: "Conta XIP - Web",
@@ -39,17 +36,28 @@ export const projects = [
     link: "https://play.google.com/store/apps/details?id=com.solarpay.contaxip&pli=1",
     linkIos: "https://apps.apple.com/us/app/conta-xip/id1553506089",
   },
-  { title: "Cartesian", description: lorem, images: [c1, c2, c3, c4] },
+  {
+    title: "Cartesian",
+    description: "cartesian",
+    tecs: "React | SASS",
+    images: [c1, c2, c3, c4],
+  },
   {
     title: "Kynd Wellness",
-    description: lorem,
+    description: "kynd",
+    tecs: "React | PWA | Firestore",
     images: [k1, k2, k3, k4],
     mobile: true,
     link: "https://play.google.com/store/apps/details?id=com.ionicframework.kyndclientlocal91965301&hl=en_NZ",
     linkIos:
       "https://apps.apple.com/us/app/kynd-wellness/id1178897528?platform=iphone",
   },
-  { title: "GD", description: lorem, images: [g1, g2, g3, g4] },
+  {
+    title: "GD",
+    description: "gd",
+    tecs: "React | SASS",
+    images: [g1, g2, g3, g4],
+  },
 ];
 
 export const thingsIKnow = [

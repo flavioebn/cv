@@ -3,6 +3,10 @@ import { getText } from "./text";
 import LangToggle from "./langToggle";
 import bars from "../icons/bars.svg";
 import close from "../icons/close.svg";
+import linkedinIcon from "../icons/linkedin.svg";
+import instagram from "../icons/instagram.svg";
+import gmail from "../icons/email.svg";
+import github from "../icons/github.svg";
 
 const Headerbar = ({ lang, toggle }) => {
   const [show, setShow] = React.useState(true);
@@ -24,7 +28,7 @@ const Headerbar = ({ lang, toggle }) => {
   }, []);
 
   const handleOpener = () => {
-    setShow(!show);
+    mobile && setShow(!show);
   };
 
   return (
@@ -46,6 +50,38 @@ const Headerbar = ({ lang, toggle }) => {
           <a onClick={handleOpener} href="#contact">
             {getText(lang, "headerTextFour")}
           </a>
+          {mobile && (
+            <div className="mobile-social">
+              <a
+                href="https://www.linkedin.com/in/flavioebn/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img src={linkedinIcon} alt="contact-email" />
+              </a>
+              <a
+                href="mailto:flavioebn@gmail.com"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img src={gmail} alt="contact-email" />
+              </a>
+              <a
+                href="https://www.instagram.com/flavioebn/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img src={instagram} alt="contact-email" />
+              </a>
+              <a
+                href="https://github.com/flavioebn"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img src={github} alt="contact-email" />
+              </a>
+            </div>
+          )}
           {!mobile && <LangToggle toggle={toggle} lang={lang} />}
         </div>
       </div>

@@ -78,6 +78,7 @@ const Home = () => {
   const [pre, setPre] = useState();
   const [lang, setLang] = useState("EN");
   const [sys, setSys] = useState("");
+  const [mobile, setMobile] = useState(true);
 
   React.useEffect(() => {
     setPre(document.querySelector("pre"));
@@ -87,6 +88,9 @@ const Home = () => {
       !window.MSStream
     ) {
       setSys("ios");
+    }
+    if (window.innerWidth > 800) {
+      setMobile(false);
     }
   }, []);
 
@@ -180,7 +184,7 @@ const Home = () => {
             target="_blank"
           >
             <img src={gmail} alt="contact-email" />
-            <span>Gmail</span>
+            <span>{mobile ? "flavioebn@gmail.com" : "Gmail"}</span>
           </a>
           <a
             className="effect-link linkedin"
@@ -189,7 +193,7 @@ const Home = () => {
             target="_blank"
           >
             <img src={linkedinIcon} alt="contact-email" />
-            <span>LinkedIn</span>
+            <span>{mobile ? "in/flavioebn" : "LinkedIn"}</span>
           </a>
           <a
             className="effect-link github"
@@ -198,7 +202,7 @@ const Home = () => {
             target="_blank"
           >
             <img src={github} alt="contact-email" />
-            <span>Github</span>
+            <span>{mobile ? "flavioebn" : "Github"}</span>
           </a>
           <a
             className="effect-link instagram"
@@ -207,7 +211,7 @@ const Home = () => {
             target="_blank"
           >
             <img src={instagram} alt="contact-email" />
-            <span>Instagram</span>
+            <span>{mobile ? "@flavioebn" : "Instagram"}</span>
           </a>
         </div>
       </div>

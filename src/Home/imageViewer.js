@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import arrowLeft from "../icons/arrow-left.svg";
 import arrowRight from "../icons/arrow-right.svg";
 
