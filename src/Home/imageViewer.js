@@ -1,6 +1,6 @@
 import React from "react";
-import arrowLeft from "../icons/arrow-left.svg";
-import arrowRight from "../icons/arrow-right.svg";
+import arrowLeft from "../assets/icons/arrow-left.svg";
+import arrowRight from "../assets/icons/arrow-right.svg";
 
 const ImageViewer = ({ img, handleRight, handleLeft, close }) => {
   const [open, setOpen] = React.useState(false);

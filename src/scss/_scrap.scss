@@ -1,0 +1,144 @@
+.scrap-container {
+  .App {
+    display: flex;
+    background-color: #1a1b1d;
+    min-height: 100vh;
+    color: white;
+    padding: 16px;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .storeInput {
+    color: grey;
+  }
+
+  .storeInput p,
+  h2 {
+    display: inline;
+    margin: 4px;
+  }
+
+  .storeInput input {
+    padding: 4px;
+  }
+
+  .cardsInput {
+    padding: 8px;
+    width: 320px;
+    height: 300px;
+    resize: none;
+  }
+
+  .storeContainer {
+    background-color: grey;
+    width: 70%;
+    padding: 8px;
+    margin: 32px auto;
+    border-radius: 4px;
+    margin-bottom: 18px;
+  }
+
+  .cardNameContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cardName {
+    text-decoration: none;
+    color: inherit;
+    font-size: 25px;
+    margin: 0px;
+  }
+
+  .cardContainer {
+    display: grid;
+    column-gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    background-color: rgb(218, 218, 218);
+    padding: 9px;
+    border-radius: 4px;
+  }
+
+  .storeName {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .storeLink {
+    margin-left: 18px;
+    text-decoration: none;
+  }
+
+  .modal {
+    width: 350px;
+    height: 100vh;
+    background-color: rgb(211, 211, 211);
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    padding: 8px;
+    border-right: 1px solid black;
+    color: rgb(80, 80, 80);
+    transition: left 0.3s ease;
+  }
+
+  .modalBackground {
+    z-index: 4;
+    background-color: rgba(0, 0, 0, 0.733);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .placeholderText {
+    font-size: 120px;
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.041);
+  }
+
+  .modalButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(211, 211, 211);
+    color: black;
+    font-size: 28px;
+    position: fixed;
+    top: 20px;
+    border-radius: 0px 8px 8px 0px;
+    z-index: 6;
+    border: 1px solid rgb(211, 211, 211);
+    transition: left 0.3s ease;
+  }
+
+  .collapsebg {
+    border: 0px;
+    position: fixed;
+    bottom: 0;
+    right: 50px;
+    background-color: white;
+    font-size: 14px;
+    color: black;
+    padding: 8px;
+    border-radius: 8px 8px 0px 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.493);
+    cursor: pointer;
+    z-index: 4;
+  }
+
+  .collapsebg:hover {
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    transition: 0.2s ease;
+  }
+}

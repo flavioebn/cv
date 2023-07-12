@@ -1,0 +1,43 @@
+.hub-container {
+  padding: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  //   height: 100vh;
+
+  a {
+    color: white;
+    text-decoration: none;
+    width: 300px;
+    margin: 0px auto;
+  }
+
+  .hub-item {
+    border: 1px solid rgb(77, 77, 77);
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to bottom, #0e0e0e, #a467bd);
+    transition: scale 0.3s;
+
+    &:hover {
+      scale: 1.2;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .text {
+      padding: 0px 16px;
+    }
+  }
+}
+
+.back-to-hub {
+  position: fixed;
+  text-decoration: none;
+  color: white;
+  opacity: 0.4;
+  bottom: 20px;
+  left: 20px;
+  z-index: 15;
+}

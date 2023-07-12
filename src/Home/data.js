@@ -1,23 +1,27 @@
-import b1 from "../assets/backoffice1.png";
-import b2 from "../assets/xiplanding.png";
-import b3 from "../assets/backoffice3.png";
-import b4 from "../assets/backoffice4.png";
-import k1 from "../assets/kynd1.png";
-import k2 from "../assets/kynd2.png";
-import k3 from "../assets/kynd3.png";
-import k4 from "../assets/kynd4.png";
-import x1 from "../assets/x1.png";
-import x2 from "../assets/x2.png";
-import x3 from "../assets/x3.png";
-import x4 from "../assets/x4.png";
-import g1 from "../assets/g1.png";
-import g2 from "../assets/g2.png";
-import g3 from "../assets/g3.png";
-import g4 from "../assets/g4.png";
-import c1 from "../assets/cartesian1.png";
-import c2 from "../assets/cartesian2.png";
-import c3 from "../assets/cartesian3.png";
-import c4 from "../assets/cartesian4.png";
+import b1 from "../assets/images/backoffice1.png";
+import b2 from "../assets/images/xiplanding.png";
+import b3 from "../assets/images/backoffice3.png";
+import b4 from "../assets/images/backoffice4.png";
+import k1 from "../assets/images/kynd1.png";
+import k2 from "../assets/images/kynd2.png";
+import k3 from "../assets/images/kynd3.png";
+import k4 from "../assets/images/kynd4.png";
+import x1 from "../assets/images/x1.png";
+import x2 from "../assets/images/x2.png";
+import x3 from "../assets/images/x3.png";
+import x4 from "../assets/images/x4.png";
+import g1 from "../assets/images/g1.png";
+import g2 from "../assets/images/g2.png";
+import g3 from "../assets/images/g3.png";
+import g4 from "../assets/images/g4.png";
+import c1 from "../assets/images/cartesian1.png";
+import c2 from "../assets/images/cartesian2.png";
+import c3 from "../assets/images/cartesian3.png";
+import c4 from "../assets/images/cartesian4.png";
+import hub1 from "../assets/images/hv1.png";
+import hub2 from "../assets/images/hv2.png";
+import hub3 from "../assets/images/hv3.png";
+import hub4 from "../assets/images/hv4.png";
 
 export const projects = [
   {
@@ -58,6 +62,13 @@ export const projects = [
     tecs: "React | SASS",
     images: [g1, g2, g3, g4],
   },
+  {
+    title: "My Hub",
+    description: "hub",
+    tecs: "React | SASS | PWA | Cheerio",
+    link: "#/hub",
+    images: [hub1, hub2, hub3, hub4],
+  },
 ];
 
 export const thingsIKnow = [
@@ -81,6 +92,7 @@ export const thingsIKnow = [
     title: "Firestore",
     link: "https://firebase.google.com/docs/firestore?hl=pt-br",
   },
+  { title: "Cheerio", link: "https://cheerio.js.org/" },
   {
     title: "Componentization",
     link: "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_components",
