@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Headerbar from "./headerbar";
-import euDem from "../assets/dem.png";
+import euDem from "../assets/images/dem.png";
 import { projects, thingsIKnow as things } from "./data";
 import ImageViewer from "./imageViewer";
-import linkedinIcon from "../icons/linkedin.svg";
-import instagram from "../icons/instagram.svg";
-import gmail from "../icons/email.svg";
-import github from "../icons/github.svg";
+import linkedinIcon from "../assets/icons/linkedin.svg";
+import instagram from "../assets/icons/instagram.svg";
+import gmail from "../assets/icons/email.svg";
+import github from "../assets/icons/github.svg";
 import { getText } from "./text";
 import LangToggle from "./langToggle";
-import link from "../icons/link.svg";
+import link from "../assets/icons/link.svg";
 
 const BuildThings = ({ thing }) => {
   return (
@@ -33,7 +33,7 @@ const RenderProject = ({ project, index, lang, sys }) => {
             href={
               project.mobile && sys === "ios" ? project.linkIos : project.link
             }
-            target="_blank"
+            target={project.description === "hub" ? "" : "_blank"}
             rel="noreferrer"
             className="title"
           >

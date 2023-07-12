@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getText } from "./text";
 import LangToggle from "./langToggle";
-import bars from "../icons/bars.svg";
-import close from "../icons/close.svg";
-import linkedinIcon from "../icons/linkedin.svg";
-import instagram from "../icons/instagram.svg";
-import gmail from "../icons/email.svg";
-import github from "../icons/github.svg";
+import bars from "../assets/icons/bars.svg";
+import close from "../assets/icons/close.svg";
+import linkedinIcon from "../assets/icons/linkedin.svg";
+import instagram from "../assets/icons/instagram.svg";
+import gmail from "../assets/icons/email.svg";
+import github from "../assets/icons/github.svg";
+import { HashLink } from "react-router-hash-link";
 
 const Headerbar = ({ lang, toggle }) => {
   const [show, setShow] = React.useState(true);
@@ -38,18 +39,21 @@ const Headerbar = ({ lang, toggle }) => {
           <p>FlavioEBN</p>
         </div>
         <div className={mobile ? `topics-mobile` : `topics`}>
-          <a onClick={handleOpener} className="purple" href="#main">
+          {/* <a onClick={handleOpener} className="purple" href="#main">
             {getText(lang, "headerTextOne")}
-          </a>
-          <a onClick={handleOpener} href="#about">
+          </a> */}
+          <HashLink onClick={handleOpener} to="#main">
+            {getText(lang, "headerTextOne")}
+          </HashLink>
+          <HashLink onClick={handleOpener} to="#about">
             {getText(lang, "headerTextTwo")}
-          </a>
-          <a onClick={handleOpener} href="#projects">
+          </HashLink>
+          <HashLink onClick={handleOpener} to="#projects">
             {getText(lang, "headerTextThree")}
-          </a>
-          <a onClick={handleOpener} href="#contact">
+          </HashLink>
+          <HashLink onClick={handleOpener} to="#contact">
             {getText(lang, "headerTextFour")}
-          </a>
+          </HashLink>
           {mobile && (
             <div className="mobile-social">
               <a

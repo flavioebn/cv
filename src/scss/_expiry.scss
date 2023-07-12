@@ -1,0 +1,110 @@
+.expiry-container {
+  padding: 0px 18px;
+
+  .plus-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    justify-content: center;
+    border: 0px;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background-color: $base-purple;
+
+    img {
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(77deg)
+        brightness(103%) contrast(106%);
+      height: 80%;
+    }
+  }
+
+  .expiry-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+    padding: 8px;
+
+    border: 1px solid rgb(77, 77, 77);
+    border-image-slice: 1;
+    border-image-source: linear-gradient(180deg, #0e0e0e, $base-purple);
+
+    p {
+      font-size: 24px;
+      padding: 8px;
+      margin: 0px;
+    }
+  }
+
+  h2 {
+    margin-bottom: 0px;
+    margin-top: 48px;
+  }
+
+  .modal-bg {
+    z-index: 5;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #0e0e0e9a;
+  }
+
+  .modal {
+    position: fixed;
+    z-index: 6;
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    padding: 16px;
+    border-radius: 16px;
+    min-width: 70%;
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+
+      button {
+        font-family: "Quicksand", sans-serif;
+        font-weight: bold;
+        border: 0px;
+        font-size: 18px;
+        width: 45%;
+        padding: 8px;
+        border-radius: 4px;
+        color: $base-purple;
+
+        &:nth-child(2) {
+          background-color: $base-purple;
+          color: white;
+        }
+
+        &:disabled {
+          background-color: antiquewhite;
+        }
+      }
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      margin-bottom: 26px;
+      margin-top: 8px;
+      border: 2px solid $light-purple;
+      border-radius: 8px;
+    }
+
+    h2 {
+      margin: 0;
+    }
+  }
+}
