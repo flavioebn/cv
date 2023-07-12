@@ -1,5 +1,6 @@
 .expiry-container {
   padding: 0px 18px;
+  padding-bottom: 240px;
 
   .plus-container {
     position: fixed;
@@ -30,6 +31,10 @@
     border: 1px solid rgb(77, 77, 77);
     border-image-slice: 1;
     border-image-source: linear-gradient(180deg, #0e0e0e, $base-purple);
+
+    &.done {
+      color: rgb(202, 113, 113);
+    }
 
     p {
       font-size: 24px;

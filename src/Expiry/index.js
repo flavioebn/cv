@@ -3,10 +3,10 @@ import plusIcon from "../assets/icons/plus.svg";
 import { useEffect, useState } from "react";
 import Modal from "./modal";
 
-const RenderItem = ({ i, idx, handleClick }) => {
+const RenderItem = ({ i, idx, handleClick, done }) => {
   return (
     <>
-      <div className="expiry-item" onClick={handleClick}>
+      <div className={`expiry-item ${done && "done"}`} onClick={handleClick}>
         <p>{i.name}</p>
         <p>
           {i.date.slice(8, 10) +
@@ -27,6 +27,7 @@ const Expiry = () => {
     week: [],
     month: [],
     rest: [],
+    done: [],
   });
   const [toAdd, setToAdd] = useState({
     name: "",
@@ -70,11 +71,16 @@ const Expiry = () => {
     let tempWeek = [];
     let tempMonth = [];
     let tempRest = [];
+    let tempDone = [];
+
     const today = new Date();
+
     items?.forEach((i) => {
       const timeDif = new Date(i.date).getTime() - today.getTime();
       const daysDif = Math.ceil(timeDif / (1000 * 3600 * 24));
-      if (daysDif < 7) {
+      if (daysDif <= 0) {
+        tempDone.push(i);
+      } else if (daysDif < 7) {
         tempWeek.push(i);
       } else if (daysDif <= 30) {
         tempMonth.push(i);
@@ -86,6 +92,7 @@ const Expiry = () => {
       week: tempWeek,
       month: tempMonth,
       rest: tempRest,
+      done: tempDone,
     });
   };
 
@@ -147,6 +154,10 @@ const Expiry = () => {
 
     tempArray[toEdit.idx].name = toAdd.name;
     tempArray[toEdit.idx].date = toAdd.date;
+
+    tempItems.sort((a, b) => {
+      return new Date(a.date) - new Date(b.date);
+    });
 
     setDivided({ ...divided, [type]: tempArray });
     setItems(tempItems);
@@ -224,6 +235,22 @@ const Expiry = () => {
                 i={i}
                 idx={idx}
                 handleClick={() => handleEdit(i, idx, "rest")}
+              />
+            );
+          })}
+        </>
+      )}
+      {divided.done.length > 0 && (
+        <>
+          <h2>:(</h2>
+          {divided.done.map((i, idx) => {
+            return (
+              <RenderItem
+                done={true}
+                key={Math.random()}
+                i={i}
+                idx={idx}
+                handleClick={() => handleEdit(i, idx, "done")}
               />
             );
           })}
