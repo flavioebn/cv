@@ -85,7 +85,7 @@ const EN = {
   aboutHeader: "About me",
   aboutText: aboutEN(),
   aboutOne: "Who am I",
-  aboutTwo: "Things I know about",
+  aboutTwo: "Things I work with",
   professionalHeader: "Projects",
   xipWeb:
     "Development of a landing page and backoffice for user and client management of Conta XIP, including integration with the database. The system was used by employees to approve and manage customers using theirs bank system. Forthermore, additional functionalities were added to control the content of the mobile app.",

@@ -5,6 +5,7 @@ import Scrap from "./Scrap";
 import Converter from "./Converter";
 import ReflexCounter from "./Reflex";
 import Expiry from "./Expiry";
+import Party from "./Party";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route path="/reflex" exact element={<ReflexCounter />} />
       <Route path="/cardcaptorcami" exact element={<Converter />} />
       <Route path="/expiry" exact element={<Expiry />} />
+      <Route path="/party" exact element={<Party />} />
     </Routes>
   );
 }
