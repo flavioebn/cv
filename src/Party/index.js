@@ -7,19 +7,37 @@ import stealthIcon from "../assets/icons/stealth.svg";
 import survivalIcon from "../assets/icons/survival.svg";
 import languageIcon from "../assets/icons/language.svg";
 import darkvisionIcon from "../assets/icons/darkvision.svg";
-import { useEffect, useState } from "react";
+import deathSavesIcon from "../assets/icons/death-saves.svg";
+import thumbsUpIcon from "../assets/icons/thumbs-up.svg";
+import thumbsDownIcon from "../assets/icons/thumbs-down.svg";
+import { Fragment, useEffect, useState } from "react";
 import PartyModal from "./modal";
+import { conditions } from "./data";
+import ConditionsModal from "./conditionsModal";
+import { Tooltip } from "@mui/material";
+import CustomTooltip from "./tooltip";
 
-const RenderParty = ({ pc, openModal, idx, updateTemp }) => {
+const RenderParty = ({
+  pc,
+  openModal,
+  idx,
+  updateTemp,
+  handleCondition,
+  removeCondition,
+}) => {
   return (
-    <div className="pc-item">
+    <div
+      className={`pc-item ${pc.concentrate && "contrating"} ${
+        pc.damage >= pc.maxHp && "dying"
+      }`}
+    >
       <img
         src={pc.image}
         alt={`${pc.name}_icon`}
         onClick={() => openModal(idx)}
       />
       <div className="scrollable">
-        <h2>{pc.name}</h2>
+        <h2 onClick={() => handleCondition(idx)}>{pc.name}</h2>
         {pc.darkvision && (
           <img
             className="darkvision"
@@ -27,11 +45,43 @@ const RenderParty = ({ pc, openModal, idx, updateTemp }) => {
             alt="darkvisionIcon"
           />
         )}
+        <div
+          onClick={(e) => updateTemp(!pc.concentrate, "concentrate", idx)}
+          className={`concentrate ${pc.concentrate && "active"}`}
+        >
+          <p>C</p>
+        </div>
+        {pc.conditions?.length > 0 && (
+          <div className="pc-conditions">
+            {pc.conditions.map((i) => {
+              return (
+                <CustomTooltip
+                  value={i.details.map((item, index) => (
+                    <Fragment key={index}>
+                      {index === 0 && (
+                        <h3 className="condition-tooltip-name">{i.name}</h3>
+                      )}
+                      {item}
+                      <br />
+                    </Fragment>
+                  ))}
+                >
+                  <img
+                    src={i.icon}
+                    alt={i.name}
+                    onClick={() => removeCondition(i, idx)}
+                  />
+                </CustomTooltip>
+              );
+            })}
+          </div>
+        )}
         <div>
           <div>
             <img src={hpIcon} alt="hp" />
             <input
               value={pc.damage}
+              min={0}
               onChange={(e) =>
                 updateTemp(parseInt(e.target.value), "damage", idx)
               }
@@ -49,6 +99,21 @@ const RenderParty = ({ pc, openModal, idx, updateTemp }) => {
             <p>{pc.pPerception}</p>
           </div>
         </div>
+        {pc.damage >= pc.maxHp && (
+          <div className="death-container">
+            <img className="bedIcon" src={deathSavesIcon} />
+            <div className="checks">
+              <img src={thumbsDownIcon} />
+              <input type="checkbox" />
+              <input type="checkbox" />
+              <input type="checkbox" />
+              <input type="checkbox" />
+              <input type="checkbox" />
+              <input type="checkbox" />
+              <img src={thumbsUpIcon} />
+            </div>
+          </div>
+        )}
         <div>
           <div>
             <img src={stealthIcon} alt="stealth" />
@@ -117,6 +182,8 @@ const Party = () => {
   const [party, setParty] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(0);
+  const [conditionModal, setConditionModal] = useState(false);
+  const [youtubeId, setYoutubeId] = useState("");
 
   const save = () => {
     localStorage.setItem("tracker-party", JSON.stringify(party));
@@ -139,8 +206,8 @@ const Party = () => {
   };
 
   useEffect(() => {
-    const newpt = JSON.parse(localStorage.getItem("tracker-party"));
-    setParty(newpt);
+    const newPt = JSON.parse(localStorage.getItem("tracker-party"));
+    newPt && setParty(newPt);
   }, []);
 
   const openToEdit = (idx) => {
@@ -153,7 +220,7 @@ const Party = () => {
   };
 
   const handleNew = () => {
-    party.push({
+    party?.push({
       name: "",
       image: "",
       darkvision: false,
@@ -169,7 +236,7 @@ const Party = () => {
       inventory: [],
       notes: "",
     });
-    setIdxEditing(party.length - 1);
+    setIdxEditing(party?.length - 1);
     handleModal();
   };
 
@@ -181,8 +248,48 @@ const Party = () => {
     handleModal();
   };
 
+  const handleCondition = (e) => {
+    setIdxEditing(e);
+    handleConditionModal();
+  };
+
+  const addCondition = (e) => {
+    console.log(e);
+    const tempArray = party;
+    tempArray[idxEditing].conditions.push(e);
+    setParty(tempArray);
+    save();
+    handleConditionModal();
+  };
+
+  const handleConditionModal = () => {
+    setConditionModal(!conditionModal);
+  };
+
+  const removeCondition = (e, idx) => {
+    console.log(e, idx);
+    const tempParty = party;
+    const indexToRemove = tempParty[idx].conditions.findIndex(
+      (i) => i.name === e.name
+    );
+    tempParty[idx].conditions.splice(indexToRemove, 1);
+    setParty(party);
+    setCount(count + 1);
+    save();
+  };
+
   return (
     <div className="party-container">
+      {/* <embed
+        src={`https://youtube.com/embed/${youtubeId}?autoplay=1`}
+        allowscriptaccess="always"
+        allowfullscreen="false"
+        width="480"
+        height="385"
+      ></embed>
+      <buton onClick={() => setYoutubeId("wCyY8OXOHm0")}>teste 1</buton>
+      <buton onClick={() => setYoutubeId("TqKKJH6RIVU")}>teste 2</buton>
+      <buton onClick={() => setYoutubeId("BO9TAXATAqk")}>teste 1</buton> */}
       {modalVisible && (
         <PartyModal
           close={handleModal}
@@ -191,6 +298,9 @@ const Party = () => {
           pc={party[idxEditing]}
         />
       )}
+      {conditionModal && (
+        <ConditionsModal onAdd={addCondition} close={handleConditionModal} />
+      )}
       {party.map((i, idx) => {
         return (
           <RenderParty
@@ -198,6 +308,8 @@ const Party = () => {
             idx={idx}
             updateTemp={updateTemp}
             openModal={openToEdit}
+            handleCondition={handleCondition}
+            removeCondition={removeCondition}
           />
         );
       })}
