@@ -17,7 +17,7 @@ function App() {
       <Route path="/reflex" exact element={<ReflexCounter />} />
       <Route path="/cardcaptorcami" exact element={<Converter />} />
       <Route path="/expiry" exact element={<Expiry />} />
-      <Route path="/party" exact element={<Party />} />
+      <Route path="/party" element={<Party />} />
     </Routes>
   );
 }
