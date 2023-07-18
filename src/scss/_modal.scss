@@ -45,6 +45,10 @@
 
         &.save {
           background-color: $base-purple;
+
+          &:disabled {
+            background-color: $light-purple;
+          }
         }
       }
     }

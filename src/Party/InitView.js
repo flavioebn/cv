@@ -21,7 +21,7 @@ const RenderParty = ({
   getInfos,
   getTraits,
 }) => {
-  const isEnemy = pc.image ? false : true;
+  const isEnemy = pc.inventory ? false : true;
   return (
     <div
       key={idx}
@@ -506,7 +506,7 @@ const InitView = () => {
   };
 
   const getInfos = (pc) => {
-    if (pc.custom) return;
+    if (pc.custom || pc.inventory) return;
     let response = [];
 
     response.push(<h3>{pc.name}</h3>);

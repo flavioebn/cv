@@ -117,7 +117,11 @@ const PartyModal = ({ pc, close, onSave, onDelete }) => {
           <button className="delete" onClick={onDelete}>
             Delete
           </button>
-          <button className="save" onClick={() => onSave(pcEdited)}>
+          <button
+            disabled={pcEdited.name === "" || pcEdited.maxHp === 0}
+            className="save"
+            onClick={() => onSave(pcEdited)}
+          >
             Save
           </button>
         </div>
