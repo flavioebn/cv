@@ -174,6 +174,7 @@ const InitView = () => {
       setMonsters(newMonsters);
       setTurnOrder(newOrder);
     } else {
+      localStorage.setItem("tracker-monsters", JSON.stringify([]));
       setTurnOrder(newPt);
     }
   }, []);

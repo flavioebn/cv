@@ -191,7 +191,11 @@ const PartyView = () => {
 
   useEffect(() => {
     const newPt = JSON.parse(localStorage.getItem("tracker-party"));
-    newPt && setParty(newPt);
+    if (newPt) {
+      setParty(newPt);
+    } else {
+      localStorage.setItem("tracker-party", JSON.stringify([]));
+    }
 
     const fileInput = document.getElementById("fileInput");
 
