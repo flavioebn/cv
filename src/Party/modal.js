@@ -113,8 +113,14 @@ const PartyModal = ({ pc, close, onSave, onDelete }) => {
 
         {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} />
         <img src={imageToDisplay} /> */}
-        <button onClick={onDelete}>Delete</button>
-        <button onClick={() => onSave(pcEdited)}>Salvar</button>
+        <div className="add-pc-container">
+          <button className="delete" onClick={onDelete}>
+            Delete
+          </button>
+          <button className="save" onClick={() => onSave(pcEdited)}>
+            Save
+          </button>
+        </div>
       </div>
     </Modal>
   );

@@ -7,13 +7,13 @@ import stealthIcon from "../assets/icons/stealth.svg";
 import survivalIcon from "../assets/icons/survival.svg";
 import languageIcon from "../assets/icons/language.svg";
 import darkvisionIcon from "../assets/icons/darkvision.svg";
-import deathSavesIcon from "../assets/icons/death-saves.svg";
-import thumbsUpIcon from "../assets/icons/thumbs-up.svg";
-import thumbsDownIcon from "../assets/icons/thumbs-down.svg";
+import uploadIcon from "../assets/icons/upload.svg";
+import downloadIcon from "../assets/icons/download.svg";
 import { Fragment, useEffect, useState } from "react";
 import PartyModal from "./modal";
 import ConditionsModal from "./conditionsModal";
 import CustomTooltip from "./tooltip";
+import DeathChecks from "./deathChecks";
 
 const RenderParty = ({
   pc,
@@ -26,7 +26,7 @@ const RenderParty = ({
   return (
     <div
       className={`pc-item ${pc.concentrate && "contrating"} ${
-        pc.damage >= pc.maxHp && "dying"
+        pc.curHp === 0 && "dying"
       }`}
     >
       <img
@@ -51,9 +51,10 @@ const RenderParty = ({
         </div>
         {pc.conditions?.length > 0 && (
           <div className="pc-conditions">
-            {pc.conditions.map((i) => {
+            {pc.conditions?.map((i) => {
               return (
                 <CustomTooltip
+                  small
                   value={i.details.map((item, index) => (
                     <Fragment key={index}>
                       {index === 0 && (
@@ -78,10 +79,9 @@ const RenderParty = ({
           <div>
             <img src={hpIcon} alt="hp" />
             <input
-              value={pc.damage}
-              min={0}
+              value={pc.curHp}
               onChange={(e) =>
-                updateTemp(parseInt(e.target.value), "damage", idx)
+                updateTemp(parseInt(e.target.value), "curHp", idx)
               }
               className="fillable"
               type="number"
@@ -97,21 +97,7 @@ const RenderParty = ({
             <p>{pc.pPerception}</p>
           </div>
         </div>
-        {pc.damage >= pc.maxHp && (
-          <div className="death-container">
-            <img className="bedIcon" src={deathSavesIcon} />
-            <div className="checks">
-              <img src={thumbsDownIcon} />
-              <input type="checkbox" />
-              <input type="checkbox" />
-              <input type="checkbox" />
-              <input type="checkbox" />
-              <input type="checkbox" />
-              <input type="checkbox" />
-              <img src={thumbsUpIcon} />
-            </div>
-          </div>
-        )}
+        {pc.curHp === 0 && <DeathChecks />}
         <div>
           <div>
             <img src={stealthIcon} alt="stealth" />
@@ -158,7 +144,7 @@ const RenderParty = ({
         <h3>Inventory</h3>
         <div className="inventory">
           <ul>
-            {pc.inventory.map((i) => {
+            {pc.inventory?.map((i) => {
               return <li>{i}</li>;
             })}
           </ul>
@@ -206,6 +192,16 @@ const PartyView = () => {
   useEffect(() => {
     const newPt = JSON.parse(localStorage.getItem("tracker-party"));
     newPt && setParty(newPt);
+
+    const fileInput = document.getElementById("fileInput");
+
+    fileInput.addEventListener("change", function () {
+      uploadFile(this, function (jsonData) {
+        console.log("Arquivo carregado com sucesso:", jsonData);
+        // Faça o que quiser com o objeto jsonData aqui.
+        setParty(jsonData);
+      });
+    });
   }, []);
 
   const openToEdit = (idx) => {
@@ -219,6 +215,7 @@ const PartyView = () => {
 
   const handleNew = () => {
     party?.push({
+      _id: Date.now(),
       name: "",
       image: "",
       darkvision: false,
@@ -252,7 +249,6 @@ const PartyView = () => {
   };
 
   const addCondition = (e) => {
-    console.log(e);
     const tempArray = party;
     tempArray[idxEditing].conditions.push(e);
     setParty(tempArray);
@@ -265,7 +261,6 @@ const PartyView = () => {
   };
 
   const removeCondition = (e, idx) => {
-    console.log(e, idx);
     const tempParty = party;
     const indexToRemove = tempParty[idx].conditions.findIndex(
       (i) => i.name === e.name
@@ -274,6 +269,44 @@ const PartyView = () => {
     setParty(party);
     setCount(count + 1);
     save();
+  };
+
+  const downloadJSON = (obj, fileName) => {
+    const jsonString = JSON.stringify(party);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = url;
+    downloadLink.download = fileName;
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+
+    // Limpa a URL temporária
+    URL.revokeObjectURL(url);
+    document.body.removeChild(downloadLink);
+  };
+
+  const uploadFile = (inputElement, callback) => {
+    if (!inputElement.files || inputElement.files.length === 0) {
+      console.error("Nenhum arquivo selecionado.");
+      return;
+    }
+
+    const file = inputElement.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      try {
+        const jsonData = JSON.parse(event.target.result);
+        callback(jsonData);
+      } catch (error) {
+        console.error("Erro ao analisar o arquivo JSON.");
+      }
+    };
+
+    reader.readAsText(file);
   };
 
   return (
@@ -311,6 +344,22 @@ const PartyView = () => {
           />
         );
       })}
+
+      {/* <button className="fill-container">
+        <img src={uploadIcon} alt="upload" />
+      </button> */}
+      <label className="upload-container" for="fileInput">
+        <img src={uploadIcon} alt="upload" />
+      </label>
+      <input
+        type="file"
+        id="fileInput"
+        accept=".json"
+        style={{ display: "none" }}
+      />
+      <button className="download-container" onClick={downloadJSON}>
+        <img src={downloadIcon} alt="download" />
+      </button>
       <button className="plus-container" onClick={handleNew}>
         <img src={plusIcon} alt="plus" />
       </button>

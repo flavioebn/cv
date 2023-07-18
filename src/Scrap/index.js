@@ -115,7 +115,7 @@ const Scrap = () => {
             }}
           />
         )}
-        <h1 onClick={() => console.log(result)}>Cards</h1>
+        <h1>Cards</h1>
         <>
           <textarea
             className="cardsInput"
