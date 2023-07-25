@@ -295,7 +295,11 @@ const InitView = () => {
       m.conditions = [];
       m.concentrate = false;
     } else {
-      const qtd = monsters.filter((i) => i.name === e.name).length;
+      const qtd = monsters.filter(
+        (i) => i.name.slice(0, e.name.length) === e.name
+      ).length;
+      console.log(qtd);
+      console.log(e.name);
       m.name = `${e.name} (${qtd + 1})`;
       m.initiative = 0;
       m.custom = false;
@@ -341,7 +345,7 @@ const InitView = () => {
     monsters.push(m);
     setMonsters(tempMonsters);
     setCount(count + 1);
-    save();
+    localStorage.setItem("tracker-monsters", JSON.stringify(tempMonsters));
   };
 
   const handleModal = () => {
