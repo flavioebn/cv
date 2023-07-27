@@ -113,8 +113,8 @@ const Home = () => {
 
     // get offset from middle as a percentage
     // and tone it down a little
-    const offsetX = ((x - middleX) / middleX) * 20;
-    const offsetY = ((y - middleY) / middleY) * 20;
+    const offsetX = ((x - middleX) / middleX) * 10;
+    const offsetY = ((y - middleY) / middleY) * 10;
     // console.log(offsetX, offsetY);
 
     // set rotation
