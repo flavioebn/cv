@@ -1,28 +1,74 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import changeIcon from "../assets/icons/change.svg";
+import uploadIcon from "../assets/icons/upload.svg";
 
-const App = () => {
+const DragNDrop = () => {
   const [wordsMap, setWordsMap] = useState({
     a: [],
     b: [],
   });
   const [selectedPhrase, setSelectedPhrase] = useState("");
+  const [count, setCount] = useState(0);
 
-  const phrases = [
-    "Lorem ipsum dolor sit amet.",
-    "Consectetur adipiscing elit.",
-    "Sed do eiusmod tempor incididunt.",
-    "Ut labore et dolore magna aliqua.",
-    "Ut enim ad minim veniam.",
-    "Quis nostrud exercitation ullamco laboris.",
-    "Nisi ut aliquip ex ea commodo consequat.",
-    "Duis aute irure dolor in reprehenderit.",
-    "Excepteur sint occaecat cupidatat non proident.",
-    "Sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  ];
+  const [phrases, setPhrases] = useState([]);
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("drag-phrases")) {
+      setPhrases(JSON.parse(localStorage.getItem("drag-phrases")).phrases);
+      setTitle(JSON.parse(localStorage.getItem("drag-phrases")).name);
+    }
+
+    const fileInput = document.getElementById("fileInput");
+
+    fileInput.addEventListener("change", function () {
+      uploadFile(this, function (jsonData) {
+        let indexes = [];
+        jsonData.phrases.forEach((i, idx) => {
+          if (i === "") indexes.push(idx);
+        });
+        if (indexes.length !== 0) {
+          indexes.reverse().forEach((i) => {
+            jsonData.phrases.splice(i, 1);
+          });
+        }
+        console.log("Arquivo filtdrado com sucesso:", jsonData);
+        // Faça o que quiser com o objeto jsonData aqui.
+        localStorage.setItem("drag-phrases", JSON.stringify(jsonData));
+        setPhrases(jsonData.phrases);
+        setTitle(jsonData.name);
+        setCount(count + 1);
+        document.getElementById("new-phrase").click();
+      });
+    });
+
+    reset();
+  }, []);
+
+  const uploadFile = (inputElement, callback) => {
+    if (!inputElement.files || inputElement.files.length === 0) {
+      console.error("Nenhum arquivo selecionado.");
+      return;
+    }
+
+    const file = inputElement.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      try {
+        const jsonData = JSON.parse(event.target.result);
+        callback(jsonData);
+      } catch (error) {
+        console.error("Erro ao analisar o arquivo JSON.");
+      }
+    };
+
+    reader.readAsText(file);
+  };
 
   const reset = () => {
+    if (phrases.length === 0) return;
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     const words = shuffle(randomPhrase.split(" "));
     setSelectedPhrase(randomPhrase);
@@ -32,16 +78,12 @@ const App = () => {
     setWordsMap({ a: [], b: wordsWithId });
   };
 
-  useEffect(() => {
-    reset();
-  }, []);
-
   const shuffle = (array) => {
     let currentIndex = array.length,
       randomIndex;
 
     // While there remain elements to shuffle.
-    while (currentIndex != 0) {
+    while (currentIndex !== 0) {
       // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
@@ -101,7 +143,7 @@ const App = () => {
   return (
     <div className="dragNDrop">
       <div className="firstContainer">
-        <h1>Je ne sais quoi</h1>
+        <h1>{title !== "" ? title : "Je ne sais quoi"}</h1>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
             if (!destination) {
@@ -153,11 +195,21 @@ const App = () => {
           </div>
         </DragDropContext>
       </div>
-      <button onClick={reset}>
+      <button id="new-phrase" onClick={reset}>
         <img src={changeIcon} alt="newPhraseIcon" />
       </button>
+
+      <label className="upload-container" for="fileInput">
+        <img src={uploadIcon} alt="upload" />
+      </label>
+      <input
+        type="file"
+        id="fileInput"
+        accept=".json"
+        style={{ display: "none" }}
+      />
     </div>
   );
 };
 
-export default App;
+export default DragNDrop;

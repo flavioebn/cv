@@ -8,6 +8,7 @@ import Expiry from "./Expiry";
 import Party from "./Party";
 import { Route, Routes } from "react-router-dom";
 import DragNDrop from "./DragNDrop";
+import CreatePhrases from "./DragNDrop/create";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/expiry" exact element={<Expiry />} />
       <Route path="/party" element={<Party />} />
       <Route path="/drag" element={<DragNDrop />} />
+      <Route path="/drag/create" element={<CreatePhrases />} />
     </Routes>
   );
 }

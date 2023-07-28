@@ -7,6 +7,10 @@
   height: 100vh;
   width: 100%;
 
+  .upload-container {
+    bottom: 30px;
+  }
+
   .firstContainer {
     width: 100%;
     max-width: 850px;
@@ -73,6 +77,65 @@
         border-radius: 4px;
         color: black;
         padding: 2px;
+      }
+    }
+  }
+}
+
+.create-phrases {
+  text-align: center;
+
+  .lists-input {
+    background-color: white;
+    border-radius: 8px;
+    width: 300px;
+    margin: auto;
+    padding: 16px;
+
+    // div {
+    //   width: 100%;
+    // }
+  }
+
+  .phrases-container {
+    background-color: white;
+    max-width: 550px;
+    height: 450px;
+    padding: 16px;
+    border-radius: 8px;
+    margin: auto;
+    margin-top: 24px;
+
+    textarea {
+      width: 92%;
+      height: 91%;
+      padding: 16px;
+      margin: auto;
+      resize: none;
+      font-family: "Quicksand", sans-serif;
+      font-size: 14px;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    max-width: 550px;
+    margin: auto;
+    margin-top: 14px;
+    justify-content: space-between;
+
+    button {
+      font-family: "Quicksand", sans-serif;
+      background-color: $light-purple;
+      border: none;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 4px;
+
+      &:disabled {
+        background-color: $base-purple;
       }
     }
   }
