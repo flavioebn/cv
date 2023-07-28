@@ -37,9 +37,9 @@ const RenderParty = ({
       <img
         src={
           isEnemy
-            ? `https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/img/MM/${pc.name
-                .replace(/[\(\)\d]+/g, "")
-                .trim()}.png`
+            ? `https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/img/${
+                pc.source
+              }/${pc.name.replace(/[\(\)\d]+/g, "").trim()}.png`
             : pc.image
         }
         className="pc-icon"
@@ -284,6 +284,7 @@ const InitView = () => {
   };
 
   const handleAddMonster = (e) => {
+    console.log(e);
     let m = {};
     if (e.custom) {
       m.name = e.name;
@@ -298,9 +299,8 @@ const InitView = () => {
       const qtd = monsters.filter(
         (i) => i.name.slice(0, e.name.length) === e.name
       ).length;
-      console.log(qtd);
-      console.log(e.name);
       m.name = `${e.name} (${qtd + 1})`;
+      m.source = e.source;
       m.initiative = 0;
       m.custom = false;
       m.curHp = 0;
@@ -396,6 +396,7 @@ const InitView = () => {
   };
 
   const removeThings = (e) => {
+    if (e.entry) return e.entry.replace(/[@{}]/g, "");
     return e.replace(/[@{}]/g, "");
   };
 

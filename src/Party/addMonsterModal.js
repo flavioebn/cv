@@ -1,11 +1,12 @@
 import { Autocomplete, TextField } from "@mui/material";
 import Modal from "../components/modal";
-import { allMonsters } from "./monsterNames";
-import { monsterList } from "./monsters";
+import * as monsterDetails from "./monsterDetails/index";
 import { useState } from "react";
 
 const MonsterModal = ({ onAdd, onClose }) => {
   const [selected, setSelected] = useState();
+  const [source, setSource] = useState();
+  const [monstersList, setMonstersList] = useState([]);
   const [custom, setCustom] = useState({
     name: "",
     hp: 0,
@@ -14,12 +15,75 @@ const MonsterModal = ({ onAdd, onClose }) => {
   });
 
   const getMonster = () => {
-    const index = monsterList.findIndex((i) => i.name === selected);
-    onAdd(monsterList[index]);
+    const index = monstersList.findIndex((i) => i.name === selected);
+    if (monstersList[index]._copy) {
+      switch (monstersList[index]._copy.source) {
+        case "MM":
+          const idx = monsterDetails.mmMonsters.findIndex(
+            (i) => i.name === monstersList[index]._copy.name
+          );
+          let copy = { ...monsterDetails.mmMonsters[idx] };
+          copy.name = selected;
+          onAdd(copy);
+          break;
+
+        default:
+          break;
+      }
+    } else {
+      onAdd(monstersList[index]);
+    }
   };
 
   const addCustom = () => {
     onAdd(custom);
+  };
+
+  const sources = [
+    "Monsters Manual",
+    "Candlekeep Mysteries",
+    "Descent Into Avernus",
+    "Ghosts of Saltmarsh",
+    "Curse of Strahd",
+    "Call of the Netherdeep",
+    "Dragon of Icespire Peak",
+    "Rise of Tiamat",
+    "Fizban's Treasury of Dragons",
+  ];
+
+  const handleChangeSource = (e) => {
+    switch (e) {
+      case "Monsters Manual":
+        setMonstersList(monsterDetails.mmMonsters);
+        break;
+      case "Ghosts of Saltmarsh":
+        setMonstersList(monsterDetails.gosMonsters);
+        break;
+      case "Descent Into Avernus":
+        setMonstersList(monsterDetails.bgdiaMonsters);
+        break;
+      case "Candlekeep Mysteries":
+        setMonstersList(monsterDetails.cmMonsters);
+        break;
+      case "Curse of Strahd":
+        setMonstersList(monsterDetails.cosMonsters);
+        break;
+      case "Call of the Netherdeep":
+        setMonstersList(monsterDetails.crcotnMonsters);
+        break;
+      case "Dragon of Icespire Peak":
+        setMonstersList(monsterDetails.dipMonsters);
+        break;
+      case "Rise of Tiamat":
+        setMonstersList(monsterDetails.rotMonsters);
+        break;
+      case "Fizban's Treasury of Dragons":
+        setMonstersList(monsterDetails.ftdMonsters);
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
@@ -28,7 +92,21 @@ const MonsterModal = ({ onAdd, onClose }) => {
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={allMonsters}
+        options={sources}
+        value={source}
+        onChange={(event, newValue) => {
+          handleChangeSource(newValue);
+        }}
+        sx={{ width: 300 }}
+        renderInput={(params) => (
+          <TextField {...params} label="Select a source" />
+        )}
+      />
+      <br />
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={monstersList.map((i) => i.name)}
         value={selected}
         onChange={(event, newValue) => {
           setSelected(newValue);
