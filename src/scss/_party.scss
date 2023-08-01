@@ -535,6 +535,7 @@
 .sort-container,
 .change-view-container,
 .download-container,
+.dm-notes-container,
 .upload-container {
   position: fixed;
   bottom: 90px;
@@ -577,4 +578,82 @@
 .change-view-container {
   bottom: 30px;
   right: 90px;
+}
+
+.dm-notes-container {
+  bottom: 30px;
+  right: 150px;
+
+  img {
+    width: 70%;
+  }
+}
+
+.notes-modal {
+  text-align: center;
+  width: 350px;
+  height: 90vh;
+  width: 70vw;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .notes {
+    // background-color: red;
+    height: 80%;
+
+    h2 {
+      margin: 0px;
+    }
+
+    .delete {
+      // text-align: right;
+      margin: 0px;
+      cursor: pointer;
+    }
+
+    .new-note-container {
+      margin-top: 24px;
+      width: 100%;
+
+      input {
+        width: 80%;
+        height: 48px;
+        font-size: 24px;
+        margin-right: 16px;
+      }
+
+      button {
+        border: none;
+        background: none;
+        font-size: 24px;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      padding: 8px;
+      height: 450px;
+      resize: vertical;
+
+      -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box; /* Firefox, other Gecko */
+      box-sizing: border-box; /* Opera/IE 8+ */
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      border-image-slice: 1;
+      border-image-source: linear-gradient(
+        140deg,
+        #000000,
+        #0e0e0e00,
+        #0e0e0e00,
+        #000000
+      );
+    }
+  }
 }

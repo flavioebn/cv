@@ -52,12 +52,12 @@ export const dipMonsters = [
           "The anchorite's innate spellcasting ability is Wisdom (spell save {@dc 12}). It can innately cast the following spells, requiring no material components:",
         ],
         daily: {
-          3: ["{@spell thunderwave} ({@dice 2d8} damage)"],
+          3: ["{thunderwave} ({@dice 2d8} damage)"],
           "1e": [
-            "{@spell augury}",
-            "{@spell bless}",
-            "{@spell lightning bolt} ({@dice 8d6} damage)",
-            "{@spell revivify}",
+            "{augury}",
+            "{bless}",
+            "{lightning bolt} ({@dice 8d6} damage)",
+            "{revivify}",
           ],
         },
         ability: "wis",
@@ -353,7 +353,7 @@ export const dipMonsters = [
       10,
       {
         ac: 13,
-        condition: "with {@spell mage armor}",
+        condition: "with {mage armor}",
         braces: true,
       },
     ],
@@ -387,18 +387,18 @@ export const dipMonsters = [
         spells: {
           0: {
             spells: [
-              "{@spell mage hand}",
-              "{@spell prestidigitation}",
-              '{@spell ray of frost} (see "Actions" below)',
+              "{mage hand}",
+              "{prestidigitation}",
+              '{ray of frost} (see "Actions" below)',
             ],
           },
           1: {
             slots: 3,
             spells: [
-              "{@spell detect magic}",
-              "{@spell mage armor}",
-              '{@spell magic missile} (see "Actions" below)',
-              "{@spell shield}",
+              "{detect magic}",
+              "{mage armor}",
+              '{magic missile} (see "Actions" below)',
+              "{shield}",
             ],
           },
         },

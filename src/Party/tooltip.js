@@ -17,6 +17,10 @@ const CustomTooltip = ({
         tooltip: {
           sx: {
             fontSize: 16,
+            overflow: "auto",
+            maxHeight: "650px",
+            overflowX: "hidden",
+            padding: "16px",
             maxWidth: small ? "auto" : 450,
             bgcolor: "#a467bd",
             "& .MuiTooltip-arrow": {

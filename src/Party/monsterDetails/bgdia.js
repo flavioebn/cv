@@ -280,11 +280,11 @@ export const bgdiaMonsters = [
         ],
         daily: {
           "3e": [
-            "{@spell animate dead}",
-            "{@spell branding smite} (at 4th level)",
-            "{@spell revivify}",
+            "{animate dead}",
+            "{branding smite} (at 4th level)",
+            "{revivify}",
           ],
-          "1e": ["{@spell geas}", "{@spell raise dead}"],
+          "1e": ["{geas}", "{raise dead}"],
         },
         ability: "cha",
       },
@@ -299,7 +299,7 @@ export const bgdiaMonsters = [
       {
         name: "Hand of Vecna",
         entries: [
-          "The {@item Hand of Vecna} has 8 charges and regains {@dice 1d4 + 4} expended charges daily at dawn. Arkhan can cast the following spells from the hand by expending the specified number of charges (spell save {@dc 18}): {@spell finger of death} (5 charges), {@spell sleep} (1 charge), {@spell slow} (2 charges), and {@spell teleport} (3 charges).",
+          "The {@item Hand of Vecna} has 8 charges and regains {@dice 1d4 + 4} expended charges daily at dawn. Arkhan can cast the following spells from the hand by expending the specified number of charges (spell save {@dc 18}): {finger of death} (5 charges), {sleep} (1 charge), {slow} (2 charges), and {teleport} (3 charges).",
         ],
       },
       {
@@ -403,18 +403,18 @@ export const bgdiaMonsters = [
         headerEntries: [
           "Bel's spellcasting ability is Charisma (spell save {@dc 23}). Bel can innately cast the following spells, requiring no material components:",
         ],
-        will: ["{@spell detect magic}", "{@spell fireball}"],
+        will: ["{detect magic}", "{fireball}"],
         daily: {
           "3e": [
-            "{@spell dispel magic}",
-            "{@spell hold monster}",
-            "{@spell mirror image}",
-            "{@spell mislead}",
-            "{@spell raise dead}",
-            "{@spell teleport}",
-            "{@spell wall of fire}",
+            "{dispel magic}",
+            "{hold monster}",
+            "{mirror image}",
+            "{mislead}",
+            "{raise dead}",
+            "{teleport}",
+            "{wall of fire}",
           ],
-          "1e": ["{@spell imprisonment}", "{@spell meteor swarm}"],
+          "1e": ["{imprisonment}", "{meteor swarm}"],
         },
         ability: "cha",
       },
@@ -466,7 +466,7 @@ export const bgdiaMonsters = [
     legendary: [
       {
         name: "Fireball",
-        entries: ["Bel casts {@spell fireball}."],
+        entries: ["Bel casts {fireball}."],
       },
       {
         name: "Tactical Edge (Costs 2 Actions)",
@@ -574,32 +574,24 @@ export const bgdiaMonsters = [
         ],
         spells: {
           0: {
-            spells: [
-              "{@spell guidance}",
-              "{@spell sacred flame}",
-              "{@spell thaumaturgy}",
-            ],
+            spells: ["{guidance}", "{sacred flame}", "{thaumaturgy}"],
           },
           1: {
             slots: 4,
             spells: [
-              "{@spell bane}",
-              "{@spell bless}",
-              "{@spell cure wounds}",
-              '{@spell guiding bolt} (see "Actions" below)',
+              "{bane}",
+              "{bless}",
+              "{cure wounds}",
+              '{guiding bolt} (see "Actions" below)',
             ],
           },
           2: {
             slots: 3,
-            spells: [
-              "{@spell blindness/deafness}",
-              "{@spell hold person}",
-              "{@spell silence}",
-            ],
+            spells: ["{blindness/deafness}", "{hold person}", "{silence}"],
           },
           3: {
             slots: 2,
-            spells: ["{@spell sending}", "{@spell spirit guardians}"],
+            spells: ["{sending}", "{spirit guardians}"],
           },
         },
         ability: "cha",
@@ -748,9 +740,9 @@ export const bgdiaMonsters = [
                   type: "list",
                   items: [
                     "Unless Burney decided otherwise, once any creature less powerful than a deity has taken three steps from her, they can no longer remember her or having interacted with her specifically.",
-                    "Burney is under the effect of a permanent {@spell mind blank} spell, and cannot be detected by magical or mundane means unless she wishes it. In exchange for this blessing, Burney can take no direct action against the denizens of the Nine Hells, though she can certainly enlist the help of those who can.",
-                    "Burney always knows the location of the Wandering Emporium and can transport herself there as though by a {@spell word of recall} spell. This explains why Burney simply seems to appear amid the fully deployed marketplace each morning it is active to provide service and tell stories.",
-                    "Once each day, when Burney so desires, she can instantly transport herself to the court of Bahamut via a powerful blessing akin to the {@spell plane shift} spell.",
+                    "Burney is under the effect of a permanent {mind blank} spell, and cannot be detected by magical or mundane means unless she wishes it. In exchange for this blessing, Burney can take no direct action against the denizens of the Nine Hells, though she can certainly enlist the help of those who can.",
+                    "Burney always knows the location of the Wandering Emporium and can transport herself there as though by a {word of recall} spell. This explains why Burney simply seems to appear amid the fully deployed marketplace each morning it is active to provide service and tell stories.",
+                    "Once each day, when Burney so desires, she can instantly transport herself to the court of Bahamut via a powerful blessing akin to the {plane shift} spell.",
                   ],
                 },
               ],
@@ -1635,19 +1627,15 @@ export const bgdiaMonsters = [
         headerEntries: [
           "The hollyphant's innate spellcasting ability is Wisdom (spell save {@dc 15}). It can innately cast the following spells, requiring no material components:",
         ],
-        will: ["{@spell light}"],
+        will: ["{light}"],
         daily: {
-          "2e": [
-            "{@spell bless}",
-            "{@spell cure wounds}",
-            "{@spell protection from evil and good}",
-          ],
+          "2e": ["{bless}", "{cure wounds}", "{protection from evil and good}"],
           "1e": [
-            "{@spell banishment}",
-            "{@spell heal}",
-            "{@spell raise dead}",
-            "{@spell shapechange} (into a golden-furred {@creature mammoth} with feathered wings and a flying speed of 120 ft.)",
-            "{@spell teleport} (with no chance of error)",
+            "{banishment}",
+            "{heal}",
+            "{raise dead}",
+            "{shapechange} (into a golden-furred {@creature mammoth} with feathered wings and a flying speed of 120 ft.)",
+            "{teleport} (with no chance of error)",
           ],
         },
         ability: "wis",
@@ -1840,15 +1828,15 @@ export const bgdiaMonsters = [
         headerEntries: [
           "Kostchtchie's innate spellcasting ability is Charisma (spell save {@dc 20}). He can innately cast the following spells, requiring no material components:",
         ],
-        will: ["{@spell command}", "{@spell darkness}"],
+        will: ["{command}", "{darkness}"],
         daily: {
           "1e": [
-            "{@spell dispel evil and good}",
-            "{@spell gate}",
-            "{@spell harm}",
-            "{@spell telekinesis}",
-            "{@spell teleport}",
-            "{@spell wind walk}",
+            "{dispel evil and good}",
+            "{gate}",
+            "{harm}",
+            "{telekinesis}",
+            "{teleport}",
+            "{wind walk}",
           ],
         },
         ability: "cha",
@@ -1970,70 +1958,70 @@ export const bgdiaMonsters = [
         spells: {
           0: {
             spells: [
-              "{@spell chill touch}",
-              "{@spell mending}",
-              "{@spell resistance}",
-              "{@spell sacred flame}",
-              "{@spell spare the dying}",
-              "{@spell thaumaturgy}",
+              "{chill touch}",
+              "{mending}",
+              "{resistance}",
+              "{sacred flame}",
+              "{spare the dying}",
+              "{thaumaturgy}",
             ],
           },
           1: {
             slots: 4,
             spells: [
-              "{@spell cure wounds}",
-              "{@spell detect evil and good}",
-              "{@spell false life}",
-              "{@spell inflict wounds}",
-              "{@spell ray of sickness}",
+              "{cure wounds}",
+              "{detect evil and good}",
+              "{false life}",
+              "{inflict wounds}",
+              "{ray of sickness}",
             ],
           },
           2: {
             slots: 3,
             spells: [
-              "{@spell blindness/deafness}",
-              "{@spell gentle repose}",
-              "{@spell hold person}",
-              "{@spell ray of enfeeblement}",
-              "{@spell spiritual weapon}",
+              "{blindness/deafness}",
+              "{gentle repose}",
+              "{hold person}",
+              "{ray of enfeeblement}",
+              "{spiritual weapon}",
             ],
           },
           3: {
             slots: 3,
             spells: [
-              "{@spell animate dead}",
-              "{@spell magic circle}",
-              "{@spell speak with dead}",
-              "{@spell spirit guardians}",
-              "{@spell vampiric touch}",
+              "{animate dead}",
+              "{magic circle}",
+              "{speak with dead}",
+              "{spirit guardians}",
+              "{vampiric touch}",
             ],
           },
           4: {
             slots: 3,
             spells: [
-              "{@spell banishment}",
-              "{@spell blight}",
-              "{@spell death ward}",
-              "{@spell divination}",
-              "{@spell locate creature}",
+              "{banishment}",
+              "{blight}",
+              "{death ward}",
+              "{divination}",
+              "{locate creature}",
             ],
           },
           5: {
             slots: 2,
             spells: [
-              "{@spell antilife shell}",
-              "{@spell cloudkill}",
-              "{@spell contagion}",
-              "{@spell greater restoration}",
+              "{antilife shell}",
+              "{cloudkill}",
+              "{contagion}",
+              "{greater restoration}",
             ],
           },
           6: {
             slots: 1,
-            spells: ["{@spell create undead}", "{@spell true seeing}"],
+            spells: ["{create undead}", "{true seeing}"],
           },
           7: {
             slots: 1,
-            spells: ["{@spell divine word}", "{@spell regenerate}"],
+            spells: ["{divine word}", "{regenerate}"],
           },
         },
         ability: "wis",
@@ -2194,31 +2182,31 @@ export const bgdiaMonsters = [
           "Mahadi's innate spellcasting ability is Charisma (spell save {@dc 18}, {@hit 9} to hit with spell attacks). He can innately cast the following spells, requiring no material components:",
         ],
         will: [
-          "{@spell detect thoughts}",
-          "{@spell disguise self}",
-          "{@spell mage hand}",
-          "{@spell minor illusion}",
+          "{detect thoughts}",
+          "{disguise self}",
+          "{mage hand}",
+          "{minor illusion}",
         ],
         daily: {
           "3e": [
-            "{@spell charm person}",
-            "{@spell detect magic}",
-            "{@spell dispel magic}",
-            "{@spell hellish rebuke}",
-            "{@spell invisibility}",
-            "{@spell major image}",
-            "{@spell speak with dead}",
-            "{@spell suggestion}",
+            "{charm person}",
+            "{detect magic}",
+            "{dispel magic}",
+            "{hellish rebuke}",
+            "{invisibility}",
+            "{major image}",
+            "{speak with dead}",
+            "{suggestion}",
           ],
           "1e": [
-            "{@spell banishment}",
-            "{@spell demiplane}",
-            "{@spell dominate person}",
-            "{@spell fly}",
-            "{@spell forcecage}",
-            "{@spell geas}",
-            "{@spell plane shift}",
-            "{@spell true seeing}",
+            "{banishment}",
+            "{demiplane}",
+            "{dominate person}",
+            "{fly}",
+            "{forcecage}",
+            "{geas}",
+            "{plane shift}",
+            "{true seeing}",
           ],
         },
         ability: "cha",
@@ -2244,7 +2232,7 @@ export const bgdiaMonsters = [
       {
         name: "Claw",
         entries: [
-          "{@atk mw} {@hit 7} to hit, reach 5 ft., one target. {@h}9 ({@damage 2d6 + 2}) slashing damage, and the target is cursed if it's a creature. The curse takes effect whenever the target takes a short or long rest, filling the target's thoughts with horrible images and dreams. The cursed target gains no benefit from finishing a short or long rest. The curse lasts until it is lifted by a {@spell remove curse} spell or similar magic.",
+          "{@atk mw} {@hit 7} to hit, reach 5 ft., one target. {@h}9 ({@damage 2d6 + 2}) slashing damage, and the target is cursed if it's a creature. The curse takes effect whenever the target takes a short or long rest, filling the target's thoughts with horrible images and dreams. The cursed target gains no benefit from finishing a short or long rest. The curse lasts until it is lifted by a {remove curse} spell or similar magic.",
         ],
       },
       {
@@ -2309,32 +2297,32 @@ export const bgdiaMonsters = [
         spells: {
           0: {
             spells: [
-              '{@spell chill touch} (see "Actions" below)',
-              "{@spell mage hand}",
-              "{@spell message}",
-              "{@spell prestidigitation}",
+              '{chill touch} (see "Actions" below)',
+              "{mage hand}",
+              "{message}",
+              "{prestidigitation}",
             ],
           },
           1: {
             slots: 4,
             spells: [
-              "{@spell burning hands}",
-              "{@spell detect magic}",
-              '{@spell ray of sickness} (see "Actions" below)',
-              "{@spell shield}",
+              "{burning hands}",
+              "{detect magic}",
+              '{ray of sickness} (see "Actions" below)',
+              "{shield}",
             ],
           },
           2: {
             slots: 3,
             spells: [
-              "{@spell darkness}",
-              "{@spell misty step}",
-              '{@spell scorching ray} (see "Actions" below)',
+              "{darkness}",
+              "{misty step}",
+              '{scorching ray} (see "Actions" below)',
             ],
           },
           3: {
             slots: 2,
-            spells: ["{@spell animate dead}", "{@spell fireball}"],
+            spells: ["{animate dead}", "{fireball}"],
           },
         },
         ability: "int",
@@ -2796,11 +2784,7 @@ export const bgdiaMonsters = [
           "The reaper's innate spellcasting ability is Charisma (spell save {@dc 13}). It can innately cast the following spells, requiring no material components:",
         ],
         daily: {
-          "1e": [
-            "{@spell charm person}",
-            "{@spell disguise self}",
-            "{@spell sanctuary}",
-          ],
+          "1e": ["{charm person}", "{disguise self}", "{sanctuary}"],
         },
         ability: "cha",
       },
@@ -2993,24 +2977,20 @@ export const bgdiaMonsters = [
         ],
         spells: {
           0: {
-            spells: [
-              "{@spell mage hand}",
-              "{@spell message}",
-              "{@spell prestidigitation}",
-            ],
+            spells: ["{mage hand}", "{message}", "{prestidigitation}"],
           },
           1: {
             slots: 4,
             spells: [
-              "{@spell detect magic}",
-              "{@spell protection from evil and good}",
-              '{@spell ray of sickness} (see "Actions" below)',
-              "{@spell shield}",
+              "{detect magic}",
+              "{protection from evil and good}",
+              '{ray of sickness} (see "Actions" below)',
+              "{shield}",
             ],
           },
           2: {
             slots: 2,
-            spells: ["{@spell darkness}", "{@spell misty step}"],
+            spells: ["{darkness}", "{misty step}"],
           },
         },
         ability: "wis",
@@ -3097,17 +3077,10 @@ export const bgdiaMonsters = [
         headerEntries: [
           "Smiler's innate spellcasting ability is Charisma (spell save {@dc 15}). He can innately cast the following spells, requiring no material components:",
         ],
-        will: ["{@spell charm person}", "{@spell Tasha's hideous laughter}"],
+        will: ["{charm person}", "{Tasha's hideous laughter}"],
         daily: {
-          "3e": [
-            "{@spell confusion}",
-            "{@spell enthrall}",
-            "{@spell suggestion}",
-          ],
-          "1e": [
-            "{@spell hallucinatory terrain}",
-            "{@spell Otto's irresistible dance}",
-          ],
+          "3e": ["{confusion}", "{enthrall}", "{suggestion}"],
+          "1e": ["{hallucinatory terrain}", "{Otto's irresistible dance}"],
         },
         ability: "cha",
       },
@@ -3303,18 +3276,14 @@ export const bgdiaMonsters = [
         spells: {
           0: {
             spells: [
-              "{@spell guidance}",
-              '{@spell sacred flame} (see "Actions" below)',
-              "{@spell thaumaturgy}",
+              "{guidance}",
+              '{sacred flame} (see "Actions" below)',
+              "{thaumaturgy}",
             ],
           },
           1: {
             slots: 3,
-            spells: [
-              "{@spell command}",
-              "{@spell detect evil and good}",
-              "{@spell sanctuary}",
-            ],
+            spells: ["{command}", "{detect evil and good}", "{sanctuary}"],
           },
         },
         ability: "wis",
@@ -3458,8 +3427,8 @@ export const bgdiaMonsters = [
           spells: {
             7: [
               {
-                replace: "{@spell teleport}",
-                with: "{@spell plane shift}",
+                replace: "{teleport}",
+                with: "{plane shift}",
               },
             ],
           },

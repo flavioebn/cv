@@ -40,15 +40,15 @@ const MonsterModal = ({ onAdd, onClose }) => {
   };
 
   const sources = [
-    "Monsters Manual",
-    "Candlekeep Mysteries",
-    "Descent Into Avernus",
-    "Ghosts of Saltmarsh",
-    "Curse of Strahd",
     "Call of the Netherdeep",
+    "Candlekeep Mysteries",
+    "Curse of Strahd",
+    "Descent Into Avernus",
     "Dragon of Icespire Peak",
-    "Rise of Tiamat",
     "Fizban's Treasury of Dragons",
+    "Ghosts of Saltmarsh",
+    "Monsters Manual",
+    "Rise of Tiamat",
   ];
 
   const handleChangeSource = (e) => {
