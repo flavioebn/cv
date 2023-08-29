@@ -10,14 +10,16 @@ const DragNDrop = () => {
   });
   const [selectedPhrase, setSelectedPhrase] = useState("");
   const [count, setCount] = useState(0);
-
   const [phrases, setPhrases] = useState([]);
+  const [allPhrases, setAllPhrases] = useState([]);
   const [title, setTitle] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("drag-phrases")) {
-      setPhrases(JSON.parse(localStorage.getItem("drag-phrases")).phrases);
-      setTitle(JSON.parse(localStorage.getItem("drag-phrases")).name);
+      const jsonData = JSON.parse(localStorage.getItem("drag-phrases"));
+      setPhrases(jsonData.phrases);
+      setAllPhrases(jsonData.phrases);
+      setTitle(jsonData.name);
     }
 
     const fileInput = document.getElementById("fileInput");
@@ -37,14 +39,17 @@ const DragNDrop = () => {
         // Faça o que quiser com o objeto jsonData aqui.
         localStorage.setItem("drag-phrases", JSON.stringify(jsonData));
         setPhrases(jsonData.phrases);
+        setAllPhrases(jsonData.phrases);
         setTitle(jsonData.name);
         setCount(count + 1);
         document.getElementById("new-phrase").click();
       });
     });
-
-    reset();
   }, []);
+
+  useEffect(() => {
+    reset();
+  }, [allPhrases]);
 
   const uploadFile = (inputElement, callback) => {
     if (!inputElement.files || inputElement.files.length === 0) {
@@ -68,14 +73,23 @@ const DragNDrop = () => {
   };
 
   const reset = () => {
-    if (phrases.length === 0) return;
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    if (allPhrases.length === 0) {
+      console.log(allPhrases);
+      return;
+    }
+    const newPhrases = [...phrases];
+    const randomNumber = Math.floor(Math.random() * newPhrases.length);
+    const randomPhrase = newPhrases[randomNumber];
+    console.log("removed: ", newPhrases[randomNumber]);
+    newPhrases.splice(randomNumber, 1);
+    if (newPhrases.length === 0) newPhrases.push(...allPhrases);
     const words = shuffle(randomPhrase.split(" "));
     setSelectedPhrase(randomPhrase);
     const wordsWithId = words.map((i) => {
       return { word: i, id: Math.floor(Date.now() * Math.random()).toString() };
     });
     setWordsMap({ a: [], b: wordsWithId });
+    setPhrases(newPhrases);
   };
 
   const shuffle = (array) => {
@@ -143,7 +157,15 @@ const DragNDrop = () => {
   return (
     <div className="dragNDrop">
       <div className="firstContainer">
-        <h1>{title !== "" ? title : "Je ne sais quoi"}</h1>
+        <h1>
+          {title !== ""
+            ? `${title} - ${
+                allPhrases.length - phrases.length === 0
+                  ? allPhrases.length
+                  : allPhrases.length - phrases.length
+              }/${allPhrases.length}`
+            : "Je ne sais quoi"}
+        </h1>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
             if (!destination) {
