@@ -14,6 +14,7 @@ import PartyModal from "./modal";
 import ConditionsModal from "./conditionsModal";
 import CustomTooltip from "./tooltip";
 import DeathChecks from "./deathChecks";
+import { getPastebin, postPastebin } from "./pastebinRequest";
 
 const RenderParty = ({
   pc,
@@ -167,7 +168,6 @@ const PartyView = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(0);
   const [conditionModal, setConditionModal] = useState(false);
-  const [youtubeId, setYoutubeId] = useState("");
 
   const save = () => {
     localStorage.setItem("tracker-party", JSON.stringify(party));
@@ -348,10 +348,6 @@ const PartyView = () => {
           />
         );
       })}
-
-      {/* <button className="fill-container">
-        <img src={uploadIcon} alt="upload" />
-      </button> */}
       <label className="upload-container" for="fileInput">
         <img src={uploadIcon} alt="upload" />
       </label>

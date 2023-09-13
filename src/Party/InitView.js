@@ -231,10 +231,6 @@ const InitView = () => {
       );
       tempMonsters[monsterIdx].conditions.push(e);
     }
-    // let tempOrder = turnOrder;
-    // const index = tempOrder.findIndex((i) => i._id === conditionDetails.id);
-    // tempOrder[index].conditions.push(e);
-    // setTurnOrder(tempOrder);
     save();
     handleConditionModal();
   };

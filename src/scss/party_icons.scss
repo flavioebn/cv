@@ -1,0 +1,67 @@
+.fill-container,
+.sort-container,
+.change-view-container,
+.download-container,
+.dm-notes-container,
+.pob-container,
+.upload-container {
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 24px;
+  border: none;
+  background-color: $base-purple;
+  z-index: 5;
+
+  img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(77deg)
+      brightness(103%) contrast(106%);
+    width: 80%;
+  }
+}
+
+.download-container {
+  img {
+    height: 60%;
+  }
+}
+
+.upload-container {
+  bottom: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 70%;
+  }
+}
+
+.fill-container {
+  bottom: 150px;
+}
+
+.pob-container {
+  bottom: 30px;
+  right: 210px;
+
+  p {
+    color: white;
+  }
+}
+
+.change-view-container {
+  bottom: 30px;
+  right: 90px;
+}
+
+.dm-notes-container {
+  bottom: 30px;
+  right: 150px;
+
+  img {
+    width: 70%;
+  }
+}
