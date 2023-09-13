@@ -9,6 +9,9 @@ import fillIcon from "../assets/icons/fill.svg";
 import DeathChecks from "./deathChecks";
 import ConditionsModal from "./conditionsModal";
 
+/* eslint-disable no-useless-escape */
+/* eslint-disable array-callback-return */
+
 const RenderParty = ({
   pc,
   idx,

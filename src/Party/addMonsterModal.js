@@ -3,6 +3,8 @@ import Modal from "../components/modal";
 import * as monsterDetails from "./monsterDetails/index";
 import { useState } from "react";
 
+/* eslint-disable no-unused-vars */
+
 const MonsterModal = ({ onAdd, onClose }) => {
   const [selected, setSelected] = useState();
   const [source, setSource] = useState();

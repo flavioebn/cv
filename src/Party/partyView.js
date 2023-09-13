@@ -14,7 +14,6 @@ import PartyModal from "./modal";
 import ConditionsModal from "./conditionsModal";
 import CustomTooltip from "./tooltip";
 import DeathChecks from "./deathChecks";
-import { getPastebin, postPastebin } from "./pastebinRequest";
 
 const RenderParty = ({
   pc,

@@ -3,6 +3,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import changeIcon from "../assets/icons/change.svg";
 import uploadIcon from "../assets/icons/upload.svg";
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 const DragNDrop = () => {
   const [wordsMap, setWordsMap] = useState({
     a: [],

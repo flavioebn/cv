@@ -1,4 +1,3 @@
-import placeholder from "../assets/images/backoffice3.png";
 import hub1 from "../assets/images/hub1.png";
 import hub2 from "../assets/images/hub2.png";
 import hub3 from "../assets/images/hub3.png";

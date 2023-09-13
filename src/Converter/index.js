@@ -25,7 +25,7 @@ const Converter = () => {
   };
 
   useEffect(() => {
-    const rates = fetchRates();
+    fetchRates();
   }, []);
 
   return (

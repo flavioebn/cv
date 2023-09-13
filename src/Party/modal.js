@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../components/modal";
 
 const PartyModal = ({ pc, close, onSave, onDelete }) => {
-  const [image, setImage] = useState("");
   const [pcEdited, setPcEdited] = useState(pc);
-  const [imageToDisplay, setImageToDisplay] = useState();
 
   const convertImage = (e) => {
     const reader = new FileReader();
@@ -13,11 +11,6 @@ const PartyModal = ({ pc, close, onSave, onDelete }) => {
       setPcEdited({ ...pcEdited, image: reader.result });
     });
   };
-
-  useEffect(() => {
-    const newimg = localStorage.getItem("pc-image-test");
-    setImageToDisplay(newimg);
-  }, []);
 
   return (
     <Modal close={close}>
@@ -111,8 +104,6 @@ const PartyModal = ({ pc, close, onSave, onDelete }) => {
           </div>
         </div>
 
-        {/* <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-        <img src={imageToDisplay} /> */}
         <div className="add-pc-container">
           <button className="delete" onClick={onDelete}>
             Delete
