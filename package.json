@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
-  "homepage": "https://flavioebn.github.io/cv",
+  "homepage": "https://flavioebn.github.io",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
