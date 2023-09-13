@@ -66,7 +66,7 @@ export const projects = [
     title: "My Hub",
     description: "hub",
     tecs: "React | SASS | PWA | Cheerio",
-    link: "#/hub",
+    link: "/hub",
     images: [hub1, hub2, hub3, hub4],
   },
 ];
