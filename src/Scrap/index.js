@@ -70,6 +70,7 @@ const Scrap = () => {
           </div>
         </div>
       )}
+      <p className="version">v1.3</p>
       <button className="collapsebg" onClick={collapseAll}>
         <p>Collapse all</p>
       </button>
@@ -83,7 +84,10 @@ const Scrap = () => {
       >
         {modalVisible ? "<" : ">"}
       </div>
-      <div className="modal" style={{ left: modalVisible ? "0px" : "-390px" }}>
+      <div
+        className="scrap-modal"
+        style={{ left: modalVisible ? "0px" : "-390px" }}
+      >
         <h1 onClick={() => setShowForm(!showForm)}>Lojas</h1>
         {renderStores(
           1,

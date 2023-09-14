@@ -3,6 +3,8 @@ import hub2 from "../assets/images/hub2.png";
 import hub3 from "../assets/images/hub3.png";
 import hub4 from "../assets/images/hub4.png";
 import hub5 from "../assets/images/hub5.png";
+import hub6 from "../assets/images/hub6.png";
+import hub7 from "../assets/images/hub7.png";
 
 export const data = [
   {
@@ -12,8 +14,20 @@ export const data = [
     to: "/",
   },
   {
+    title: "Party & Initiative tracker",
+    desc: "My D&D 5e DM app to track my party details and initiative, and write my notes as the game goes on. *NOT mobile friendly*",
+    image: hub6,
+    to: "/party",
+  },
+  {
+    title: "Drag & Drop",
+    desc: "A phrases drag and drop app, where you can make your own lists as you want. *NOT mobile friendly*",
+    image: hub7,
+    to: "/drag",
+  },
+  {
     title: "Expiry tracker",
-    desc: "A simple tracker for products expiry dates. *NOT desktop friendly",
+    desc: "A simple tracker for products expiry dates. *NOT desktop friendly*",
     to: "/expiry",
     image: hub1,
   },
@@ -31,7 +45,7 @@ export const data = [
   },
   {
     title: "Color timers",
-    desc: "A friend of mine needed a color randomizer each X seconds for some reflex exercises, so I came with this solution. *NOT desktop friendly",
+    desc: "A friend of mine needed a color randomizer each X seconds for some reflex exercises, so I came with this solution. *NOT desktop friendly*",
     image: hub2,
     to: "/reflex",
   },

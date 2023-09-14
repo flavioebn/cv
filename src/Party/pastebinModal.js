@@ -3,9 +3,16 @@ import Modal from "../components/modal";
 import { getPastebin, postPastebin } from "./pastebinRequest";
 
 const PastebinModal = ({ close }) => {
-  const [partyToImport, setPartyToImport] = useState("");
-  const [notesToImport, setNotesToImport] = useState("");
-  const [monstersToImport, setMonstersToImport] = useState("");
+  const [imports, setImports] = useState({
+    party: "",
+    notes: "",
+    monsters: "",
+  });
+  const [pastebins, setPastebins] = useState({
+    party: "",
+    notes: "",
+    monsters: "",
+  });
 
   const handleImport = async (url, type) => {
     const res = await getPastebin(url);
@@ -25,7 +32,7 @@ const PastebinModal = ({ close }) => {
     window.location.reload();
   };
 
-  const handlePartyExport = async (type) => {
+  const handleExport = async (type) => {
     let body;
     switch (type) {
       case "party":
@@ -49,7 +56,10 @@ const PastebinModal = ({ close }) => {
       console.log("body: ", body);
       const response = await postPastebin(body);
       console.log(response);
-      alert(response);
+      setPastebins({
+        ...pastebins,
+        [type]: response.slice(21, response.length),
+      });
     } else {
       alert("Nothing to export");
     }
@@ -58,26 +68,59 @@ const PastebinModal = ({ close }) => {
   return (
     <Modal close={() => close()}>
       <h1>Pastebin</h1>
-
+      {/* XziwKnVb */}
+      {/* sb4Npve7 */}
       <div className="party-modal">
-        <div>
-          <h2>Party export: </h2>
-          <button onClick={() => handlePartyExport("party")}>Generate</button>
-        </div>
-        <div>
-          <h2>Import pastebin: </h2>
-        </div>
-        <div>
-          <input
-            type="text"
-            value={partyToImport}
-            onChange={(e) => setPartyToImport(e.target.value)}
-          />
-          <button onClick={() => handleImport(partyToImport, "party")}>
-            Import
-          </button>
-        </div>
-        <br />
+        {/* <>
+          <div>
+            <h2>Party export: </h2>
+            <button onClick={() => handleExport("party")}>Generate</button>
+          </div>
+          <div>
+            <h2>Import pastebin: </h2>
+          </div>
+          <div>
+            <input
+              type="text"
+              value={imports.party}
+              onChange={(e) =>
+                setImports({ ...imports, party: e.target.value })
+              }
+            />
+            <button onClick={() => handleImport(imports.party, "party")}>
+              Import
+            </button>
+          </div>
+        </> */}
+        {["party", "notes", "monsters"].map((i) => {
+          return (
+            <>
+              <div>
+                <h2>{i.charAt(0).toUpperCase() + i.slice(1)} export: </h2>
+                <button onClick={() => handleExport(i)}>Generate</button>
+              </div>
+              {pastebins[i] && <span>Your code: {pastebins[i]}</span>}
+              <div>
+                <h2>Import {i} code: </h2>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  value={imports[i]}
+                  onChange={(e) =>
+                    setImports({ ...imports, [i]: e.target.value })
+                  }
+                />
+                <button onClick={() => handleImport(imports[i], i)}>
+                  Import
+                </button>
+              </div>
+              <br />
+              <br />
+            </>
+          );
+        })}
+        {/* <br />
         <div>
           <h2>Notes export: </h2>
           <button onClick={() => handlePartyExport("notes")}>Generate</button>
@@ -113,8 +156,8 @@ const PastebinModal = ({ close }) => {
           />{" "}
           <button onClick={() => handleImport(monstersToImport, "monsters")}>
             Import
-          </button>
-        </div>
+          </button> 
+        </div>*/}
       </div>
     </Modal>
   );

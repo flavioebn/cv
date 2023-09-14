@@ -34,6 +34,7 @@ const Converter = () => {
         <Link className="back-to-hub" to="/hub ">
           Back to hub
         </Link>
+        <p className="version">v1.3</p>
         {loading && (
           <div className="loadingbg">
             <div class="lds-facebook">

@@ -183,6 +183,7 @@ const Expiry = () => {
       <Link className="back-to-hub" to="/hub">
         Back to hub
       </Link>
+      <p className="version">v1.3</p>
       {items.length === 0 && <h1>Add items will be shown here</h1>}
       {modalVisible && (
         <Modal

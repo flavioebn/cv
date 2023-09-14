@@ -1,5 +1,6 @@
 import { Autocomplete, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const CreatePhrases = () => {
   const [selected, setSelected] = useState({ name: "", phrases: [] });
@@ -107,6 +108,10 @@ const CreatePhrases = () => {
         </button>
         <button onClick={downloadJSON}>Baixar lista atual</button>
       </div>
+      <br />
+      <br />
+      <br />
+      <Link to="/drag ">Go back</Link>
     </div>
   );
 };

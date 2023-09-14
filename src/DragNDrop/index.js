@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import changeIcon from "../assets/icons/change.svg";
 import uploadIcon from "../assets/icons/upload.svg";
+import { Link } from "react-router-dom";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -222,7 +223,10 @@ const DragNDrop = () => {
       <button id="new-phrase" onClick={reset}>
         <img src={changeIcon} alt="newPhraseIcon" />
       </button>
-
+      <Link className="back-to-hub" to="/hub ">
+        Back to hub
+      </Link>
+      <Link to="/drag/create ">To creation</Link>
       <label className="upload-container" for="fileInput">
         <img src={uploadIcon} alt="upload" />
       </label>

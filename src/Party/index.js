@@ -42,6 +42,7 @@ const Party = () => {
       <button className="dm-notes-container" onClick={handleNotesView}>
         <img src={notesIcon} alt="sort" />
       </button>
+      <p className="version">v1.3</p>
       {pastebinModal && <PastebinModal close={handlePastebinView} />}
 
       {notesVisible && <NotesModal close={handleNotesView} />}

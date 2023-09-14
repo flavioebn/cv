@@ -95,6 +95,14 @@ body::-webkit-scrollbar {
   }
 }
 
+.version {
+  position: fixed;
+  bottom: 22px;
+  left: 22px;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
 .headerBackground {
   z-index: 3;
   background-color: rgba(0, 0, 0, 0.616);

@@ -104,6 +104,7 @@ const ReflexCounter = () => {
       <Link className="back-to-hub" to="/hub ">
         Back to hub
       </Link>
+      <p className="version">v1.3</p>
       {modalVisible && (
         <>
           <div className="modal">
