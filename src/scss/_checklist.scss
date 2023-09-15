@@ -1,4 +1,9 @@
 .checklist-container {
+  .reminder {
+    text-align: center;
+    color: rgb(69, 69, 69);
+  }
+
   select {
     width: 100%;
     height: 100%;
@@ -27,9 +32,12 @@
     border-top: 1px solid white;
 
     .item {
-      padding: 16px;
-      height: 25px;
-      margin-bottom: 8px;
+      margin: 8px;
+      height: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 4px;
 
       &.green {
         background-color: green;
@@ -38,9 +46,46 @@
         background-color: red;
       }
 
-      p {
-        margin: 0px;
+      .item-name {
+        display: flex;
+        align-items: center;
         font-size: 18px;
+        margin-left: 16px;
+        width: 100%;
+        height: 100%;
+      }
+
+      input {
+        height: 24px;
+        padding: 4px;
+        width: 70%;
+        border: none;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: $base-purple;
+        border: none;
+        height: 44px;
+        width: 44px;
+        border-radius: 50%;
+
+        &.small {
+          height: 28px;
+          width: 28px;
+          background-color: transparent;
+          margin-right: 12px;
+
+          img {
+            height: 100%;
+          }
+        }
+
+        img {
+          height: 24px;
+          filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(77deg)
+            brightness(103%) contrast(106%);
+        }
       }
     }
   }
@@ -56,7 +101,7 @@
     align-items: center;
 
     button {
-      background-color: $light-purple;
+      background-color: $base-purple;
       height: 56px;
       width: 56px;
       border: 4px solid white;
