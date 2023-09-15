@@ -5,6 +5,7 @@ import hub4 from "../assets/images/hub4.png";
 import hub5 from "../assets/images/hub5.png";
 import hub6 from "../assets/images/hub6.png";
 import hub7 from "../assets/images/hub7.png";
+import hub8 from "../assets/images/hub8.png";
 
 export const data = [
   {
@@ -21,8 +22,8 @@ export const data = [
   },
   {
     title: "Checklist",
-    desc: "Checklist Checklist Checklist Checklist Checklist Checklist Checklist",
-    image: hub7,
+    desc: "A simple checklist app to keep track of what your things",
+    image: hub8,
     to: "/checklist",
   },
   {
