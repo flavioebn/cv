@@ -13,8 +13,10 @@ const PastebinModal = ({ close }) => {
     notes: "",
     monsters: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleImport = async (url, type) => {
+    setLoading(true);
     const res = await getPastebin(url);
     switch (type) {
       case "party":
@@ -29,10 +31,12 @@ const PastebinModal = ({ close }) => {
       default:
         break;
     }
+    setLoading(false);
     window.location.reload();
   };
 
   const handleExport = async (type) => {
+    setLoading(true);
     let body;
     switch (type) {
       case "party":
@@ -63,35 +67,22 @@ const PastebinModal = ({ close }) => {
     } else {
       alert("Nothing to export");
     }
+    setLoading(false);
   };
 
   return (
     <Modal close={() => close()}>
       <h1>Pastebin</h1>
-      {/* XziwKnVb */}
-      {/* sb4Npve7 */}
+      {loading && (
+        <div className="loadingbg">
+          <div class="lds-facebook">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      )}
       <div className="party-modal">
-        {/* <>
-          <div>
-            <h2>Party export: </h2>
-            <button onClick={() => handleExport("party")}>Generate</button>
-          </div>
-          <div>
-            <h2>Import pastebin: </h2>
-          </div>
-          <div>
-            <input
-              type="text"
-              value={imports.party}
-              onChange={(e) =>
-                setImports({ ...imports, party: e.target.value })
-              }
-            />
-            <button onClick={() => handleImport(imports.party, "party")}>
-              Import
-            </button>
-          </div>
-        </> */}
         {["party", "notes", "monsters"].map((i) => {
           return (
             <>
@@ -120,44 +111,6 @@ const PastebinModal = ({ close }) => {
             </>
           );
         })}
-        {/* <br />
-        <div>
-          <h2>Notes export: </h2>
-          <button onClick={() => handlePartyExport("notes")}>Generate</button>
-        </div>
-        <div>
-          <h2>Import pastebin: </h2>
-        </div>
-        <div>
-          <input
-            type="text"
-            value={notesToImport}
-            onChange={(e) => setNotesToImport(e.target.value)}
-          />{" "}
-          <button onClick={() => handleImport(notesToImport, "notes")}>
-            Import
-          </button>
-        </div>
-        <br />
-        <div>
-          <h2>Monsters export: </h2>
-          <button onClick={() => handlePartyExport("monsters")}>
-            Generate
-          </button>
-        </div>
-        <div>
-          <h2>Import pastebin: </h2>
-        </div>
-        <div>
-          <input
-            type="text"
-            value={monstersToImport}
-            onChange={(e) => setMonstersToImport(e.target.value)}
-          />{" "}
-          <button onClick={() => handleImport(monstersToImport, "monsters")}>
-            Import
-          </button> 
-        </div>*/}
       </div>
     </Modal>
   );

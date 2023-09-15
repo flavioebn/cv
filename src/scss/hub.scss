@@ -28,6 +28,30 @@
 
     .text {
       padding: 0px 16px;
+      z-index: 4;
+    }
+  }
+
+  @media (max-width: 800px) {
+    padding: 50px;
+
+    .hub-item {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+    }
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      opacity: 0.1;
+    }
+
+    .text {
+      text-align: center;
     }
   }
 }

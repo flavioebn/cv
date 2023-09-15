@@ -9,6 +9,7 @@ import Party from "./Party";
 import { Route, Routes } from "react-router-dom";
 import DragNDrop from "./DragNDrop";
 import CreatePhrases from "./DragNDrop/create";
+import Checklist from "./Checklist";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/party" element={<Party />} />
       <Route path="/drag" element={<DragNDrop />} />
       <Route path="/drag/create" element={<CreatePhrases />} />
+      <Route path="/checklist" element={<Checklist />} />
     </Routes>
   );
 }

@@ -20,6 +20,12 @@ export const data = [
     to: "/party",
   },
   {
+    title: "Checklist",
+    desc: "Checklist Checklist Checklist Checklist Checklist Checklist Checklist",
+    image: hub7,
+    to: "/checklist",
+  },
+  {
     title: "Drag & Drop",
     desc: "A phrases drag and drop app, where you can make your own lists as you want. *NOT mobile friendly*",
     image: hub7,
