@@ -1,7 +1,7 @@
 const aboutPT = () => {
   return (
     <p>
-      Um desenvolvedor front-end brasileiro viciado em One Piece, Magic e RPGs,
+      Um desenvolvedor fullstack brasileiro viciado em One Piece, Magic e RPGs,
       formado em <span>Design de Jogos e Entretenimento digital</span>, e pós
       graduado em
       <span> Marketing Digital</span>. <br />
@@ -27,7 +27,7 @@ const aboutPT = () => {
 const aboutEN = () => {
   return (
     <p>
-      A Brazilian front-end developer addicted to One Piece, Magic The Gathering
+      A Brazilian fullstack developer addicted to One Piece, Magic The Gathering
       and RPGs, graduated in <span>Game Design and Digital Entertainment</span>,
       and with a postgraduate degree in <span>Digital Marketing</span>. <br />
       <br />
