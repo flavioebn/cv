@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import plusIcon from "../assets/icons/plus.svg";
 import changeIcon from "../assets/icons/change.svg";
 import trashIcon from "../assets/icons/trash.svg";
+import NewListModal from "./newListModal";
+import DeleteListModal from "./deleListModal";
 
 const Checklist = () => {
   const [selectedList, setSelectedList] = useState(0);
   const [newItem, setNewItem] = useState("");
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
+  const [newListModalVisible, setNewListModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const handleChangeList = (e) => {
     setSelectedList(e.target.value);
@@ -37,14 +41,11 @@ const Checklist = () => {
     finishEdit(tempArray);
   };
 
-  const newList = () => {
-    const newName = prompt("New list name:");
-    if (newName) {
-      let tempArray = data;
-      tempArray.push({ name: newName, items: [] });
-      setSelectedList(tempArray.length - 1);
-      finishEdit(tempArray);
-    }
+  const newList = (newListName) => {
+    let tempArray = data;
+    tempArray.push({ name: newListName, items: [] });
+    setSelectedList(tempArray.length - 1);
+    finishEdit(tempArray);
   };
 
   const handleAddItem = () => {
@@ -56,22 +57,18 @@ const Checklist = () => {
   };
 
   const handleDeleteList = () => {
-    if (window.confirm(`Delete ${data[selectedList].name}?`)) {
-      let tempArray = data;
-      tempArray.splice(selectedList, 1);
-      setSelectedList(0);
-      finishEdit(tempArray);
-    }
+    let tempArray = data;
+    tempArray.splice(selectedList, 1);
+    setSelectedList(0);
+    finishEdit(tempArray);
   };
 
   const handleReset = () => {
-    if (window.confirm(`Reset ${data[selectedList].name}?`)) {
-      let tempArray = data;
-      tempArray[selectedList].items.forEach((i) => {
-        i.got = false;
-      });
-      finishEdit(tempArray);
-    }
+    let tempArray = data;
+    tempArray[selectedList].items.forEach((i) => {
+      i.got = false;
+    });
+    finishEdit(tempArray);
   };
 
   const handleDeleteItem = (idx) => {
@@ -80,8 +77,28 @@ const Checklist = () => {
     finishEdit(tempArray);
   };
 
+  const handleNewListModalVisible = () => {
+    setNewListModalVisible(!newListModalVisible);
+  };
+
+  const handleDeleteListModalVisible = () => {
+    setDeleteModalVisible(!deleteModalVisible);
+  };
+
   return (
     <div className="checklist-container">
+      {newListModalVisible && (
+        <NewListModal
+          createList={(list) => newList(list)}
+          close={handleNewListModalVisible}
+        />
+      )}
+      {deleteModalVisible && (
+        <DeleteListModal
+          close={handleDeleteListModalVisible}
+          confirm={handleDeleteList}
+        />
+      )}
       <div className="dropdown">
         <select value={selectedList} onChange={handleChangeList}>
           {data.map((i, idx) => {
@@ -141,10 +158,10 @@ const Checklist = () => {
         <button onClick={handleReset}>
           <img src={changeIcon} alt="changeIcon" />
         </button>
-        <button onClick={newList}>
+        <button onClick={handleNewListModalVisible}>
           <img src={plusIcon} alt="plusIcon" />
         </button>
-        <button onClick={handleDeleteList}>
+        <button onClick={handleDeleteListModalVisible}>
           <img src={trashIcon} alt="trashIcon" />
         </button>
       </div>

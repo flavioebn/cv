@@ -1,7 +1,7 @@
-const Modal = ({ children, close }) => {
+const Modal = ({ children, close, classes }) => {
   return (
     <>
-      <div className="modal">{children}</div>
+      <div className={`modal ${classes}`}>{children}</div>
       <div className="modalBackground" onClick={close} />
     </>
   );
