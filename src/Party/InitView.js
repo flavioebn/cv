@@ -396,7 +396,18 @@ const InitView = () => {
 
   const removeThings = (e) => {
     if (e.entry) return e.entry.replace(/[@{}]/g, "");
-    return e.replace(/[@{}]/g, "");
+    return (
+      e
+        .replace("@hit ", "+")
+        .replace(/\{@dice (\d+d\d+)\}/g, "$1")
+        // .replace(/\{@creature (.*?)\}/g, "$1")
+        // .replace(/^(.*?)\|\|(.*)$/, "$2")
+        .replace("{@h}", "")
+        .replace(/[@{}]/g, "")
+        .replace("(damage ", "(")
+        .replace("atk ms", "Melee spell attack,")
+        .replace("atk mw", "Melee weapon attack,")
+    );
   };
 
   const removeSelfOnly = (text) => {
@@ -404,12 +415,18 @@ const InitView = () => {
     return text.replace(regex, "");
   };
 
+  const replaceRecharge = (text) => {
+    return text
+      .replace("{@recharge}", " - Recharge 6")
+      .replace(/\{@recharge (\d+)\}/g, " - Recharge $1");
+  };
+
   const getActions = (pc) => {
     let response = [<br />];
     pc.actions?.forEach((item, index) => {
       response.push(
         <>
-          <span className="tt-span">{item.name}</span>
+          <span className="tt-span">{replaceRecharge(item.name)}</span>
           {item.entries[1]?.items ? (
             item.entries[1]?.items?.map((j) => {
               return <p className="tt-p">{removeThings(j.entry)}</p>;
@@ -443,6 +460,29 @@ const InitView = () => {
       response.push(
         <p>{capitalize(removeThings(pc.spellcasting[0].headerEntries[0]))}</p>
       );
+
+      if (pc.spellcasting[0].will) {
+        response.push(<span className="tt-span">At will:</span>);
+        response.push(<br />);
+        pc.spellcasting[0].will.forEach((i) => {
+          response.push(
+            <li>
+              <a
+                className="tt-a"
+                target="_blank"
+                rel="noreferrer"
+                href={`https://dnd5e.wikidot.com/spell:${removeSelfOnly(
+                  removeThings(i)
+                )}`}
+              >
+                {capitalize(removeThings(i))}
+              </a>
+            </li>
+          );
+        });
+
+        response.push(<br />);
+      }
 
       if (pc.spellcasting[0].daily) {
         response.push(<span className="tt-span">Daily:</span>);
@@ -596,6 +636,8 @@ const InitView = () => {
         return "large";
       case "M":
         return "medium";
+      case "T":
+        return "tiny";
       default:
         return size;
     }

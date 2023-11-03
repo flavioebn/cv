@@ -49,6 +49,7 @@ const MonsterModal = ({ onAdd, onClose }) => {
     "Dragon of Icespire Peak",
     "Fizban's Treasury of Dragons",
     "Ghosts of Saltmarsh",
+    "Lost Mines of Phandalver",
     "Monsters Manual",
     "Rise of Tiamat",
   ];
@@ -81,6 +82,9 @@ const MonsterModal = ({ onAdd, onClose }) => {
         break;
       case "Fizban's Treasury of Dragons":
         setMonstersList(monsterDetails.ftdMonsters);
+        break;
+      case "Lost Mines of Phandalver":
+        setMonstersList(monsterDetails.lmopMonsters);
         break;
 
       default:
