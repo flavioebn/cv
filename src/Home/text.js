@@ -88,7 +88,7 @@ const EN = {
   aboutTwo: "Things I work with",
   professionalHeader: "Projects",
   xipWeb:
-    "Development of a landing page and backoffice for user and client management of Conta XIP, including integration with the database. The system was used by employees to approve and manage customers using theirs bank system. Forthermore, additional functionalities were added to control the content of the mobile app.",
+    "Development of a landing page and backoffice for user and client management of Conta XIP, including integration with the database. The system was used by employees to approve and manage customers using their bank system. Furthermore, additional functionalities were added to control the content of the mobile app.",
   xipApp:
     "In parallel with the first project, a mobile app was developed for Conta XIP's customers, a digital financial solution for Solar customers, part of the Coca-Cola group. The app provided all the necessary functions for everyday banking operations, offering a comprehensive banking experience.",
   cartesian:
