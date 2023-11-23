@@ -58,14 +58,14 @@ const PT = {
   aboutHeader: "Sobre mim",
   aboutText: aboutPT(),
   aboutOne: "Quem sou eu",
-  aboutTwo: "Coisas que eu manjo",
+  aboutTwo: "Com o que eu tenho experiência",
   professionalHeader: "Projetos",
   xipWeb:
     "Desenvolvimento de uma landing page e o backoffice para controle de usuários e clientes da Conta XIP, e integração com o banco de dados. O sistema era utilizado pelos funcionários da para fazer a aprovação e controle dos clientes que utilizavam o sistema bancário, e posteriormente foram adicionadas funcionalidades para controlar os conteúdos do app mobile.",
   xipApp:
     "Paralelo ao primeiro projeto, foi desenvolvido o app mobile para os clientes da Conta XIP, solução financeira digital para clientes Solar, do grupo Coca-Cola, trazendo todas as funções necessárias em um aplicativo bancário para as operações do dia-a-dia.",
   cartesian:
-    "Desnvovlimento de uma aplicação frontend para o cliente visualizar os detalhes de suas obras, facilitando a visualização e acompanhamento de suas obras, como prazos e valores gastos e especulados, separados por datas e etapas da obra.",
+    "Desenvolvimento de uma aplicação frontend para o cliente visualizar os detalhes de suas obras, facilitando a visualização e acompanhamento de suas obras, como prazos e valores gastos e especulados, separados por datas e etapas da obra.",
   kynd: "Aplicativo empresarial mobile para checagem de saúde e bem estar, com uma série de questionários com instruções para o cliente final (os funcionários da empresa que o adquirem) fazer e ter um feedback sobre seus hábitos e estado de saúde, tal como envio de relatórios para os responsáveis pelos funcionários.",
   gd: "Criação da plataforma GD, para integração de profissionais fotovoltaicos do ramo de Geração Distribuída de fontes renováveis, possibilitando que os interessados criem e adquiram projetos do setor.",
   hub: "Uma coleção de pequenos projetos pessoais, algumas coisas que fiz para facilitar a minha vida ou a de um amigo.",
