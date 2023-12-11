@@ -40,12 +40,12 @@ export const projects = [
     link: "https://play.google.com/store/apps/details?id=com.solarpay.contaxip&pli=1",
     linkIos: "https://apps.apple.com/us/app/conta-xip/id1553506089",
   },
-  {
-    title: "Cartesian",
-    description: "cartesian",
-    tecs: "React | SASS",
-    images: [c1, c2, c3, c4],
-  },
+  // {
+  //   title: "Cartesian",
+  //   description: "cartesian",
+  //   tecs: "React | SASS",
+  //   images: [c1, c2, c3, c4],
+  // },
   {
     title: "Kynd Wellness",
     description: "kynd",
