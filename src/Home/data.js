@@ -14,10 +14,6 @@ import g1 from "../assets/images/g1.png";
 import g2 from "../assets/images/g2.png";
 import g3 from "../assets/images/g3.png";
 import g4 from "../assets/images/g4.png";
-import c1 from "../assets/images/cartesian1.png";
-import c2 from "../assets/images/cartesian2.png";
-import c3 from "../assets/images/cartesian3.png";
-import c4 from "../assets/images/cartesian4.png";
 import hub1 from "../assets/images/hv1.png";
 import hub2 from "../assets/images/hv2.png";
 import hub3 from "../assets/images/hv3.png";
@@ -39,12 +35,6 @@ export const projects = [
     mobile: true,
     link: "https://play.google.com/store/apps/details?id=com.solarpay.contaxip&pli=1",
     linkIos: "https://apps.apple.com/us/app/conta-xip/id1553506089",
-  },
-  {
-    title: "Cartesian",
-    description: "cartesian",
-    tecs: "React | SASS",
-    images: [c1, c2, c3, c4],
   },
   {
     title: "Kynd Wellness",
