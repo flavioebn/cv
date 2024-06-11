@@ -52,6 +52,7 @@ const MonsterModal = ({ onAdd, onClose }) => {
     "Lost Mines of Phandalver",
     "Monsters Manual",
     "Rise of Tiamat",
+    "The Orrery of The Wanderer",
   ];
 
   const handleChangeSource = (e) => {
@@ -85,6 +86,9 @@ const MonsterModal = ({ onAdd, onClose }) => {
         break;
       case "Lost Mines of Phandalver":
         setMonstersList(monsterDetails.lmopMonsters);
+        break;
+      case "The Orrery of The Wanderer":
+        setMonstersList(monsterDetails.oowMonsters);
         break;
 
       default:

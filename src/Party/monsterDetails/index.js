@@ -30,3 +30,4 @@ export { vrgrMonsters } from "./vrgr";
 export { wbtwMonsters } from "./wbtw";
 export { wdhMonsters } from "./wdh";
 export { wdmmMonsters } from "./wdmm";
+export { oowMonsters } from "./oow";
