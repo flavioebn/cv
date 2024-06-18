@@ -4,7 +4,8 @@
 .download-container,
 .dm-notes-container,
 .pob-container,
-.upload-container {
+.upload-container,
+.dm-diary-container {
   position: fixed;
   bottom: 90px;
   right: 30px;
@@ -23,13 +24,18 @@
 }
 
 .download-container {
+  bottom: 150px;
   img {
     height: 60%;
   }
 }
 
-.upload-container {
+.sort-container {
   bottom: 150px;
+}
+
+.upload-container {
+  bottom: 210px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,12 +46,12 @@
 }
 
 .fill-container {
-  bottom: 150px;
+  bottom: 210px;
 }
 
 .pob-container {
   bottom: 30px;
-  right: 210px;
+  right: 150px;
 
   p {
     color: white;
@@ -54,12 +60,21 @@
 
 .change-view-container {
   bottom: 30px;
-  right: 90px;
+  right: 30px;
 }
 
 .dm-notes-container {
   bottom: 30px;
-  right: 150px;
+  right: 90px;
+
+  img {
+    width: 70%;
+  }
+}
+
+.dm-diary-container {
+  bottom: 30px;
+  right: 210px;
 
   img {
     width: 70%;

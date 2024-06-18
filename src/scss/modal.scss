@@ -25,6 +25,29 @@
   align-items: center;
   flex-direction: column;
 
+  &.diary {
+    height: 100vh;
+    left: 240px;
+    width: 450px;
+    position: fixed;
+    background-color: white;
+    justify-content: left;
+    align-items: baseline;
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    h1 {
+      margin-top: 0px;
+      width: 100%;
+    }
+
+    textarea {
+      height: 250px;
+      width: 400px;
+    }
+  }
+
   .party-modal {
     .add-pc-container {
       margin-top: 24px;

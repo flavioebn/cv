@@ -5,11 +5,13 @@ import changeIcon from "../assets/icons/change.svg";
 import notesIcon from "../assets/icons/notes.svg";
 import NotesModal from "./notesModal";
 import PastebinModal from "./pastebinModal";
+import DiaryModal from "./diaryModal";
 
 const Party = () => {
   const [party, setParty] = useState(true);
   const [notesVisible, setNotesVisible] = useState(false);
   const [pastebinModal, setPastebinModal] = useState(false);
+  const [diaryVisible, setDiaryVisible] = useState(true);
 
   let response;
 
@@ -31,6 +33,10 @@ const Party = () => {
     setPastebinModal(!pastebinModal);
   };
 
+  const handleDiaryView = () => {
+    setDiaryVisible(!pastebinModal);
+  };
+
   return (
     <>
       <button className="change-view-container" onClick={handleView}>
@@ -42,10 +48,16 @@ const Party = () => {
       <button className="dm-notes-container" onClick={handleNotesView}>
         <img src={notesIcon} alt="sort" />
       </button>
+      <button className="dm-diary-container" onClick={handleNotesView}>
+        <img src={notesIcon} alt="sort" />
+      </button>
       <p className="version">v1.3</p>
       {pastebinModal && <PastebinModal close={handlePastebinView} />}
 
       {notesVisible && <NotesModal close={handleNotesView} />}
+
+      {diaryVisible && <DiaryModal close={handleDiaryView} />}
+
       {response}
     </>
   );
