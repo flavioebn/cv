@@ -314,16 +314,6 @@ const PartyView = () => {
 
   return (
     <div className="party-container">
-      {/* <embed
-        src={`https://youtube.com/embed/${youtubeId}?autoplay=1`}
-        allowscriptaccess="always"
-        allowfullscreen="false"
-        width="480"
-        height="385"
-      ></embed>
-      <buton onClick={() => setYoutubeId("wCyY8OXOHm0")}>teste 1</buton>
-      <buton onClick={() => setYoutubeId("TqKKJH6RIVU")}>teste 2</buton>
-      <buton onClick={() => setYoutubeId("BO9TAXATAqk")}>teste 1</buton> */}
       {modalVisible && (
         <PartyModal
           close={handleModal}

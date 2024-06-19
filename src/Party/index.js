@@ -3,15 +3,19 @@ import PartyView from "./partyView";
 import InitView from "./InitView";
 import changeIcon from "../assets/icons/change.svg";
 import notesIcon from "../assets/icons/notes.svg";
+import diaryIcon from "../assets/icons/diary.svg";
+import youtubeIcon from "../assets/icons/youtubeIcon.svg";
 import NotesModal from "./notesModal";
 import PastebinModal from "./pastebinModal";
 import DiaryModal from "./diaryModal";
+import YoutubeModal from "./youtubeModal";
 
 const Party = () => {
   const [party, setParty] = useState(true);
   const [notesVisible, setNotesVisible] = useState(false);
   const [pastebinModal, setPastebinModal] = useState(false);
-  const [diaryVisible, setDiaryVisible] = useState(true);
+  const [diaryVisible, setDiaryVisible] = useState(false);
+  const [playerVisible, setPlayerVisible] = useState(true);
 
   let response;
 
@@ -34,7 +38,11 @@ const Party = () => {
   };
 
   const handleDiaryView = () => {
-    setDiaryVisible(!pastebinModal);
+    setDiaryVisible(!diaryVisible);
+  };
+
+  const handlePlayerView = () => {
+    setPlayerVisible(!playerVisible);
   };
 
   return (
@@ -48,15 +56,22 @@ const Party = () => {
       <button className="dm-notes-container" onClick={handleNotesView}>
         <img src={notesIcon} alt="sort" />
       </button>
-      <button className="dm-diary-container" onClick={handleNotesView}>
-        <img src={notesIcon} alt="sort" />
+      <button className="dm-diary-container" onClick={handleDiaryView}>
+        <img src={diaryIcon} alt="sort" />
       </button>
-      <p className="version">v1.3</p>
+      <button className="youtube-container" onClick={handlePlayerView}>
+        <img src={youtubeIcon} alt="sort" />
+      </button>
+
+      <p className="version">v1.4</p>
+
       {pastebinModal && <PastebinModal close={handlePastebinView} />}
 
       {notesVisible && <NotesModal close={handleNotesView} />}
 
       {diaryVisible && <DiaryModal close={handleDiaryView} />}
+
+      <YoutubeModal visible={playerVisible} />
 
       {response}
     </>

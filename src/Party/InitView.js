@@ -396,18 +396,23 @@ const InitView = () => {
 
   const removeThings = (e) => {
     if (e.entry) return e.entry.replace(/[@{}]/g, "");
-    return (
-      e
-        .replace("@hit ", "+")
-        .replace(/\{@dice (\d+d\d+)\}/g, "$1")
-        // .replace(/\{@creature (.*?)\}/g, "$1")
-        // .replace(/^(.*?)\|\|(.*)$/, "$2")
-        .replace("{@h}", "")
-        .replace(/[@{}]/g, "")
-        .replace("(damage ", "(")
-        .replace("atk ms", "Melee spell attack,")
-        .replace("atk mw", "Melee weapon attack,")
-    );
+    e.replace("{@spell ", "");
+    let response = e
+      .replace("@hit ", "+")
+      .replace(/\{@dice (\d+d\d+)\}/g, "$1")
+      // .replace(/\{@creature (.*?)\}/g, "$1")
+      // .replace(/^(.*?)\|\|(.*)$/, "$2")
+      .replace("{@h}", "")
+      .replace(/[@{}]/g, "")
+      .replace("(damage ", "(")
+      .replace("atk ms", "Melee spell attack,")
+      .replace("atk mw", "Melee weapon attack,");
+
+    if (e.slice(0, 7) === "{@spell") {
+      return response.slice(6);
+    } else {
+      return response;
+    }
   };
 
   const removeSelfOnly = (text) => {
@@ -465,6 +470,7 @@ const InitView = () => {
         response.push(<span className="tt-span">At will:</span>);
         response.push(<br />);
         pc.spellcasting[0].will.forEach((i) => {
+          console.log(removeSelfOnly(removeThings(i)));
           response.push(
             <li>
               <a

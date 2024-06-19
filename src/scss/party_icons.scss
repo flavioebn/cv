@@ -5,7 +5,8 @@
 .dm-notes-container,
 .pob-container,
 .upload-container,
-.dm-diary-container {
+.dm-diary-container,
+.youtube-container {
   position: fixed;
   bottom: 90px;
   right: 30px;
@@ -79,4 +80,9 @@
   img {
     width: 70%;
   }
+}
+
+.youtube-container {
+  right: 270px;
+  bottom: 30px;
 }

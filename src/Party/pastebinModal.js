@@ -53,6 +53,9 @@ const PastebinModal = ({ close }) => {
       case "notes":
         body = JSON.parse(localStorage.getItem("dm-notes"));
         break;
+      case "diary":
+        body = JSON.parse(localStorage.getItem("dm-diary"));
+        break;
       default:
         break;
     }
@@ -83,7 +86,7 @@ const PastebinModal = ({ close }) => {
         </div>
       )}
       <div className="party-modal">
-        {["party", "notes", "monsters"].map((i) => {
+        {["party", "notes", "monsters", "diary"].map((i) => {
           return (
             <>
               <div>

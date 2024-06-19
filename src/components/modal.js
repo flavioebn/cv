@@ -1,7 +1,13 @@
-const Modal = ({ children, close, classes, diary }) => {
+const Modal = ({ children, close, classes, diary, youtube }) => {
   return (
     <>
-      <div className={`modal ${classes} ${diary && "diary"}`}>{children}</div>
+      <div
+        className={`modal ${classes} ${diary && "diary"} ${
+          youtube && "youtube"
+        }`}
+      >
+        {children}
+      </div>
       <div className="modalBackground" onClick={close} />
     </>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "../components/modal";
 import { getFromStorage, setStorage } from "../utils/utils";
 
-const EditableList = () => {
+const EditableList = ({ close }) => {
   const [items, setItems] = useState([]);
 
   const handleTitleClick = (index) => {
@@ -60,7 +60,7 @@ const EditableList = () => {
   };
 
   return (
-    <Modal diary={true}>
+    <Modal diary={true} close={close}>
       <div>
         <h1>Diário</h1>
         <button onClick={handleAddItem}>Add Item</button>
