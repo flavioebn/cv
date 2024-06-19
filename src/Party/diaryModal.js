@@ -62,8 +62,10 @@ const EditableList = ({ close }) => {
   return (
     <Modal diary={true} close={close}>
       <div>
-        <h1>Diário</h1>
-        <button onClick={handleAddItem}>Add Item</button>
+        <div className="diary-header">
+          <h1>Diário</h1>
+          <button onClick={handleAddItem}>Add Item</button>
+        </div>
         {items.map((item, index) => (
           <div key={index}>
             {item.editing ? (
