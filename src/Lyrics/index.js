@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { formatWordCaseAndSpecials } from "../utils/utils";
 
 const Lyrics = () => {
   const [req, setReq] = useState({ title: "", band: "" });
@@ -8,12 +9,27 @@ const Lyrics = () => {
   const [hiddenLyrics, setHiddenLyrics] = useState([]);
   const [word, setWord] = useState("");
   const [submittedWords, setSubmittedWords] = useState([]);
+  const [tries, setTries] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [timerId, setTimerId] = useState(0);
+
+  const startTimer = () => {
+    const timer = setInterval(() => {
+      setSeconds((prev) => {
+        return prev + 1;
+      });
+    }, 1000);
+
+    return timer;
+  };
 
   const getLyrics = async (e) => {
-    if (req.title === "" || req.band === "") return;
+    if (req.title === "") return;
     e.preventDefault();
     const response = await fetch(
-      `https://lyrist.vercel.app/api/${req.title}/${req.band}`
+      `https://lyrist.vercel.app/api/${req.title}${
+        req.band ? `/${req.band}` : ""
+      }`
     ).then((res) => res.json());
 
     let format = response.lyrics
@@ -25,6 +41,10 @@ const Lyrics = () => {
       .split("\n")
       .filter((str) => str !== "");
 
+    format = format.map((i) => {
+      return i.replace(/\s+/g, " ");
+    });
+
     setLyrics(format);
     setHiddenLyrics(format.map((i) => i.replace(/\S/g, "_")));
     setDisplay((prev) => ({
@@ -34,14 +54,18 @@ const Lyrics = () => {
     }));
 
     const uniqueWords = [];
+    console.log(format);
 
     format.forEach((i) => {
       i.split(" ").forEach((j) => {
-        if (!uniqueWords.includes(j.toLowerCase()))
-          uniqueWords.push(j.toLowerCase());
+        if (!uniqueWords.includes(formatWordCaseAndSpecials(j)))
+          uniqueWords.push(formatWordCaseAndSpecials(j));
       });
     });
+
     setWords({ ...words, unique: uniqueWords, total: uniqueWords.length });
+
+    stopTimer();
   };
 
   useEffect(() => {
@@ -57,22 +81,35 @@ const Lyrics = () => {
   };
 
   const handleSubitWord = (e) => {
+    console.log(lyrics[1]);
+    console.log(submittedWords);
     e.preventDefault();
+    if (timerId === 0) {
+      const timerId = startTimer();
+      setTimerId(timerId);
+      console.log(timerId);
+    }
     setWord("");
-    if (submittedWords.includes(word.toLowerCase())) return;
-    setSubmittedWords((old) => [
-      ...old,
-      word
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""),
-    ]);
-    if (words.unique.includes(word.toLowerCase())) {
+    if (submittedWords.includes(formatWordCaseAndSpecials(word))) return;
+    setTries((prev) => {
+      return prev + 1;
+    });
+    setSubmittedWords((old) => [...old, formatWordCaseAndSpecials(word)]);
+    if (words.unique.includes(formatWordCaseAndSpecials(word))) {
       setWords((prev) => ({
         ...prev,
         found: prev.found + 1,
       }));
     }
+    if (words.found === words.total) {
+      stopTimer();
+    }
+  };
+
+  const stopTimer = () => {
+    clearInterval(timerId);
+    console.log(timerId);
+    setTimerId(0);
   };
 
   return (
@@ -112,6 +149,11 @@ const Lyrics = () => {
             <h2>
               {words.found} / {words.total}
             </h2>
+            <h2>Tries: {tries}</h2>
+            <h2>
+              {Math.floor(seconds / 60)}:{seconds % 60}
+            </h2>
+            <button onClick={stopTimer}>Para</button>
           </div>
         )}
       </div>
