@@ -10,6 +10,8 @@ import { Route, Routes } from "react-router-dom";
 import DragNDrop from "./DragNDrop";
 import CreatePhrases from "./DragNDrop/create";
 import Checklist from "./Checklist";
+import MtgGrid from "./MtgGrid";
+import Lyrics from "./Lyrics";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
       <Route path="/drag" element={<DragNDrop />} />
       <Route path="/drag/create" element={<CreatePhrases />} />
       <Route path="/checklist" element={<Checklist />} />
+      <Route path="/mtggrid" element={<MtgGrid />} />
+      <Route path="/lyrics" element={<Lyrics />} />
     </Routes>
   );
 }
