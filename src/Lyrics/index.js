@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getRandomId } from "../utils/utils";
 
 const Lyrics = () => {
   const [req, setReq] = useState({ title: "", band: "" });
@@ -27,7 +26,6 @@ const Lyrics = () => {
       .filter((str) => str !== "");
 
     setLyrics(format);
-    console.log(format);
     setHiddenLyrics(format.map((i) => i.replace(/\S/g, "_")));
     setDisplay((prev) => ({
       ...prev,
@@ -37,14 +35,12 @@ const Lyrics = () => {
 
     const uniqueWords = [];
 
-    format.map((i) => {
-      i.split(" ").map((j) => {
+    format.forEach((i) => {
+      i.split(" ").forEach((j) => {
         if (!uniqueWords.includes(j.toLowerCase()))
           uniqueWords.push(j.toLowerCase());
       });
     });
-    console.log(uniqueWords);
-    console.log(uniqueWords.length);
     setWords({ ...words, unique: uniqueWords, total: uniqueWords.length });
   };
 
@@ -62,7 +58,6 @@ const Lyrics = () => {
 
   const handleSubitWord = (e) => {
     e.preventDefault();
-    console.log(word);
     setWord("");
     if (submittedWords.includes(word.toLowerCase())) return;
     setSubmittedWords((old) => [

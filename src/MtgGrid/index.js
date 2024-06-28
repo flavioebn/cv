@@ -1,10 +1,8 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import euDem from "../assets/images/dem.png";
 import { filters } from "./filters";
 
 const MtgGrid = () => {
-  const [source, setSourcer] = useState("");
   const [cardNames, setCardNames] = useState([]);
   const [chosenCards, setChosenCards] = useState(new Array(9));
   const [count, setCount] = useState(0);
@@ -99,6 +97,8 @@ const MtgGrid = () => {
       case "=":
         checkCmc = response.cmc === +number;
         break;
+      default:
+        break;
     }
 
     console.log(checkCmc);
@@ -143,7 +143,6 @@ const MtgGrid = () => {
         filters[1].data[Math.floor(Math.random() * filters[1].data.length)];
     }
     setChosenFilters(temp);
-    setCount(count + 1);
   }, []);
 
   const renderSquare = (index) => {
@@ -174,7 +173,7 @@ const MtgGrid = () => {
     return (
       <div className="card-square">
         <div className="image-wrapper">
-          <img src={chosenCards[index]?.img} />
+          <img src={chosenCards[index]?.img} alt="abuble" />
         </div>
         {fill}
       </div>
