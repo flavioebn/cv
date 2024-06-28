@@ -74,7 +74,6 @@ export const formatWordCaseAndSpecials = (str) => {
     ņ: "n",
     ŋ: "n",
     ő: "o",
-    œ: "oe",
     ŕ: "r",
     ř: "r",
     ș: "s",
@@ -85,7 +84,6 @@ export const formatWordCaseAndSpecials = (str) => {
     ű: "u",
     ų: "u",
     ź: "z",
-    ž: "z",
     À: "A",
     Á: "A",
     Â: "A",
@@ -121,28 +119,20 @@ export const formatWordCaseAndSpecials = (str) => {
     Ę: "E",
     Ł: "L",
     Ń: "N",
-    Ó: "O",
     Ś: "S",
     Ź: "Z",
     Ż: "Z",
     ą: "a",
-    ć: "c",
-    ę: "e",
     ł: "l",
     ń: "n",
     ś: "s",
-    ź: "z",
-    ż: "z",
     Œ: "OE",
-    œ: "oe",
-    Æ: "AE",
-    ß: "ss",
   };
 
   // Aplica as substituições usando um regex global e uma função de substituição
-  // eslint-disable-next-line no-use-before-define
+  // eslint-disable-next-line no-control-regex
   return str.toLowerCase().replace(/[^\u0000-\u007E]/g, function (char) {
-    // eslint-disable-line no-use-before-define
-    return replacements[char] || char; // eslint-disable-line no-use-before-define
-  }); // eslint-disable-line no-use-before-define
+    // eslint-disable-line no-control-regex
+    return replacements[char] || char; // eslint-disable-line no-control-regex
+  }); // eslint-disable-line no-control-regex
 };
