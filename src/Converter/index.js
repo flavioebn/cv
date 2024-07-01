@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../components/loader";
 
 const Converter = () => {
   const [rate, setRate] = useState({ rate: "", date: 0 });
@@ -35,15 +36,7 @@ const Converter = () => {
           Back to hub
         </Link>
         <p className="version">v1.3</p>
-        {loading && (
-          <div className="loadingbg">
-            <div class="lds-facebook">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        )}
+        {loading && <Loader />}
         <p className="rate">
           Rate do dia: {rate.rate !== "" ? rate.rate.toFixed(5) : ""} <br />
         </p>

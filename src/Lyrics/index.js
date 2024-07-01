@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { formatWordCaseAndSpecials } from "../utils/utils";
+import Loader from "../components/loader";
+import Modal from "../components/modal";
+import {
+  formatWordCaseAndSpecials,
+  getFromStorage,
+  setStorage,
+} from "../utils/utils";
 
 const Lyrics = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [req, setReq] = useState({ title: "", band: "" });
   const [display, setDisplay] = useState({ title: "", band: "" });
   const [words, setWords] = useState({ unique: [], total: 0, found: 0 });
   const [lyrics, setLyrics] = useState([]);
   const [hiddenLyrics, setHiddenLyrics] = useState([]);
   const [word, setWord] = useState("");
-  const [submittedWords, setSubmittedWords] = useState([]);
+  const [submittedWords, setSubmittedWords] = useState(["(", ")"]);
   const [tries, setTries] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [timerId, setTimerId] = useState(0);
+  const [isModalShowing, setIsModalShowing] = useState(false);
 
   const startTimer = () => {
     const timer = setInterval(() => {
@@ -23,7 +31,17 @@ const Lyrics = () => {
     return timer;
   };
 
+  const reset = () => {
+    stopTimer();
+    setSeconds(0);
+    setSubmittedWords(["(", ")"]);
+    setTries(0);
+    setHiddenLyrics([]);
+  };
+
   const getLyrics = async (e) => {
+    setIsLoading(true);
+    reset();
     if (req.title === "") return;
     e.preventDefault();
     const response = await fetch(
@@ -32,12 +50,20 @@ const Lyrics = () => {
       }`
     ).then((res) => res.json());
 
+    if (!response.title) {
+      setDisplay({ title: "Not found", band: "" });
+      setIsLoading(false);
+      return;
+    }
+
     let format = response.lyrics
       .replace(/\[.*?\]/g, "")
       .replace(/"/g, "")
-      .replace(/[()]/g, "")
+      .replace(/[(]/g, "( ")
+      .replace(/[)]/g, " )")
       .replace(/[?]/g, "")
       .replace(/[,]/g, "")
+      .replace(/[...]/g, "")
       .split("\n")
       .filter((str) => str !== "");
 
@@ -54,18 +80,23 @@ const Lyrics = () => {
     }));
 
     const uniqueWords = [];
-    console.log(format);
 
     format.forEach((i) => {
       i.split(" ").forEach((j) => {
+        if (j === ")" || j === "(") return;
         if (!uniqueWords.includes(formatWordCaseAndSpecials(j)))
           uniqueWords.push(formatWordCaseAndSpecials(j));
       });
     });
 
-    setWords({ ...words, unique: uniqueWords, total: uniqueWords.length });
+    setWords({
+      ...words,
+      unique: uniqueWords,
+      total: uniqueWords.length,
+      found: 0,
+    });
 
-    stopTimer();
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -81,13 +112,11 @@ const Lyrics = () => {
   };
 
   const handleSubitWord = (e) => {
-    console.log(lyrics[1]);
-    console.log(submittedWords);
     e.preventDefault();
+    if (words.found === words.total) return;
     if (timerId === 0) {
       const timerId = startTimer();
       setTimerId(timerId);
-      console.log(timerId);
     }
     setWord("");
     if (submittedWords.includes(formatWordCaseAndSpecials(word))) return;
@@ -100,25 +129,48 @@ const Lyrics = () => {
         ...prev,
         found: prev.found + 1,
       }));
-    }
-    if (words.found === words.total) {
-      stopTimer();
+      if (words.found + 1 === words.total) {
+        let currentRecords = getFromStorage("lyrics-records") ?? [];
+        currentRecords.push({
+          song: `${display.title} - ${display.band}`,
+          tries: tries,
+          seconds: seconds,
+        });
+        setStorage("lyrics-records", currentRecords);
+        stopTimer();
+      }
     }
   };
 
   const stopTimer = () => {
     clearInterval(timerId);
-    console.log(timerId);
     setTimerId(0);
   };
 
   return (
     <div className="lyrics">
       <div className="lyrics-left">
-        <h1>Lyrics for:</h1>
-        <h2>
-          {display.title} - {display.band}
-        </h2>
+        {isLoading && <Loader />}
+        {isModalShowing && (
+          <Modal close={() => setIsModalShowing(false)}>
+            <h1>My Records</h1>
+            {getFromStorage("lyrics-records")?.map((i) => {
+              return (
+                <p>
+                  {i.song} foi completa em {i.tries} tentativas, em {i.seconds}{" "}
+                  segundos
+                </p>
+              );
+            })}
+          </Modal>
+        )}
+        {display.title === "" ? (
+          <h1>Lyrics for:</h1>
+        ) : (
+          <h2>
+            {display.title} - {display.band}
+          </h2>
+        )}
         <form>
           <input
             name="title"
@@ -146,16 +198,21 @@ const Lyrics = () => {
                 Guess word
               </button>
             </form>
-            <h2>
+            <h2 className={words.found === words.total && "green"}>
               {words.found} / {words.total}
             </h2>
             <h2>Tries: {tries}</h2>
-            <h2>
-              {Math.floor(seconds / 60)}:{seconds % 60}
+            <h2 className={words.found === words.total && "green"}>
+              {Math.floor(seconds / 60)
+                .toString()
+                .padStart(2, "0")}
+              :{(seconds % 60).toString().padStart(2, "0")}
             </h2>
-            <button onClick={stopTimer}>Para</button>
           </div>
         )}
+        <p onClick={() => setIsModalShowing(true)} className="open-records">
+          My records
+        </p>
       </div>
       <div className="lyrics-right">
         {lyrics.map((i, idx) => {

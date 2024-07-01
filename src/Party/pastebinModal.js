@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Loader from "../components/loader";
 import Modal from "../components/modal";
 import { getPastebin, postPastebin } from "./pastebinRequest";
 
@@ -76,15 +77,7 @@ const PastebinModal = ({ close }) => {
   return (
     <Modal close={() => close()}>
       <h1>Pastebin</h1>
-      {loading && (
-        <div className="loadingbg">
-          <div class="lds-facebook">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      )}
+      {loading && <Loader />}
       <div className="party-modal">
         {["party", "notes", "monsters", "diary"].map((i) => {
           return (

@@ -4,6 +4,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { getData } from "./service";
 import { Link } from "react-router-dom";
+import Loader from "../components/loader";
 
 const Scrap = () => {
   const [stores, setStores] = useState(["", "", ""]);
@@ -61,15 +62,7 @@ const Scrap = () => {
       <Link className="back-to-hub" to="/hub ">
         Back to hub
       </Link>
-      {isLoading && (
-        <div className="loadingbg">
-          <div class="lds-facebook">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      )}
+      {isLoading && <Loader />}
       <p className="version">v1.3</p>
       <button className="collapsebg" onClick={collapseAll}>
         <p>Collapse all</p>
