@@ -65,6 +65,7 @@ const Lyrics = () => {
       .replace(/[!]/g, "")
       .replace(/[,]/g, "")
       .replace(/[...]/g, "")
+      .replace(/е/g, "e")
       .split("\n")
       .filter((str) => str !== "");
 
@@ -119,7 +120,6 @@ const Lyrics = () => {
       const timerId = startTimer();
       setTimerId(timerId);
     }
-    console.log(word.split(" "));
     setWord("");
 
     word.split(" ").forEach((i) => {
