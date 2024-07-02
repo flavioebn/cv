@@ -1,8 +1,8 @@
-const Modal = ({ children, close, classes, diary, youtube }) => {
+const Modal = ({ children, close, classes, diary, youtube, flex = true }) => {
   return (
     <>
       <div
-        className={`modal ${classes} ${diary && "diary"} ${
+        className={`modal ${classes} ${diary && "diary"} ${flex && "flex"} ${
           youtube && "youtube"
         }`}
       >

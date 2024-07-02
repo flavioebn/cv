@@ -62,6 +62,7 @@ const Lyrics = () => {
       .replace(/[(]/g, "( ")
       .replace(/[)]/g, " )")
       .replace(/[?]/g, "")
+      .replace(/[!]/g, "")
       .replace(/[,]/g, "")
       .replace(/[...]/g, "")
       .split("\n")
@@ -118,28 +119,32 @@ const Lyrics = () => {
       const timerId = startTimer();
       setTimerId(timerId);
     }
+    console.log(word.split(" "));
     setWord("");
-    if (submittedWords.includes(formatWordCaseAndSpecials(word))) return;
-    setTries((prev) => {
-      return prev + 1;
-    });
-    setSubmittedWords((old) => [...old, formatWordCaseAndSpecials(word)]);
-    if (words.unique.includes(formatWordCaseAndSpecials(word))) {
-      setWords((prev) => ({
-        ...prev,
-        found: prev.found + 1,
-      }));
-      if (words.found + 1 === words.total) {
-        let currentRecords = getFromStorage("lyrics-records") ?? [];
-        currentRecords.push({
-          song: `${display.title} - ${display.band}`,
-          tries: tries,
-          seconds: seconds,
-        });
-        setStorage("lyrics-records", currentRecords);
-        stopTimer();
+
+    word.split(" ").forEach((i) => {
+      if (submittedWords.includes(formatWordCaseAndSpecials(i))) return;
+      setTries((prev) => {
+        return prev + 1;
+      });
+      setSubmittedWords((old) => [...old, formatWordCaseAndSpecials(i)]);
+      if (words.unique.includes(formatWordCaseAndSpecials(i))) {
+        setWords((prev) => ({
+          ...prev,
+          found: prev.found + 1,
+        }));
+        if (words.found + 1 === words.total) {
+          let currentRecords = getFromStorage("lyrics-records") ?? [];
+          currentRecords.push({
+            song: `${display.title} - ${display.band}`,
+            tries: tries,
+            seconds: seconds,
+          });
+          setStorage("lyrics-records", currentRecords);
+          stopTimer();
+        }
       }
-    }
+    });
   };
 
   const stopTimer = () => {
@@ -152,14 +157,48 @@ const Lyrics = () => {
       <div className="lyrics-left">
         {isLoading && <Loader />}
         {isModalShowing && (
-          <Modal close={() => setIsModalShowing(false)}>
+          <Modal flex={false} close={() => setIsModalShowing(false)}>
             <h1>My Records</h1>
             {getFromStorage("lyrics-records")?.map((i) => {
               return (
-                <p>
-                  {i.song} foi completa em {i.tries} tentativas, em {i.seconds}{" "}
-                  segundos
-                </p>
+                <>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                  <p>
+                    {i.song} foi completa em {i.tries} tentativas, em{" "}
+                    {i.seconds} segundos
+                  </p>
+                </>
               );
             })}
           </Modal>
@@ -185,7 +224,7 @@ const Lyrics = () => {
             placeholder="Nome da banda"
           />
           <br />
-          <button type="submit" onClick={getLyrics}>
+          <button type="submit" disabled={isLoading} onClick={getLyrics}>
             Get Lyrics
           </button>
         </form>
@@ -194,7 +233,11 @@ const Lyrics = () => {
             <form className="word-form">
               <input onChange={(e) => setWord(e.target.value)} value={word} />
               <br />
-              <button type="submit" onClick={handleSubitWord}>
+              <button
+                type="submit"
+                disabled={isLoading}
+                onClick={handleSubitWord}
+              >
                 Guess word
               </button>
             </form>
@@ -220,7 +263,11 @@ const Lyrics = () => {
             <div key={Math.random() * (idx + 1)} className="lyric-line">
               {i.split(" ").map((j, index) => {
                 return (
-                  <p key={Math.random() * (index + 1)} className="lyric-word">
+                  <p
+                    key={Math.random() * (index + 1)}
+                    title={j.length}
+                    className="lyric-word"
+                  >
                     {submittedWords.includes(
                       j
                         .toLowerCase()
