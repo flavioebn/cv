@@ -166,38 +166,6 @@ const Lyrics = () => {
                     {i.song} foi completa em {i.tries} tentativas, em{" "}
                     {i.seconds} segundos
                   </p>
-                  <p>
-                    {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
-                  </p>
-                  <p>
-                    {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
-                  </p>
-                  <p>
-                    {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
-                  </p>
-                  <p>
-                    {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
-                  </p>
-                  <p>
-                    {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
-                  </p>
-                  <p>
-                    {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
-                  </p>
-                  <p>
-                    {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
-                  </p>
-                  <p>
-                    {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
-                  </p>
                 </>
               );
             })}
