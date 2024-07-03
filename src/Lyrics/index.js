@@ -58,12 +58,9 @@ const Lyrics = () => {
 
     let format = response.lyrics
       .replace(/\[.*?\]/g, "")
-      .replace(/"/g, "")
       .replace(/[(]/g, "( ")
       .replace(/[)]/g, " )")
-      .replace(/[?]/g, "")
-      .replace(/[!]/g, "")
-      .replace(/[,]/g, "")
+      .replace(/[,!"?:]/g, "")
       .replace(/[...]/g, "")
       .replace(/е/g, "e")
       .split("\n")
