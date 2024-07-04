@@ -180,7 +180,11 @@ const Lyrics = () => {
             <p>• O timer só começa quando tu digita a primeira palavra</p>
             <p>
               • Se precisar de colinha, pode checar a letra nesse{" "}
-              <a target="_blank" href="https://lyrist.vercel.app/">
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://lyrist.vercel.app/"
+              >
                 Link
               </a>
               , é a única API de letra free que eu achei
@@ -190,7 +194,11 @@ const Lyrics = () => {
             <p>• "Nossa mas que legal" me paga uma cerveja</p>
             <p>
               • Gostou? Manda pros amigos e me segue no{" "}
-              <a target="_blank" href="https://x.com/FlavioEBN">
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://x.com/FlavioEBN"
+              >
                 Twitter
               </a>
             </p>
