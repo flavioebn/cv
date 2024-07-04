@@ -99,6 +99,8 @@
   flex-direction: column;
   max-height: 80vh;
   overflow-x: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
 
   &.flex {
     display: flex;

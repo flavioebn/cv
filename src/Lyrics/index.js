@@ -20,6 +20,7 @@ const Lyrics = () => {
   const [seconds, setSeconds] = useState(0);
   const [timerId, setTimerId] = useState(0);
   const [isModalShowing, setIsModalShowing] = useState(false);
+  const [isHelperShowing, setIsHelperShowing] = useState(false);
 
   const startTimer = () => {
     const timer = setInterval(() => {
@@ -60,7 +61,7 @@ const Lyrics = () => {
       .replace(/\[.*?\]/g, "")
       .replace(/[(]/g, "( ")
       .replace(/[)]/g, " )")
-      .replace(/[,!"?:]/g, "")
+      .replace(/[,!"'?:]/g, "")
       .replace(/[...]/g, "")
       .replace(/е/g, "e")
       .split("\n")
@@ -161,11 +162,38 @@ const Lyrics = () => {
                 <>
                   <p>
                     {i.song} foi completa em {i.tries} tentativas, em{" "}
-                    {i.seconds} segundos
+                    {Math.floor(i.seconds / 60)
+                      .toString()
+                      .padStart(2, "0")}
+                    :{(i.seconds & 60).toString().padStart(2, "0")}
                   </p>
                 </>
               );
             })}
+          </Modal>
+        )}
+        {isHelperShowing && (
+          <Modal flex={false} close={() => setIsHelperShowing(false)}>
+            <p>• Só precisa do artista se a música tiver um nome mais comum</p>
+            <p>• Alguns caracteres são excluidos da letra: , ! " ' ? :</p>
+            <p>• Letra com acento pode ser escrita sem que ele entende</p>
+            <p>• O timer só começa quando tu digita a primeira palavra</p>
+            <p>
+              • Se precisar de colinha, pode checar a letra nesse{" "}
+              <a target="_blank" href="https://lyrist.vercel.app/">
+                Link
+              </a>
+              , é a única API de letra free que eu achei
+            </p>
+            <p>• "Nossa mas a letra ta errada" me paga uma API</p>
+            <p>• "Nossa mas que feio" me paga um designer</p>
+            <p>• "Nossa mas que legal" me paga uma cerveja</p>
+            <p>
+              • Gostou? Manda pros amigos e me segue no{" "}
+              <a target="_blank" href="https://x.com/FlavioEBN">
+                Twitter
+              </a>
+            </p>
           </Modal>
         )}
         {display.title === "" ? (
@@ -220,6 +248,9 @@ const Lyrics = () => {
         )}
         <p onClick={() => setIsModalShowing(true)} className="open-records">
           My records
+        </p>
+        <p onClick={() => setIsHelperShowing(true)} className="open-records">
+          Need help?
         </p>
       </div>
       <div className="lyrics-right">
