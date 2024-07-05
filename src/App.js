@@ -12,6 +12,7 @@ import CreatePhrases from "./DragNDrop/create";
 import Checklist from "./Checklist";
 import MtgGrid from "./MtgGrid";
 import Lyrics from "./Lyrics";
+import MTGdle from "./MTGdle";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path="/checklist" element={<Checklist />} />
       <Route path="/mtggrid" element={<MtgGrid />} />
       <Route path="/lyrics" element={<Lyrics />} />
+      <Route path="/mtgdle" element={<MTGdle />} />
     </Routes>
   );
 }

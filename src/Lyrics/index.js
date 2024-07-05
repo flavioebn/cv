@@ -120,7 +120,7 @@ const Lyrics = () => {
     }
     setWord("");
 
-    word.split(" ").forEach((i) => {
+    [...new Set(word.split(" "))].forEach((i) => {
       if (submittedWords.includes(formatWordCaseAndSpecials(i))) return;
       setTries((prev) => {
         return prev + 1;
