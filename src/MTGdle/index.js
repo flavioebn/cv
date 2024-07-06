@@ -81,6 +81,12 @@ const MTGdle = () => {
     if (formattedType.includes("Land")) {
       return "Land";
     }
+    if (
+      formattedType.includes("Enchantment") &&
+      formattedType.includes("Creature")
+    ) {
+      return "Enchant. Creature";
+    }
     if (formattedType.includes("Enchantment")) {
       return "Enchant.";
     }
@@ -107,108 +113,113 @@ const MTGdle = () => {
         options={cardNames}
         value={cardSearch}
         sx={{ width: "100%" }}
+        type="text"
         onChange={(event, newValue) => {
           selectCard(newValue);
         }}
         renderInput={(params) => (
-          <TextField {...params} onChange={handleTextChange} />
+          <TextField type="text" {...params} onChange={handleTextChange} />
         )}
         filterOptions={(x) => x}
       />
-      <div className="guesses-container little">
-        <div className="card-guess">
-          <div className="name">
-            <p className="label">Card</p>
-          </div>
-          <div>
-            <p className="label">Cmc</p>
-          </div>
-          <div>
-            <p className="label">Color</p>
-          </div>
-          <div>
-            <p className="label">Type</p>
-          </div>
-          <div>
-            <p className="label">Year</p>
-          </div>
-          <div>
-            <p className="label">Rarity</p>
-          </div>
-          <div>
-            <p className="label">Legendary</p>
+      <div className="vertical-scroll">
+        <div className="guesses-container little">
+          <div className="card-guess">
+            <div className="name">
+              <p className="label">Card</p>
+            </div>
+            <div>
+              <p className="label">Cmc</p>
+            </div>
+            <div>
+              <p className="label">Color</p>
+            </div>
+            <div>
+              <p className="label">Type</p>
+            </div>
+            <div>
+              <p className="label">Year</p>
+            </div>
+            <div>
+              <p className="label">Rarity</p>
+            </div>
+            <div>
+              <p className="label">Legendary</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="guesses-container scroll">
-        {chosenCards.map((i) => {
-          return (
-            <div className="card-guess">
-              <div className="name">
-                <span>{i.name}</span>
-                <img src={i.image_uris.art_crop} alt={i.name} />
+        <div className="guesses-container">
+          {chosenCards.map((i) => {
+            return (
+              <div className="card-guess">
+                <div className="name">
+                  <span>{i.name}</span>
+                  <img src={i.image_uris.art_crop} alt={i.name} />
+                </div>
+                <div className={i.cmc === cardToGuess.cmc ? `right` : "wrong"}>
+                  <p className="tip">
+                    {i.cmc}
+                    {i.cmc === cardToGuess.cmc
+                      ? ""
+                      : i.cmc > cardToGuess.cmc
+                      ? " >"
+                      : " <"}
+                  </p>
+                </div>
+                <div className={checkColors(i.colors)}>
+                  <p className="tip year">{i.colors.map((j) => j)}</p>
+                </div>
+                <div
+                  className={
+                    getType(i.type_line) === getType(cardToGuess.type_line)
+                      ? "right"
+                      : "wrong"
+                  }
+                >
+                  <p className="tip type">{getType(i.type_line)}</p>
+                </div>
+                <div
+                  className={
+                    i.released_at.slice(0, 4) ===
+                    cardToGuess.released_at.slice(0, 4)
+                      ? "right"
+                      : "wrong"
+                  }
+                >
+                  <p className="tip year">
+                    {i.released_at.slice(0, 4)}
+                    {i.released_at.slice(0, 4) ===
+                    cardToGuess.released_at.slice(0, 4)
+                      ? ""
+                      : +i.released_at.slice(0, 4) >
+                        +cardToGuess.released_at.slice(0, 4)
+                      ? " >"
+                      : " <"}
+                  </p>
+                </div>
+                <div
+                  className={
+                    i.rarity === cardToGuess.rarity ? "right" : "wrong"
+                  }
+                >
+                  <p className="tip">{i.rarity.slice(0, 1).toUpperCase()}</p>
+                </div>
+                <div
+                  className={
+                    i.type_line.includes("Legendary") ===
+                    cardToGuess.type_line.includes("Legendary")
+                      ? "right"
+                      : "wrong"
+                  }
+                >
+                  <p className="tip">
+                    {i.type_line.includes("Legendary") ? "Yes" : "No"}
+                  </p>
+                </div>
               </div>
-              <div className={i.cmc === cardToGuess.cmc ? `right` : "wrong"}>
-                <p className="tip">
-                  {i.cmc}
-                  {i.cmc === cardToGuess.cmc
-                    ? ""
-                    : i.cmc > cardToGuess.cmc
-                    ? " >"
-                    : " <"}
-                </p>
-              </div>
-              <div className={checkColors(i.colors)}>
-                <p className="tip year">{i.colors.map((j) => j)}</p>
-              </div>
-              <div
-                className={
-                  getType(i.type_line) === getType(cardToGuess.type_line)
-                    ? "right"
-                    : "wrong"
-                }
-              >
-                <p className="tip type">{getType(i.type_line)}</p>
-              </div>
-              <div
-                className={
-                  i.released_at.slice(0, 4) ===
-                  cardToGuess.released_at.slice(0, 4)
-                    ? "right"
-                    : "wrong"
-                }
-              >
-                <p className="tip year">
-                  {i.released_at.slice(0, 4)}
-                  {i.released_at.slice(0, 4) ===
-                  cardToGuess.released_at.slice(0, 4)
-                    ? ""
-                    : +i.released_at.slice(0, 4) >
-                      +cardToGuess.released_at.slice(0, 4)
-                    ? " >"
-                    : " <"}
-                </p>
-              </div>
-              <div
-                className={i.rarity === cardToGuess.rarity ? "right" : "wrong"}
-              >
-                <p className="tip">{i.rarity.slice(0, 1).toUpperCase()}</p>
-              </div>
-              <div
-                className={
-                  i.type_line.includes("Legendary") ===
-                  cardToGuess.type_line.includes("Legendary")
-                    ? "right"
-                    : "wrong"
-                }
-              >
-                <p className="tip">
-                  {i.type_line.includes("Legendary") ? "Yes" : "No"}
-                </p>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

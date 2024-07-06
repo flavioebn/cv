@@ -20,6 +20,7 @@
 
     input {
       width: 40%;
+      min-width: 150px;
       height: 30px;
       border: 1px solid white;
       color: white;
@@ -36,6 +37,7 @@
       padding: 8px 16px;
       border-radius: 8px;
       transition: 0.15s ease-in-out;
+      min-width: 100px;
 
       &:hover {
         background-color: rgb(88, 88, 88);
@@ -45,7 +47,6 @@
 
     .left-bottom {
       margin-top: 16px;
-      width: 100%;
       .word-form {
         input {
           width: 40%;

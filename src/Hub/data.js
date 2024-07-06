@@ -6,6 +6,8 @@ import hub5 from "../assets/images/hub5.png";
 import hub6 from "../assets/images/hub6.png";
 import hub7 from "../assets/images/hub7.png";
 import hub8 from "../assets/images/hub8.png";
+import hub9 from "../assets/images/hub9.png";
+import hub10 from "../assets/images/hub10.png";
 
 export const data = [
   {
@@ -19,6 +21,18 @@ export const data = [
     desc: "My D&D 5e DM app to track my party details and initiative, and write my notes as the game goes on. *NOT mobile friendly*",
     image: hub6,
     to: "/party",
+  },
+  {
+    title: "Fill the Lyrics",
+    desc: "Choose a song you like, and try to fill all of it's lyrics! *NOT mobile friendly*",
+    image: hub10,
+    to: "/lyrics",
+  },
+  {
+    title: "MTGdle",
+    desc: "Guess the MTG card (Gets a new card on refresh)",
+    image: hub9,
+    to: "/mtgdle",
   },
   {
     title: "Checklist",

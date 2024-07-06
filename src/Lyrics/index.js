@@ -156,7 +156,6 @@ const Lyrics = () => {
         {isLoading && <Loader />}
         {isModalShowing && (
           <Modal flex={false} close={() => setIsModalShowing(false)}>
-            <h1>My Records</h1>
             {getFromStorage("lyrics-records")?.map((i) => {
               return (
                 <>
