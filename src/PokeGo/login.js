@@ -16,8 +16,8 @@ const PokeLogin = () => {
 
   useEffect(() => {
     const id = getFromStorage("poke-login-id");
-    if (id === null || id === "") {
-      navigate("/pokelogin");
+    if (id !== null) {
+      navigate("/pokedash");
     }
   }, [navigate]);
 
