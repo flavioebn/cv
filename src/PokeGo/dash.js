@@ -53,7 +53,7 @@ const PokeDash = () => {
     } else {
       getUserInfo(id);
     }
-  }, []);
+  }, [navigate]);
 
   const handleClick = (e) => {
     console.log(e);

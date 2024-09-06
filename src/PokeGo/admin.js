@@ -15,7 +15,7 @@ const PokeAdmin = () => {
     if (id !== "66daca4429c442b6d9492604") {
       navigate("/pokelogin");
     }
-  }, []);
+  }, [navigate]);
 
   const handleEmail = (e) => {
     const { value } = e.target;
