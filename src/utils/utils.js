@@ -3,12 +3,16 @@ export const getRandomId = () => {
 };
 
 export const getFromStorage = (key) => {
-  return JSON.parse(localStorage.getItem(key));
+  const info = localStorage.getItem(key);
+  if (!info) return null;
+  return JSON.parse(info);
 };
 
 export const setStorage = (key, obj) => {
   return localStorage.setItem(key, JSON.stringify(obj));
 };
+
+export const PokeURL = "https://cvback-v043he80.b4a.run";
 
 export const formatWordCaseAndSpecials = (str) => {
   // Define um mapa de substituições

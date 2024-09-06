@@ -1,0 +1,107 @@
+.poke-container-login {
+  display: flex;
+  flex-direction: column;
+  //   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-top: 15vh;
+
+  .options {
+    display: flex;
+    gap: 16px;
+
+    h2 {
+      background-color: rgba(253, 253, 253, 0);
+      border: none;
+      font-size: 24px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.349);
+      gap: 8px;
+      cursor: pointer;
+
+      &:hover {
+        color: rgba(255, 255, 255, 0.63);
+      }
+
+      &.active {
+        color: white;
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 22px;
+    }
+
+    input {
+      padding: 4px;
+      margin-bottom: 8px;
+    }
+
+    button {
+      margin-top: 22px;
+      background-color: #a467bd;
+      border-radius: 8px;
+      padding: 4px;
+      border: 0px;
+      font-family: "Quicksand", sans-serif;
+      font-weight: bold;
+      font-size: 18px;
+      color: white;
+    }
+  }
+
+  .error-msg {
+    color: rgb(236, 103, 103);
+    margin-top: 16px;
+    max-width: 170px;
+    text-align: center;
+  }
+}
+
+.dash {
+  align-items: start;
+  margin-top: 0vh;
+  padding-left: 16px;
+
+  h1 {
+    margin-bottom: 0px;
+  }
+  h2 {
+    margin-top: 0px;
+  }
+
+  .codes {
+    // display: flex;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-width: 100vw;
+
+    .code-container {
+      background-color: #a467bd;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      gap: 16px;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #8b4ba5;
+
+        transform: scale(1.1);
+      }
+
+      .code {
+        font-weight: bold;
+        font-size: 22px;
+      }
+    }
+  }
+}

@@ -13,6 +13,9 @@ import Checklist from "./Checklist";
 import MtgGrid from "./MtgGrid";
 import Lyrics from "./Lyrics";
 import MTGdle from "./MTGdle";
+import PokeLogin from "./PokeGo/login";
+import PokeDash from "./PokeGo/dash";
+import PokeAdmin from "./PokeGo/admin";
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
       <Route path="/mtggrid" element={<MtgGrid />} />
       <Route path="/lyrics" element={<Lyrics />} />
       <Route path="/mtgdle" element={<MTGdle />} />
+      <Route path="/pokelogin" element={<PokeLogin />} />
+      <Route path="/pokedash" element={<PokeDash />} />
+      <Route path="/pokeadmin" element={<PokeAdmin />} />
     </Routes>
   );
 }
