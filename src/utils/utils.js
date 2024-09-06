@@ -12,7 +12,7 @@ export const setStorage = (key, obj) => {
   return localStorage.setItem(key, JSON.stringify(obj));
 };
 
-export const PokeURL = "https://cvback-v043he80.b4a.run";
+export const PokeURL = "https://cv-back-c19n.onrender.com";
 
 export const formatWordCaseAndSpecials = (str) => {
   // Define um mapa de substituições
