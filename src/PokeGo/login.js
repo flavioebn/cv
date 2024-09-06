@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../components/loader";
-import { PokeURL, setStorage } from "../utils/utils";
+import { getFromStorage, PokeURL, setStorage } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 const PokeLogin = () => {
@@ -13,6 +13,13 @@ const PokeLogin = () => {
     ign: "",
   });
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const id = getFromStorage("poke-login-id");
+    if (id === null || id === "") {
+      navigate("/pokelogin");
+    }
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

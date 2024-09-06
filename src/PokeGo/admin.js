@@ -12,7 +12,7 @@ const PokeAdmin = () => {
 
   useEffect(() => {
     const id = getFromStorage("poke-login-id");
-    if (id !== "66daca4429c442b6d9492604") {
+    if (id !== "66dac65d9fc7fcd7578f2ae1") {
       navigate("/pokelogin");
     }
   }, [navigate]);
