@@ -98,7 +98,12 @@ const PokeLogin = () => {
         <label>E-mail</label>
         <input name="email" onChange={handleChange} value={info.email} />
         <label>Senha</label>
-        <input name="password" onChange={handleChange} value={info.password} />
+        <input
+          name="password"
+          type="password"
+          onChange={handleChange}
+          value={info.password}
+        />
         {active === "register" && (
           <>
             <label>Nick no PokeGO</label>
