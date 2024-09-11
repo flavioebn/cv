@@ -16,6 +16,7 @@ import MTGdle from "./MTGdle";
 import PokeLogin from "./PokeGo/login";
 import PokeDash from "./PokeGo/dash";
 import PokeAdmin from "./PokeGo/admin";
+import PokeInfos from "./PokeGo/info";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
       <Route path="/pokelogin" element={<PokeLogin />} />
       <Route path="/pokedash" element={<PokeDash />} />
       <Route path="/pokeadmin" element={<PokeAdmin />} />
+      <Route path="/pokeinfos" element={<PokeInfos />} />
     </Routes>
   );
 }

@@ -55,9 +55,20 @@ const PokeDash = () => {
     }
   }, [navigate]);
 
-  const handleClick = (e) => {
-    console.log(e);
-    navigator.clipboard.writeText(e);
+  const CodeCard = ({ i }) => {
+    const [clicked, setClicked] = useState(false);
+
+    const handleClick = (e) => {
+      setClicked(!clicked);
+      navigator.clipboard.writeText(e);
+    };
+
+    return (
+      <div onClick={() => handleClick(i.code)} className="code-container">
+        <span className="event">{i.event}</span>
+        <span className="code">{clicked ? "Copiado!" : i.code}</span>
+      </div>
+    );
   };
 
   return (
@@ -65,16 +76,34 @@ const PokeDash = () => {
       {loading && <Loader />}
       <h1>{userInfo.ign}</h1>
       <h2>{userInfo.email}</h2>
-      <h3>Códigos (Clica pra copiar): </h3>
+      <h3>
+        Códigos (Clica pra copiar, e{" "}
+        <a
+          href="https://store.pokemongolive.com/pt-BR/offer-redemption"
+          target="_blank"
+          rel="noreferrer"
+        >
+          aqui pra resgatar
+        </a>
+        ):{" "}
+      </h3>
+
       <div className="codes">
-        {userInfo?.codes?.map((i) => {
-          return (
-            <div onClick={() => handleClick(i.code)} className="code-container">
-              <span className="event">{i.event}</span>
-              <span className="code">{i.code}</span>
-            </div>
-          );
-        })}
+        {userInfo?.codes
+          ?.sort((a, b) => {
+            const dateA = new Date(a.createdAt);
+            const dateB = new Date(b.createdAt);
+
+            // Se a ou b não tiver createdAt, coloca no final
+            if (!a.createdAt) return 1;
+            if (!b.createdAt) return -1;
+
+            // Caso ambos tenham createdAt, faz a ordenação normal
+            return dateB - dateA;
+          })
+          .map((i) => {
+            return <CodeCard i={i} />;
+          })}
       </div>
     </div>
   );
