@@ -17,6 +17,9 @@ import PokeLogin from "./PokeGo/login";
 import PokeDash from "./PokeGo/dash";
 import PokeAdmin from "./PokeGo/admin";
 import PokeInfos from "./PokeGo/info";
+// import Player from "./Player";
+// import CreatePlayer from "./Player/create";
+import Pablo from "./Pablo";
 
 function App() {
   return (
@@ -38,6 +41,9 @@ function App() {
       <Route path="/pokedash" element={<PokeDash />} />
       <Route path="/pokeadmin" element={<PokeAdmin />} />
       <Route path="/pokeinfos" element={<PokeInfos />} />
+      {/* <Route path="/player" element={<Player />} />
+      <Route path="/player/create" element={<CreatePlayer />} /> */}
+      <Route path="/pablo" element={<Pablo />} />
     </Routes>
   );
 }
