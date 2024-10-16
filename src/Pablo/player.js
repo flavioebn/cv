@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-const Player = ({ song, index, select, current }) => {
+const Player = ({ song, index, select, next, prev }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [timerId, setTimerId] = useState(null);
@@ -84,16 +84,25 @@ const Player = ({ song, index, select, current }) => {
     }
   };
 
+  console.log(song);
+
+  const handleNext = () => {
+    stopSong();
+    next();
+  };
+
+  const handlePrev = () => {
+    stopSong();
+    prev();
+  };
+
   return (
-    <div
-      onClick={select}
-      className={`song-player ${current === song.title ? "active-song" : ""}`}
-    >
+    <div onClick={select} className={`song-player active-song`}>
       <h1 onClick={() => setShowTitle(!showTitle)}>
         {showTitle ? song.title : `musga ${index}`}
       </h1>
       <audio ref={audioRef} src={song.src} />
-      <div className="buttons-container">
+      <div className="buttons-container" style={{ marginBottom: "16px" }}>
         <button
           onClick={() => playForDuration(1, song.times[0])}
           disabled={isPlaying}
@@ -113,6 +122,10 @@ const Player = ({ song, index, select, current }) => {
           P
         </button>
         <button onClick={stopSong}>S</button>
+      </div>
+      <div className="buttons-container">
+        <button onClick={handlePrev}>V</button>
+        <button onClick={handleNext}>N</button>
       </div>
     </div>
   );

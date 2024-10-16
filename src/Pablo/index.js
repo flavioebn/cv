@@ -8,26 +8,44 @@ const shuffle = songs
   .map(({ value }) => value);
 
 const Pablo = () => {
-  const [current, setCurrent] = useState(shuffle[0].title);
+  const [current, setCurrent] = useState(0);
 
   const handleSelect = (e) => {
     console.log(e);
-    setCurrent(e.title);
+    // setCurrent(e.title);
+  };
+
+  const handleNext = () => {
+    if (current === shuffle.length - 1) return;
+    setCurrent((prev) => prev + 1);
+  };
+
+  const handlePrev = () => {
+    if (current === 0) return;
+    setCurrent((prev) => prev - 1);
   };
 
   return (
     <div style={{ paddingBottom: "35px" }}>
-      {songs.length > 0 &&
-        songs.map((i, idx) => {
+      <Player
+        song={shuffle[current]}
+        index={current}
+        select={() => handleSelect(current)}
+        next={handleNext}
+        prev={handlePrev}
+      />
+      <div className="song-list">
+        {shuffle.map((i, idx) => {
           return (
-            <Player
-              song={i}
-              index={idx}
-              select={() => handleSelect(i)}
-              current={current}
-            />
+            <p
+              className={`${current === idx && "active"}`}
+              onClick={() => setCurrent(idx)}
+            >
+              {i.title}
+            </p>
           );
         })}
+      </div>
     </div>
   );
 };
