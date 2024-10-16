@@ -18,7 +18,7 @@ const Pablo = () => {
   return (
     <div style={{ paddingBottom: "35px" }}>
       {songs.length > 0 &&
-        shuffle.map((i, idx) => {
+        songs.map((i, idx) => {
           return (
             <Player
               song={i}

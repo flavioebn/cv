@@ -25,19 +25,19 @@ const Player = ({ song, index, select, current }) => {
   };
 
   // Função para criar o fade out
-  const fadeOut = (duration) => {
+  const fadeOut = async (duration) => {
     const fadeDuration = 500; // Meio segundo (500ms) para o fade out
     const intervalTime = 50; // Intervalo de ajuste do volume
     const fadeSteps = fadeDuration / intervalTime;
     let volumeStep = 1 / fadeSteps;
-    const fadeInterval = setInterval(() => {
+    const fadeInterval = setInterval(async () => {
       if (audioRef.current.volume > 0) {
         audioRef.current.volume = Math.max(
           audioRef.current.volume - volumeStep,
           0
         );
       } else {
-        audioRef.current.pause(); // Pausa o áudio quando o volume atinge 0
+        await audioRef.current.pause(); // Pausa o áudio quando o volume atinge 0
         clearInterval(fadeInterval); // Interrompe o fade out
         setIsPlaying(false); // Define que não está tocando mais
       }
@@ -45,17 +45,17 @@ const Player = ({ song, index, select, current }) => {
   };
 
   // Função para tocar por um período específico
-  const playForDuration = (duration, start) => {
+  const playForDuration = async (duration, start) => {
     if (audioRef.current) {
       clearTimeout(timerId); // Limpa qualquer timer ativo
       audioRef.current.currentTime = start; // Define o ponto inicial
-      audioRef.current.play(); // Toca o áudio
+      await audioRef.current.play(); // Toca o áudio
       setIsPlaying(true);
       fadeIn(0.2); // Fade in no início
 
       // Para o áudio após 'duration' segundos, aplicando fade out
-      const timeoutId = setTimeout(() => {
-        audioRef.current.pause();
+      const timeoutId = setTimeout(async () => {
+        await audioRef.current.pause();
         setIsPlaying(false);
       }, duration * 1000);
       setTimerId(timeoutId);
@@ -63,11 +63,11 @@ const Player = ({ song, index, select, current }) => {
   };
 
   // Função para tocar a música inteira a partir de um ponto inicial
-  const playFullAudio = (start) => {
+  const playFullAudio = async (start) => {
     if (audioRef.current) {
       clearTimeout(timerId); // Limpa qualquer timer ativo
       audioRef.current.currentTime = start; // Define o ponto inicial
-      audioRef.current.play(); // Toca o áudio
+      await audioRef.current.play(); // Toca o áudio
       setIsPlaying(true);
       fadeIn(0.5); // Fade in no início
 
@@ -76,9 +76,9 @@ const Player = ({ song, index, select, current }) => {
     }
   };
 
-  const stopSong = () => {
+  const stopSong = async () => {
     if (audioRef.current) {
-      audioRef.current.pause();
+      await audioRef.current.pause();
       audioRef.current.currentTime = 0; // Reseta o tempo para o início
       setIsPlaying(false);
     }

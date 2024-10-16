@@ -84,11 +84,11 @@ export const songs = [
     title: "jet lag",
     times: [0.6, 0.6, 94],
   },
-  {
-    src: require("./libero sim.mp3"),
-    title: "libero sim",
-    times: [45, 45, 77],
-  },
+  // {
+  //   src: require("./libero sim.mp3"),
+  //   title: "libero sim",
+  //   times: [45, 45, 77],
+  // },
   {
     src: require("./love love.mp3"),
     title: "love love",
@@ -139,11 +139,11 @@ export const songs = [
     title: "saxobeat",
     times: [1.4, 1.4, 24.5],
   },
-  {
-    src: require("./se essa bunda.mp3"),
-    title: "se essa bunda",
-    times: [0, 0, 14],
-  },
+  // {
+  //   src: require("./se essa bunda.mp3"),
+  //   title: "se essa bunda",
+  //   times: [0, 0, 14],
+  // },
   {
     src: require("./se ta solteira.mp3"),
     title: "se ta solteira",
@@ -225,8 +225,43 @@ export const songs = [
     times: [2, 2, 32],
   },
   {
-    src: require("./futuro.mp3"),
-    title: "futuro",
-    times: [0, 0, 32],
+    src: require("./complicated.mp3"),
+    title: "complicado",
+    times: [2, 2, 60],
   },
+  {
+    src: require("./kim.mp3"),
+    title: "kim",
+    times: [0, 2, 22],
+  },
+  {
+    src: require("./mansao.mp3"),
+    title: "sem cao",
+    times: [16, 16, 36],
+  },
+  {
+    src: require("./poze anos.mp3"),
+    title: "no baile",
+    times: [0, 0, 18],
+  },
+  {
+    src: require("./senhorita.mp3"),
+    title: "señorita",
+    times: [6, 6, 74],
+  },
+  {
+    src: require("./winx.mp3"),
+    title: "sei que voce",
+    times: [0.3, 0.3, 1],
+  },
+  {
+    src: require("./zodiaco.mp3"),
+    title: "faça elevar",
+    times: [2, 2, 38],
+  },
+  // {
+  //   src: require("./futuro.mp3"),
+  //   title: "futuro",
+  //   times: [0, 0, 32],
+  // },
 ];
