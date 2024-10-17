@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Player from "./player";
 import { songs } from "./songs/index";
 
-const shuffle = songs
-  .map((value) => ({ value, sort: Math.random() }))
-  .sort((a, b) => a.sort - b.sort)
-  .map(({ value }) => value);
+const shuffle = songs;
+// .map((value) => ({ value, sort: Math.random() }))
+// .sort((a, b) => a.sort - b.sort)
+// .map(({ value }) => value);
 
 const Pablo = () => {
   const [current, setCurrent] = useState(0);
