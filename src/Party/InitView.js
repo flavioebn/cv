@@ -23,7 +23,9 @@ const RenderParty = ({
   getActions,
   getInfos,
   getTraits,
+  editHp,
 }) => {
+  const [hp, setHp] = useState(0);
   const isEnemy = pc.inventory ? false : true;
   return (
     <div
@@ -87,6 +89,39 @@ const RenderParty = ({
             type="number"
           />
           <p>/ {pc.maxHp}</p>
+          <div>
+            <input
+              type="number"
+              value={hp}
+              onChange={(e) => setHp(e.target.value)}
+            />
+            <button
+              onClick={() =>
+                updateTemp(
+                  parseInt(+pc.curHp - +hp),
+                  "curHp",
+                  idx,
+                  isEnemy,
+                  pc._id
+                )
+              }
+            >
+              -
+            </button>
+            <button
+              onClick={() =>
+                updateTemp(
+                  parseInt(+pc.curHp + +hp),
+                  "curHp",
+                  idx,
+                  isEnemy,
+                  pc._id
+                )
+              }
+            >
+              +
+            </button>
+          </div>
         </div>
         <div>
           <img src={caIcon} alt="ac" />
