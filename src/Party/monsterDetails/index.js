@@ -31,3 +31,4 @@ export { wbtwMonsters } from "./wbtw";
 export { wdhMonsters } from "./wdh";
 export { wdmmMonsters } from "./wdmm";
 export { oowMonsters } from "./oow";
+export { xgeMonsters } from "./xge";

@@ -19,13 +19,14 @@ const mixes = [
   { title: "Relax", id: "HB50lp5N0Uk" },
   { title: "Festival", id: "8u9ZC8WLIiU" },
   { title: "Deep waters", id: "MhiSjz0c7MI" },
+  { title: "Snow", id: "mDn-DNVfr-o" },
+  { title: "Xmas", id: "PPZ6fMdjQC4" },
 ];
 
 const singles = [
   { title: "Hoist the colours", id: "cbn1PFvKu6U" },
   { title: "Wellerman", id: "bNQSMTNSnUw" },
   { title: "Baleiro", id: "rKyuLzadyFY" },
-  { title: "Hoist the colours", id: "cbn1PFvKu6U" },
   { title: "Priscila's", id: "Lg2TTkhFy40" },
   { title: "Raphael", id: "xMo7ugWudCA" },
   { title: "Build that wall", id: "Jz8c17upEwM" },
@@ -48,14 +49,29 @@ const YoutubeModal = ({ visible }) => {
       ></embed>
       <div className="list">
         <div className="selectors">
-          <p onClick={() => setList(mixes)}>Mixes</p>
-          <p onClick={() => setList(singles)}>Singles</p>
+          <p
+            onClick={() => setList(mixes)}
+            className={`${
+              mixes.filter((i) => i.id === youtubeId).length > 0 && "selected"
+            }`}
+          >
+            Mixes
+          </p>
+          <p
+            onClick={() => setList(singles)}
+            className={`${
+              singles.filter((i) => i.id === youtubeId).length === 1 &&
+              "selected"
+            }`}
+          >
+            Singles
+          </p>
         </div>
         <div className="songs">
           {list.map((i) => {
             return (
               <button
-                className="list-option"
+                className={`list-option ${i.id === youtubeId && "selected"}`}
                 onClick={() => setYoutubeId(i.id)}
               >
                 {i.title}

@@ -20,6 +20,7 @@ import PokeInfos from "./PokeGo/info";
 // import Player from "./Player";
 // import CreatePlayer from "./Player/create";
 import Pablo from "./Pablo";
+import ClickWhen from "./ClickWhen";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
       {/* <Route path="/player" element={<Player />} />
       <Route path="/player/create" element={<CreatePlayer />} /> */}
       <Route path="/pablo" element={<Pablo />} />
+      <Route path="/clickwhen" element={<ClickWhen />} />
     </Routes>
   );
 }

@@ -1,0 +1,21 @@
+.panel {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background: #696969;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: bottom 0.5s ease;
+  z-index: 1000;
+  border-radius: 16px 16px 0px 0px;
+}
+
+.panel.open {
+  bottom: 0;
+}
+
+.panel.closed {
+  bottom: -100%;
+}

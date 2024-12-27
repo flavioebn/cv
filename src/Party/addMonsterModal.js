@@ -53,6 +53,30 @@ const MonsterModal = ({ onAdd, onClose }) => {
     "Monsters Manual",
     "Rise of Tiamat",
     "The Orrery of The Wanderer",
+    "Dragonlance",
+    "Explorer's Guide to Wildemount",
+    "Eberron",
+    "Ravnica",
+    "Horde of the Dragon Queen",
+    "Icewind Dale",
+    "Radiant Citadel",
+    "Theros",
+    "Mordenkainen: Monsters of the Multiverse",
+    "Mordekainen's Tome of Foes",
+    "Out of The Abyss",
+    "The Orrerry of the Wanderer",
+    "Princes of the Apocalypse",
+    "Strixhaven",
+    "Storm King's Thunder",
+    "Tasha's",
+    "Tales from the Yawning Portal",
+    "Tomb of Annihilation",
+    "Volos's Guide to Monsters",
+    "Ravenloft",
+    "The Wild Beyond the Witchlight",
+    "Waterdeep: Dragon Heist",
+    "Waterdeep: Dungeon of the Mad Mage",
+    "Xanathar's",
   ];
 
   const handleChangeSource = (e) => {
@@ -90,6 +114,78 @@ const MonsterModal = ({ onAdd, onClose }) => {
       case "The Orrery of The Wanderer":
         setMonstersList(monsterDetails.oowMonsters);
         break;
+      case "Dragonlance":
+        setMonstersList(monsterDetails.dsotdqMonsters);
+        break;
+      case "Explorer's Guide to Wildemount":
+        setMonstersList(monsterDetails.egwMonsters);
+        break;
+      case "Eberron":
+        setMonstersList(monsterDetails.erlwMonsters);
+        break;
+      case "Ravnica":
+        setMonstersList(monsterDetails.ggrMonsters);
+        break;
+      case "Horde of the Dragon Queen":
+        setMonstersList(monsterDetails.hotdqMonsters);
+        break;
+      case "Icewind Dale":
+        setMonstersList(monsterDetails.idrotfMonsters);
+        break;
+      case "Radiant Citadel":
+        setMonstersList(monsterDetails.jttrcMonsters);
+        break;
+      case "Theros":
+        setMonstersList(monsterDetails.motMonsters);
+        break;
+      case "Mordenkainen: Monsters of the Multiverse":
+        setMonstersList(monsterDetails.mpmmMonsters);
+        break;
+      case "Mordekainen's Tome of Foes":
+        setMonstersList(monsterDetails.mtfMonsters);
+        break;
+      case "Out of The Abyss":
+        setMonstersList(monsterDetails.ootaMonsters);
+        break;
+      case "The Orrerry of the Wanderer":
+        setMonstersList(monsterDetails.oowMonsters);
+        break;
+      case "Princes of the Apocalypse":
+        setMonstersList(monsterDetails.potaMonsters);
+        break;
+      case "Strixhaven":
+        setMonstersList(monsterDetails.sccMonsters);
+        break;
+      case "Storm King's Thunder":
+        setMonstersList(monsterDetails.sktMonsters);
+        break;
+      case "Tasha's":
+        setMonstersList(monsterDetails.tceMonsters);
+        break;
+      case "Tales from the Yawning Portal":
+        setMonstersList(monsterDetails.tftypMonsters);
+        break;
+      case "Tomb of Annihilation":
+        setMonstersList(monsterDetails.toaMonsters);
+        break;
+      case "Volos's Guide to Monsters":
+        setMonstersList(monsterDetails.vgmMonsters);
+        break;
+      case "Ravenloft":
+        setMonstersList(monsterDetails.vrgrMonsters);
+        break;
+      case "The Wild Beyond the Witchlight":
+        setMonstersList(monsterDetails.wbtwMonsters);
+        break;
+      case "Waterdeep: Dragon Heist":
+        setMonstersList(monsterDetails.wdhMonsters);
+        break;
+      case "Waterdeep: Dungeon of the Mad Mage":
+        setMonstersList(monsterDetails.wdmmMonsters);
+        break;
+      case "Xanathar's":
+        setMonstersList(monsterDetails.xgeMonsters);
+        break;
 
       default:
         break;
@@ -102,7 +198,7 @@ const MonsterModal = ({ onAdd, onClose }) => {
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={sources}
+        options={sources.sort()}
         value={source}
         onChange={(event, newValue) => {
           handleChangeSource(newValue);
