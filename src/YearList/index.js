@@ -133,31 +133,32 @@ const YearList = () => {
         </Modal>
       )}
 
-      {items.map((category, categoryIndex) => (
-        <div key={categoryIndex}>
-          <h2>
-            {category.title} -
-            <button onClick={() => handleItemModalVisible(categoryIndex)}>
-              +
-            </button>
-            <button onClick={() => deleteCategory(categoryIndex)}>🗑️</button>
-          </h2>
-          {category.data.map((item, itemIndex) => (
-            <p key={itemIndex}>
-              {item.title} - {item.qty}x
-              <button onClick={() => increaseQty(categoryIndex, itemIndex)}>
+      {items?.length > 0 &&
+        items?.map((category, categoryIndex) => (
+          <div key={categoryIndex}>
+            <h2>
+              {category.title} -
+              <button onClick={() => handleItemModalVisible(categoryIndex)}>
                 +
               </button>
-              <button onClick={() => decreaseQty(categoryIndex, itemIndex)}>
-                -
-              </button>
-              <button onClick={() => deleteItem(categoryIndex, itemIndex)}>
-                🗑️
-              </button>
-            </p>
-          ))}
-        </div>
-      ))}
+              <button onClick={() => deleteCategory(categoryIndex)}>🗑️</button>
+            </h2>
+            {category.data.map((item, itemIndex) => (
+              <p key={itemIndex}>
+                {item.title} - {item.qty}x
+                <button onClick={() => increaseQty(categoryIndex, itemIndex)}>
+                  +
+                </button>
+                <button onClick={() => decreaseQty(categoryIndex, itemIndex)}>
+                  -
+                </button>
+                <button onClick={() => deleteItem(categoryIndex, itemIndex)}>
+                  🗑️
+                </button>
+              </p>
+            ))}
+          </div>
+        ))}
 
       <div className="buttons">
         <button onClick={handleCategoryModalVisible}>
