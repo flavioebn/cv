@@ -1,18 +1,14 @@
 import Modal from "../components/modal";
 import plusIcon from "../assets/icons/plus.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getFromStorage, setStorage } from "../utils/utils";
 
 const YearList = () => {
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [itemModalVisible, setItemModalVisible] = useState(false);
   const [newCategory, setNewCategory] = useState("");
   const [newItem, setNewItem] = useState({ title: "", categoryIndex: null });
-  const [items, setItems] = useState([
-    {
-      title: "Boardgames",
-      data: [{ title: "Convidados Indesejados", qty: 1 }],
-    },
-  ]);
+  const [items, setItems] = useState(getFromStorage("yearlist"));
 
   const handleCategoryModalVisible = () => {
     setCategoryModalVisible(!categoryModalVisible);
@@ -34,6 +30,10 @@ const YearList = () => {
     setNewCategory("");
     handleCategoryModalVisible();
   };
+
+  useEffect(() => {
+    setStorage("yearlist", items);
+  }, [items]);
 
   const addItem = () => {
     setItems((prev) =>
