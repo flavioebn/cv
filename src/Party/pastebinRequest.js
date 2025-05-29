@@ -19,7 +19,7 @@ export const postPastebin = async (body) => {
   };
 
   const response = await fetch(
-    "https://proxyanywhere-flavioebn.b4a.run/https://pastebin.com/api/api_post.php",
+    "https://pastebin.com/api/api_post.php",
     requestOptions
   )
     .then((res) => res.text())

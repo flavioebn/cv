@@ -84,8 +84,6 @@ const Player = ({ song, index, select, next, prev }) => {
     }
   };
 
-  console.log(song);
-
   const handleNext = () => {
     stopSong();
     next();

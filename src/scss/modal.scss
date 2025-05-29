@@ -9,81 +9,114 @@
   position: fixed;
 }
 
-.youtube-modal {
+.media-modal {
   z-index: 25;
-  width: 750px;
+  width: 820px;
   position: fixed;
-  height: 250px;
+  height: 650px;
   background-color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  border-radius: 0px 16px 0px 0px;
+  transition: bottom 0.1s ease-in-out;
 
   color: black;
   padding: 16px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 0px 16px 0px 0px;
-  transition: bottom 0.1s ease-in-out;
 
   &.visible {
     bottom: 0;
   }
 
   &.hide {
-    bottom: -50%;
+    bottom: -75%;
   }
 
-  .list {
+  .youtube-player {
     display: flex;
-    flex-direction: column;
-    width: 200px;
-    height: 100%;
-    padding: 8px;
+    justify-content: space-around;
+    align-items: center;
+    height: 250px;
 
-    .selectors {
+    .list {
       display: flex;
-      justify-content: space-around;
-      margin: 0px;
+      flex-direction: column;
+      width: 200px;
+      height: 100%;
+      padding: 8px;
 
-      p {
+      .selectors {
+        display: flex;
+        justify-content: space-around;
         margin: 0px;
-        margin-bottom: 6px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: 0.1s ease;
 
-        &.selected {
-          font-weight: bold;
+        p {
+          margin: 0px;
+          margin-bottom: 6px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: 0.1s ease;
+
+          &.selected {
+            font-weight: bold;
+          }
+
+          &:hover {
+            text-decoration: underline;
+            transform: scale(1.2);
+          }
         }
+      }
 
-        &:hover {
-          text-decoration: underline;
-          transform: scale(1.2);
+      .songs {
+        overflow: scroll;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        display: flex;
+        flex-direction: column;
+
+        .list-option {
+          text-align: left;
+          margin-bottom: 6px;
+          border: 1px solid rgb(188, 188, 188);
+          height: 30px;
+          font-size: 18px;
+          border-radius: 4px;
+          padding-left: 8px;
+
+          &:hover {
+            background-color: white;
+          }
+
+          &.selected {
+            font-weight: bold;
+          }
         }
       }
     }
+  }
 
-    .songs {
-      overflow: scroll;
+  .ambient {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+    .ambient-player {
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: scroll;
+      height: 350px;
+      padding-bottom: 45px;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
-      display: flex;
-      flex-direction: column;
 
-      .list-option {
-        text-align: left;
-        margin-bottom: 6px;
-        border: 1px solid rgb(188, 188, 188);
-        height: 30px;
-        font-size: 18px;
-        border-radius: 4px;
-        padding-left: 8px;
+      .ost-player {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
-        &:hover {
-          background-color: white;
-        }
-
-        &.selected {
-          font-weight: bold;
+        p {
+          margin: 0px;
         }
       }
     }

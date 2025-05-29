@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import OstPlayer from "./ost/ostPlayer";
+import { osts } from "./ost";
 
 const mixes = [
   { title: "Battle", id: "w0sUw735gRw" },
@@ -39,46 +41,58 @@ const YoutubeModal = ({ visible }) => {
   const [list, setList] = useState(mixes);
 
   return (
-    <div className={`youtube-modal ${visible ? "visible" : "hide"}`}>
-      <embed
-        src={`https://youtube.com/embed/${youtubeId}?autoplay=1`}
-        allowscriptaccess="always"
-        allowfullscreen="false"
-        width="480"
-        height="200"
-      ></embed>
-      <div className="list">
-        <div className="selectors">
-          <p
-            onClick={() => setList(mixes)}
-            className={`${
-              mixes.filter((i) => i.id === youtubeId).length > 0 && "selected"
-            }`}
-          >
-            Mixes
-          </p>
-          <p
-            onClick={() => setList(singles)}
-            className={`${
-              singles.filter((i) => i.id === youtubeId).length === 1 &&
-              "selected"
-            }`}
-          >
-            Singles
-          </p>
+    <div className={`media-modal ${visible ? "visible" : "hide"}`}>
+      <div className="youtube-player">
+        <iframe
+          id="youtuber-player"
+          title="player"
+          type="text/html"
+          width="480"
+          height="200"
+          src={`https://youtube.com/embed/${youtubeId}?autoplay=1&showinfo=0&loop=1&playlist=${youtubeId}`}
+          frameborder="0"
+        />
+        <div className="list">
+          <div className="selectors">
+            <p
+              onClick={() => setList(mixes)}
+              className={`${
+                mixes.filter((i) => i.id === youtubeId).length > 0 && "selected"
+              }`}
+            >
+              Mixes
+            </p>
+            <p
+              onClick={() => setList(singles)}
+              className={`${
+                singles.filter((i) => i.id === youtubeId).length === 1 &&
+                "selected"
+              }`}
+            >
+              Singles
+            </p>
+          </div>
+          <div className="songs">
+            {list.map((i) => {
+              return (
+                <button
+                  className={`list-option ${i.id === youtubeId && "selected"}`}
+                  onClick={() => setYoutubeId(i.id)}
+                >
+                  {i.title}
+                </button>
+              );
+            })}
+          </div>
         </div>
-        <div className="songs">
-          {list.map((i) => {
-            return (
-              <button
-                className={`list-option ${i.id === youtubeId && "selected"}`}
-                onClick={() => setYoutubeId(i.id)}
-              >
-                {i.title}
-              </button>
-            );
+      </div>
+      <div className="ambient">
+        <div className="ambient-player">
+          {osts.map((i) => {
+            return <OstPlayer id={i.src} title={i.title} />;
           })}
         </div>
+        <div className="one-shots"></div>
       </div>
     </div>
   );
