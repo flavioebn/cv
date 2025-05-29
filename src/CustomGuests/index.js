@@ -112,14 +112,14 @@ const guests = [
   },
 ];
 
-const reasonTypes = [
-  "reasonType1",
-  "reasonType2",
-  "reasonType3",
-  "reasonType4",
-  "reasonType5",
-  "reasonType6",
-];
+// const reasonTypes = [
+//   "reasonType1",
+//   "reasonType2",
+//   "reasonType3",
+//   "reasonType4",
+//   "reasonType5",
+//   "reasonType6",
+// ];
 
 const getRandomPath = () => {
   const getRandomRoom = (currentRoom, visitedRooms) => {
