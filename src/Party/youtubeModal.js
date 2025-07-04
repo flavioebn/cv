@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import OstPlayer from "./ost/ostPlayer";
-import { osts } from "./ost";
+import { osts, singles as singleShots } from "./ost";
 
 const mixes = [
   { title: "Battle", id: "w0sUw735gRw" },
@@ -92,7 +92,11 @@ const YoutubeModal = ({ visible }) => {
             return <OstPlayer id={i.src} title={i.title} />;
           })}
         </div>
-        <div className="one-shots"></div>
+        <div className="one-shots">
+          {singleShots.map((i) => {
+            return <OstPlayer id={i.src} title={i.title} single />;
+          })}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-const OstPlayer = ({ title, id }) => {
+const OstPlayer = ({ title, id, single }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   // Ensure audio starts at 0 volume
@@ -12,6 +12,7 @@ const OstPlayer = ({ title, id }) => {
 
   // Função para tocar a música inteira a partir de um ponto inicial
   const playFullAudio = async () => {
+    console.log("Playing audio:", title);
     if (audioRef.current) {
       if (audioRef.current.volume === 0) audioRef.current.volume = 0.5;
       await audioRef.current.play(); // Toca o áudio
@@ -19,7 +20,7 @@ const OstPlayer = ({ title, id }) => {
       //   fadeIn(0.5); // Fade in no início
 
       // Escuta quando o áudio termina e aplica o fade out
-      audioRef.current.onended = () => audioRef.current.play();
+      if (!single) audioRef.current.onended = () => audioRef.current.play();
     }
   };
 

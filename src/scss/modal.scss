@@ -100,7 +100,8 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
 
-    .ambient-player {
+    .ambient-player,
+    .one-shots {
       display: flex;
       flex-wrap: wrap;
       overflow-y: scroll;

@@ -19,4 +19,23 @@ export const osts = [
     src: require("./forestNight.mp3"),
     title: "Forest Night",
   },
+  {
+    src: require("./ocean.mp3"),
+    title: "Oceano",
+  },
+  {
+    src: require("./rain.mp3"),
+    title: "Rain",
+  },
+];
+
+export const singles = [
+  {
+    src: require("./bell.mp3"),
+    title: "Bell",
+  },
+  {
+    src: require("./thunder.mp3"),
+    title: "Thunder",
+  },
 ];
