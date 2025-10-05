@@ -23,6 +23,7 @@ import Pablo from "./Pablo";
 import ClickWhen from "./ClickWhen";
 import YearList from "./YearList";
 import CustomGuests from "./CustomGuests";
+import Underbingo from "./Underbingo";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
       <Route path="/yearlist" element={<YearList />} />
       <Route path="/clickwhen" element={<ClickWhen />} />
       <Route path="/customguests" element={<CustomGuests />} />
+      <Route path="/underbingo" element={<Underbingo />} />
     </Routes>
   );
 }
