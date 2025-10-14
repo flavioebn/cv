@@ -24,6 +24,7 @@ import ClickWhen from "./ClickWhen";
 import YearList from "./YearList";
 import CustomGuests from "./CustomGuests";
 import Underbingo from "./Underbingo";
+import InstaFollowers from "./InstaFollowers";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
       <Route path="/clickwhen" element={<ClickWhen />} />
       <Route path="/customguests" element={<CustomGuests />} />
       <Route path="/underbingo" element={<Underbingo />} />
+      <Route path="/instacheck" element={<InstaFollowers />} />
     </Routes>
   );
 }
