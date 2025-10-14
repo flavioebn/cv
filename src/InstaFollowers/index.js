@@ -29,7 +29,7 @@ const InstaFollowers = () => {
   const handleOpenInsta = async () => {
     await navigator.clipboard.writeText(getFollowersText(username));
     window.alert(
-      "Nessa janela do Insta aperta Ctrl + Shift + I pra abrir o console, cola nele o código que já ta no teu Ctrl + V, e aperta Enter"
+      "Nessa janela do Insta aperta Ctrl + Shift + J pra abrir o console, cola nele o código que já ta no teu Ctrl + V, e aperta Enter. \n\n SE NÃO ESTIVER LOGADO NÃO VAI FUNCIONAR \n\n Obs: Se der um erro com [Violation], pode ignorar. \n Obs2: Se aparecer um Warning (texto amarelo), só digita 'allow pasting' antes de colar o código"
     );
     setInstaOpen(true);
     window.open(
@@ -50,7 +50,7 @@ const InstaFollowers = () => {
           <label>1.</label>
           <input
             value={username}
-            placeholder="Tua @ do insta"
+            placeholder="Teu user do insta (sem a @)"
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
