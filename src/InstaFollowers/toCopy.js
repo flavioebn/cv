@@ -116,7 +116,7 @@ let iDontFollowBack = [];
     window.alert("Acabou! Segue o que ta ali no console agora ->");
     console.log(\`Acabou!\`);
     console.log({ CLICA_COM_O_DA_DIREITA_AQUI });
-    console.log(\`Clica aqui em cima e em copiar objeto/copy object pra pegar os resultados, e volta pro meu site pra colar eles na etapa 3\`);
+    console.log(\`Clica aqui na linha de cima com o botão da direita e clica em copiar objeto/copy object pra pegar os resultados, e volta pro meu site pra colar eles na etapa 3\`);
   } catch (err) {
     console.log({ err });
   }
