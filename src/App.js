@@ -25,6 +25,7 @@ import YearList from "./YearList";
 import CustomGuests from "./CustomGuests";
 import Underbingo from "./Underbingo";
 import InstaFollowers from "./InstaFollowers";
+import NachoCia from "./NachoCia";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
       <Route path="/customguests" element={<CustomGuests />} />
       <Route path="/underbingo" element={<Underbingo />} />
       <Route path="/instacheck" element={<InstaFollowers />} />
+      <Route path="/nachoecia" element={<NachoCia />} />
     </Routes>
   );
 }

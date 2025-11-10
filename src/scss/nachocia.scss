@@ -1,0 +1,21 @@
+.nachocia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .logo {
+    border-radius: 180px;
+    width: 140px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+  }
+
+  .photos {
+    .thumb {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      margin: 5px;
+    }
+  }
+}
