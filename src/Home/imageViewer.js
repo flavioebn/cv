@@ -1,8 +1,9 @@
 import React from "react";
 import arrowLeft from "../assets/icons/arrow-left.svg";
 import arrowRight from "../assets/icons/arrow-right.svg";
+import downloadIcon from "../assets/icons/download.svg";
 
-const ImageViewer = ({ img }) => {
+const ImageViewer = ({ img, downloadable = false }) => {
   const [open, setOpen] = React.useState(false);
   const [idx, setIdx] = React.useState(0);
   const [image, setImage] = React.useState();
@@ -75,6 +76,17 @@ const ImageViewer = ({ img }) => {
     setImage(img.images[newIndex]);
   };
 
+  const handleDownload = () => {
+    if (image) {
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = `nacho-cia-photo-${idx + 1}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   const RenderImages = () => {
     if (!img.images || img.images.length === 0) return null;
 
@@ -102,6 +114,17 @@ const ImageViewer = ({ img }) => {
           <button onClick={previousImage} className="left">
             <img src={arrowLeft} alt="left-arrow" />
           </button>
+          {downloadable && (
+            <button className="download-button">
+              <img
+                src={downloadIcon}
+                alt="download-icon"
+                className="download-icon"
+                onClick={handleDownload}
+              />
+            </button>
+          )}
+
           <div onClick={() => setOpen(false)} className="image-background" />
         </div>
       )}

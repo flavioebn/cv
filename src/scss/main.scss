@@ -477,6 +477,7 @@ h1 {
     max-height: 85vh;
     z-index: 5;
   }
+
   .image-background {
     z-index: 4;
     position: fixed;
@@ -515,6 +516,43 @@ h1 {
       }
       right: -50px;
       border-radius: 75px 0px 0px 75px;
+    }
+  }
+
+  .download-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 90px;
+    background-color: $base-purple;
+
+    position: fixed !important;
+    bottom: 40px !important;
+    right: 40px !important;
+    top: unset !important;
+    left: unset !important;
+    transform: none !important;
+    max-width: unset !important;
+    max-height: unset !important;
+    z-index: 6;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2) !important;
+    }
+
+    img {
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(77deg)
+        brightness(103%) contrast(106%);
+      width: 40px !important;
+      height: 40px !important;
+      top: unset !important;
+      left: unset !important;
+      transform: none !important;
+      max-width: unset !important;
+      max-height: unset !important;
     }
   }
 }

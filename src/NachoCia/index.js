@@ -18,7 +18,7 @@ const NachoCia = () => {
     <div className="nachocia">
       <img src={nachoLogo} className="logo" alt="Nacho Cia Logo" />
       <div className="photos">
-        <ImageViewer img={{ images: images }} />
+        <ImageViewer img={{ images: images }} downloadable={true} />
       </div>
     </div>
   );

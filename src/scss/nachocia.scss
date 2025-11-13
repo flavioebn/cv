@@ -16,6 +16,16 @@
       height: 150px;
       object-fit: cover;
       margin: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid transparent;
+      border-radius: 12px;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(164, 103, 189, 0.3);
+        border-color: $base-purple;
+      }
     }
   }
 }
