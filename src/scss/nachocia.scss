@@ -3,6 +3,21 @@
   flex-direction: column;
   align-items: center;
 
+  .event-selector {
+    margin-bottom: 24px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid $base-purple;
+    font-family: "Quicksand", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: darken($base-purple, 10%);
+    }
+  }
+
   .logo {
     border-radius: 180px;
     width: 140px;

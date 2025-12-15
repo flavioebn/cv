@@ -1,22 +1,44 @@
 import React, { useState, useEffect } from "react";
 import nachoLogo from "../assets/images/nachoCia.png";
-import nachoCiaImages from "../assets/images/nachociafotos";
+import { menacho2025, gabi2025 } from "../assets/images/nachoecia";
 import ImageViewer from "../Home/imageViewer";
+
+const events = [
+  { name: "Gabiversário 2025", images: gabi2025 },
+  { name: "Menachoversário 2025", images: menacho2025 },
+];
 
 const NachoCia = () => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
     // Get all images and convert them to the format ImageViewer expects
-    const imageList = Object.values(nachoCiaImages).map(
+    const imageList = Object.values(gabi2025).map(
       (value) => value.default || value // ImageViewer expects just the image URLs
     );
     setImages(imageList);
   }, []);
 
+  const selectEvent = (e) => {
+    const selectedEvent = events.find((event) => event.name === e.target.value);
+    if (selectedEvent) {
+      const imageList = Object.values(selectedEvent.images).map(
+        (value) => value.default || value
+      );
+      setImages(imageList);
+    }
+  };
+
   return (
     <div className="nachocia">
       <img src={nachoLogo} className="logo" alt="Nacho Cia Logo" />
+      <select onChange={selectEvent} className="event-selector">
+        {events.map((event, index) => (
+          <option key={index} value={event.name}>
+            {event.name}
+          </option>
+        ))}
+      </select>
       <div className="photos">
         <ImageViewer img={{ images: images }} downloadable={true} />
       </div>

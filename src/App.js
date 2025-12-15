@@ -26,6 +26,7 @@ import CustomGuests from "./CustomGuests";
 import Underbingo from "./Underbingo";
 import InstaFollowers from "./InstaFollowers";
 import NachoCia from "./NachoCia";
+import CoordCalc from "./CoordCalc";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
       <Route path="/underbingo" element={<Underbingo />} />
       <Route path="/instacheck" element={<InstaFollowers />} />
       <Route path="/nachoecia" element={<NachoCia />} />
+      <Route path="/coordcalc" element={<CoordCalc />} />
     </Routes>
   );
 }
