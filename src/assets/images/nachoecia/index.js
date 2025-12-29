@@ -16,4 +16,8 @@ export const gabi2025 = importAll(
   require.context("./gabi2025", false, /\.(jpe?g|png|gif|svg)$/i)
 );
 
+export const jo2025 = importAll(
+  require.context("./jo2025", false, /\.(jpe?g|png|gif|svg)$/i)
+);
+
 // You can also export individual images by name if needed
