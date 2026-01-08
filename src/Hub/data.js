@@ -17,6 +17,18 @@ export const data = [
     to: "/",
   },
   {
+    title: "Checklist",
+    desc: "A simple checklist app to keep track of what your things",
+    image: hub8,
+    to: "/checklist",
+  },
+  {
+    title: "Recipes",
+    desc: "A recipes book, also generates a shopping list based on the recipes. *NOT mobile friendly*",
+    image: hub3,
+    to: "/recipes",
+  },
+  {
     title: "Party & Initiative tracker",
     desc: "My D&D 5e DM app to track my party details and initiative, and write my notes as the game goes on. *NOT mobile friendly*",
     image: hub6,
@@ -33,12 +45,6 @@ export const data = [
     desc: "Guess the MTG card (Gets a new card on refresh)",
     image: hub9,
     to: "/mtgdle",
-  },
-  {
-    title: "Checklist",
-    desc: "A simple checklist app to keep track of what your things",
-    image: hub8,
-    to: "/checklist",
   },
   {
     title: "Drag & Drop",
