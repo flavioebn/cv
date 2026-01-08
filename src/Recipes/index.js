@@ -213,15 +213,17 @@ const Recipes = () => {
                 </p>
               );
             })}
-            <button
-              className="copy-list"
-              onClick={(e) => {
-                e.stopPropagation();
-                copyShoppingList();
-              }}
-            >
-              <img className="copy-icon" src={copyIcon} alt="copyIcon" />
-            </button>
+            {shoppingListOpen && (
+              <button
+                className="copy-list"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copyShoppingList();
+                }}
+              >
+                <img className="copy-icon" src={copyIcon} alt="copyIcon" />
+              </button>
+            )}
           </div>
           {shoppingListOpen && (
             <>
