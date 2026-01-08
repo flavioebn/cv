@@ -1,6 +1,19 @@
 .recipes {
   padding: 8px 16px;
 
+  .select-recipes-order {
+    gap: 8px;
+    font-family: "Quicksand", sans-serif;
+    width: 100%;
+    font-size: 1rem;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 0px solid $base-purple;
+    color: $base-purple;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
   .no-recipe-text {
     text-align: center;
     font-size: 2.5rem;
@@ -11,15 +24,18 @@
 
   .end-buttons {
     position: fixed;
+    z-index: 14;
     bottom: 32px;
-    right: 32px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     gap: 16px;
 
     .add-recipe,
-    .check-list {
-      background-color: $base-purple;
-      border: 3px solid black;
+    .check-list,
+    .change-list {
+      background-color: black;
+      border: 3px solid $base-purple;
       color: white;
       height: 64px;
       width: 64px;
@@ -30,6 +46,12 @@
         height: 48px;
         filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(77deg)
           brightness(103%) contrast(106%);
+      }
+    }
+
+    .change-list {
+      img {
+        height: 40px;
       }
     }
   }
@@ -81,10 +103,8 @@
     }
 
     button {
-      background-color: $base-purple;
-      border: none;
-      height: 44px;
-      width: 44px;
+      background-color: black;
+      border: 3px solid $base-purple;
       border-radius: 50%;
 
       &.big {
@@ -100,6 +120,7 @@
         width: 28px;
         background-color: transparent;
         margin-right: 12px;
+        border: 0px;
 
         img {
           height: 100%;
@@ -138,6 +159,7 @@
 
   .title {
     text-align: center;
+    margin-bottom: 12px;
   }
 
   .recipe-card {
@@ -193,7 +215,7 @@
 
     h3 {
       margin: 0px;
-      font-size: 2rem;
+      font-size: 1.4rem;
     }
 
     .card-buttons {
@@ -201,7 +223,7 @@
       justify-content: center;
       gap: 16px;
       margin-top: 8px;
-
+      margin-bottom: 16px;
       button {
         width: 48px;
         height: 48px;
@@ -218,6 +240,11 @@
             height: 26px;
           }
         }
+      }
+
+      .saved {
+        filter: invert(39%) sepia(83%) saturate(749%) hue-rotate(101deg)
+          brightness(90%) contrast(87%);
       }
     }
   }
