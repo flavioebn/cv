@@ -27,6 +27,7 @@ import Underbingo from "./Underbingo";
 import InstaFollowers from "./InstaFollowers";
 import NachoCia from "./NachoCia";
 import CoordCalc from "./CoordCalc";
+import Recipes from "./Recipes";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
       <Route path="/instacheck" element={<InstaFollowers />} />
       <Route path="/nachoecia" element={<NachoCia />} />
       <Route path="/coordcalc" element={<CoordCalc />} />
+      <Route path="/recipes" element={<Recipes />} />
     </Routes>
   );
 }

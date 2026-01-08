@@ -14,6 +14,28 @@ export const setStorage = (key, obj) => {
 
 export const PokeURL = "https://cv-back-c19n.onrender.com";
 
+export const copyToClipboard = async (textToCopy) => {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(textToCopy);
+    } else {
+      const ta = document.createElement("textarea");
+      ta.value = textToCopy;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "absolute";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+  } catch (err) {
+    console.error("Copy failed:", err);
+    alert("Não foi possível copiar. Tente copiar manualmente.");
+  }
+};
+
 export const formatWordCaseAndSpecials = (str) => {
   // Define um mapa de substituições
   const replacements = {
