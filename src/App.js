@@ -6,7 +6,7 @@ import Converter from "./Converter";
 import ReflexCounter from "./Reflex";
 import Expiry from "./Expiry";
 import Party from "./Party";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import DragNDrop from "./DragNDrop";
 import CreatePhrases from "./DragNDrop/create";
 import Checklist from "./Checklist";
@@ -28,10 +28,16 @@ import InstaFollowers from "./InstaFollowers";
 import NachoCia from "./NachoCia";
 import CoordCalc from "./CoordCalc";
 import Recipes from "./Recipes";
+import BotecoRatsRegister from "./BotecoRats/register";
+import BotecoRatsLogin from "./BotecoRats/login";
+import BotecoRatsDashboard from "./BotecoRats/dashboard";
+import BotecoRatsCreateGroup from "./BotecoRats/createGroup";
+import GroupHome from "./BotecoRats/groupHome";
 
 function App() {
   return (
     <Routes>
+      <Route path="*" element={<Navigate to="/" replace />} />
       <Route path="/" index exact element={<Home />} />
       <Route path="/hub" exact element={<Hub />} />
       <Route path="/scrap" exact element={<Scrap />} />
@@ -60,6 +66,14 @@ function App() {
       <Route path="/nachoecia" element={<NachoCia />} />
       <Route path="/coordcalc" element={<CoordCalc />} />
       <Route path="/recipes" element={<Recipes />} />
+      <Route path="/botecorats/register" element={<BotecoRatsRegister />} />
+      <Route path="/botecorats/login" element={<BotecoRatsLogin />} />
+      <Route path="/botecorats/home" element={<BotecoRatsDashboard />} />
+      <Route
+        path="/botecorats/groups/create"
+        element={<BotecoRatsCreateGroup />}
+      />
+      <Route path="/botecorats/group/:groupId" element={<GroupHome />} />
     </Routes>
   );
 }
