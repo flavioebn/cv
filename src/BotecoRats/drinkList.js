@@ -113,7 +113,7 @@ export const calculateLiters = (arr) => {
     const amount = Number(drink.amount) || 0;
     if (liters[name] && liters[name][type]) {
       totalLiters += liters[name][type] * amount;
-      totalPoints += liters[name][type] * (defaultAbv[name] * 1000) * amount;
+      totalPoints += liters[name][type] * (defaultAbv[name] * 100) * amount;
     }
   });
   return { liters: totalLiters.toFixed(2), points: totalPoints.toFixed(2) };

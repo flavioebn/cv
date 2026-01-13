@@ -5,6 +5,7 @@ import BotecoSidebar from "./components/sidebar";
 import { SidebarProvider } from "./hooks/useSidebar";
 import Loader from "../components/loader";
 import Calendar from "./components/Calendar";
+import { useNavigate } from "react-router-dom";
 
 const BotecoRatsDashboard = () => {
   return (
@@ -17,8 +18,10 @@ const BotecoRatsDashboard = () => {
 const BotecoRatsDashboardContent = () => {
   const [loading, setLoading] = useState(true);
   const [userInfos, setUserInfos] = useState(null);
-  const [drinkToAdd, setDrinkToAdd] = useState(drinkList[0].name);
-  const [typeToAdd, setTypeToAdd] = useState(drinkList[0].types[0]);
+  const [drinkToAdd, setDrinkToAdd] = useState("");
+  const [typeToAdd, setTypeToAdd] = useState("");
+  const [amountToAdd, setAmountToAdd] = useState(1);
+  const navigate = useNavigate();
 
   const fetchUserInfo = async () => {
     setLoading(true);
@@ -30,19 +33,30 @@ const BotecoRatsDashboardContent = () => {
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("botecoRatsUser"));
+    setDrinkToAdd(drinkList[0].name);
+    setTypeToAdd(drinkList[0].types[0]);
     if (savedUser?._id) {
       fetchUserInfo();
+    } else {
+      navigate("/botecorats/login", { replace: true });
     }
   }, []);
 
   const handleSendDrink = async () => {
+    setLoading(true);
     const res = await addPersonalDrink({
       userId: userInfos.user._id,
       name: drinkToAdd,
       type: typeToAdd,
-      amount: 1,
+      amount: amountToAdd,
     });
-    console.log(res);
+    if (res.code === 201) {
+      setUserInfos({
+        ...userInfos,
+        drinks: [...userInfos.drinks, res.res.drink],
+      });
+    }
+    setLoading(false);
   };
 
   return (
@@ -65,15 +79,40 @@ const BotecoRatsDashboardContent = () => {
           <div className="quick-add">
             <h3>Quick add</h3>
             <div>
-              <select onChange={(e) => setDrinkToAdd(e.target.value)}>
+              {/* <input
+                type="number"
+                min={1}
+                value={amountToAdd}
+                onChange={(e) => setAmountToAdd(e.target.value)}
+              /> */}
+              <select
+                value={amountToAdd}
+                onChange={(e) => setAmountToAdd(e.target.value)}
+              >
+                {[...Array(parseInt(30)).keys()].map((i) => {
+                  return <option value={i + 1}>{i + 1}</option>;
+                })}
+              </select>
+              <select
+                onChange={(e) => {
+                  setDrinkToAdd(e.target.value);
+                  setTypeToAdd(
+                    drinkList.find((i) => i.name === e.target.value).types[0]
+                  );
+                }}
+                value={drinkToAdd}
+              >
                 {drinkList.map((i) => {
                   return <option value={i.name}>{i.name}</option>;
                 })}
               </select>
-              <select onChange={(e) => setTypeToAdd(e.target.value)}>
+              <select
+                onChange={(e) => setTypeToAdd(e.target.value)}
+                value={typeToAdd}
+              >
                 {drinkList
                   .find((i) => i.name === drinkToAdd)
-                  .types.map((i) => {
+                  ?.types.map((i) => {
                     return <option value={i}>{i}</option>;
                   })}
               </select>

@@ -70,8 +70,7 @@ const loginBotecoUser = async (body) => {
 };
 
 const getUserInfo = async () => {
-  // const userId = getFromStorage("botecoRatsUser")._id;
-  const userId = "69648d8135e50b3bb59c6a86";
+  const userId = getFromStorage("botecoRatsUser")._id;
   const response = await fetch(`${URL}/botecoRats/userInfo/${userId}`, {
     method: "GET",
     headers: {
@@ -136,7 +135,13 @@ const addPersonalDrink = async (body) => {
     }),
   });
 
-  return response.json();
+  const code = response.status;
+  const res = await response.json();
+  if (code !== 201) {
+    alert(res.msg);
+    return { error: `Fetch failed with status code ${code}` };
+  }
+  return { res, code };
 };
 
 const getMyDrinks = async () => {

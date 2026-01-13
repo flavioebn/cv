@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { registerBotecoUser } from "./functions";
 import groupPlaceholderIcon from "../assets/icons/edit.svg";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/loader";
 
 const BotecoRatsRegister = () => {
   const [user, setUser] = useState({
@@ -11,18 +12,23 @@ const BotecoRatsRegister = () => {
   });
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res = await registerBotecoUser(user);
     if (res?.code === 201) {
+      setLoading(false);
       alert("Cadastrado! Agora loga ai");
       navigate("/botecorats/login", { replace: true });
     }
+    setLoading(false);
   };
 
   return (
     <div className="register-container">
+      {loading && <Loader />}
       <div
         className="user-image"
         onClick={() => fileInputRef.current && fileInputRef.current.click()}
@@ -30,10 +36,12 @@ const BotecoRatsRegister = () => {
       >
         <img
           className={`${
-            user.avatarToShow && user.profilePic !== "" ? "img" : "placeholder"
+            user.avatarToShow && user.avatarToShow !== ""
+              ? "img"
+              : "placeholder"
           }`}
           src={
-            user.avatarToShow && user.profilePic !== ""
+            user.avatarToShow && user.avatarToShow !== ""
               ? user.avatarToShow
               : groupPlaceholderIcon
           }
@@ -77,7 +85,12 @@ const BotecoRatsRegister = () => {
           }
         }}
       />
-      <button onClick={handleSubmit}>Registrar</button>
+      <button
+        onClick={handleSubmit}
+        disabled={!user.user || !user.password || !user.profilePic}
+      >
+        Registrar
+      </button>
       <p className="login-link" onClick={() => navigate("/botecorats/login")}>
         Login
       </p>

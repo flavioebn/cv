@@ -8,13 +8,14 @@ import hub7 from "../assets/images/hub7.png";
 import hub8 from "../assets/images/hub8.png";
 import hub9 from "../assets/images/hub9.png";
 import hub10 from "../assets/images/hub10.png";
+import botecoRats from "../assets/images/botecoRatsLogo.png";
 
 export const data = [
   {
-    title: "Me, myself & I",
-    desc: "Back to the my main page, where you can read more about me and my projects!",
-    image: hub5,
-    to: "/",
+    title: "BotecoRats v0.1",
+    desc: "Contabilizando o que importa",
+    image: botecoRats,
+    to: "/botecorats/login",
   },
   {
     title: "Checklist",
@@ -33,6 +34,12 @@ export const data = [
     desc: "My D&D 5e DM app to track my party details and initiative, and write my notes as the game goes on. *NOT mobile friendly*",
     image: hub6,
     to: "/party",
+  },
+  {
+    title: "Me, myself & I",
+    desc: "Back to the my main page, where you can read more about me and my projects!",
+    image: hub5,
+    to: "/",
   },
   {
     title: "Fill the Lyrics",
