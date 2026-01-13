@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginBotecoUser } from "./functions";
-import { getFromStorage, setStorage } from "../utils/utils";
+import { getFromStorage } from "../utils/utils";
+import groupPlaceholderIcon from "../assets/icons/edit.svg";
 
 const BotecoRatsLogin = () => {
   const navigate = useNavigate();
@@ -25,33 +26,43 @@ const BotecoRatsLogin = () => {
 
     if (res?.code === 200) {
       localStorage.setItem("botecoRatsUser", JSON.stringify(res.res.user));
-      localStorage.setItem("botecoRatsDrinks", JSON.stringify(res.res.drinks));
 
       navigate("/botecorats/home", { replace: true });
     }
   };
 
   return (
-    <div>
+    <div className="login-container">
+      <div className="logo" style={{ cursor: "pointer" }}>
+        <img className="img" src={groupPlaceholderIcon} alt="group" />
+      </div>
+
       <input
         type="text"
         placeholder="Usuário"
         value={form.user}
         onChange={(e) => setForm({ ...form, user: e.target.value })}
       />
-
-      <br />
-
       <input
         type="password"
         placeholder="Senha"
         value={form.password}
         onChange={(e) => setForm({ ...form, password: e.target.value })}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleLogin(e);
+          }
+        }}
       />
-
-      <br />
-
-      <button onClick={handleLogin}>Login</button>
+      <button disabled={!form.user || !form.password} onClick={handleLogin}>
+        Login
+      </button>
+      <p
+        className="register-link"
+        onClick={() => navigate("/botecorats/register")}
+      >
+        Register
+      </p>
     </div>
   );
 };

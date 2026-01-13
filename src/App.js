@@ -33,11 +33,13 @@ import BotecoRatsLogin from "./BotecoRats/login";
 import BotecoRatsDashboard from "./BotecoRats/dashboard";
 import BotecoRatsCreateGroup from "./BotecoRats/createGroup";
 import GroupHome from "./BotecoRats/groupHome";
+import BotecoRatsSummary from "./BotecoRats/summary";
+import BotecoUserGroups from "./BotecoRats/myGroups";
 
 function App() {
   return (
     <Routes>
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/hub" replace />} />
       <Route path="/" index exact element={<Home />} />
       <Route path="/hub" exact element={<Hub />} />
       <Route path="/scrap" exact element={<Scrap />} />
@@ -66,9 +68,12 @@ function App() {
       <Route path="/nachoecia" element={<NachoCia />} />
       <Route path="/coordcalc" element={<CoordCalc />} />
       <Route path="/recipes" element={<Recipes />} />
+      <Route path="/botecorats" element={<BotecoRatsDashboard />} />
       <Route path="/botecorats/register" element={<BotecoRatsRegister />} />
       <Route path="/botecorats/login" element={<BotecoRatsLogin />} />
       <Route path="/botecorats/home" element={<BotecoRatsDashboard />} />
+      <Route path="/botecorats/summary" element={<BotecoRatsSummary />} />
+      <Route path="/botecorats/mygroups" element={<BotecoUserGroups />} />
       <Route
         path="/botecorats/groups/create"
         element={<BotecoRatsCreateGroup />}

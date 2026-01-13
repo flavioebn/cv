@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { registerBotecoUser } from "./functions";
+import groupPlaceholderIcon from "../assets/icons/edit.svg";
+import { useNavigate } from "react-router-dom";
 
 const BotecoRatsRegister = () => {
   const [user, setUser] = useState({
@@ -7,39 +9,78 @@ const BotecoRatsRegister = () => {
     password: "",
     profilePic: "",
   });
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
     const res = await registerBotecoUser(user);
-    console.log(res);
+    if (res?.code === 201) {
+      alert("Cadastrado! Agora loga ai");
+      navigate("/botecorats/login", { replace: true });
+    }
   };
 
   return (
-    <div>
+    <div className="register-container">
+      <div
+        className="user-image"
+        onClick={() => fileInputRef.current && fileInputRef.current.click()}
+        style={{ cursor: "pointer" }}
+      >
+        <img
+          className={`${
+            user.avatarToShow && user.profilePic !== "" ? "img" : "placeholder"
+          }`}
+          src={
+            user.avatarToShow && user.profilePic !== ""
+              ? user.avatarToShow
+              : groupPlaceholderIcon
+          }
+          alt="group"
+        />
+      </div>
       <input
         type="text"
-        placeholder="Name"
+        placeholder="Nome"
         value={user.user}
         onChange={(e) => setUser({ ...user, user: e.target.value })}
       />
-      <br />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Senha"
         value={user.password}
         onChange={(e) => setUser({ ...user, password: e.target.value })}
       />
-      <br />
       <input
+        ref={fileInputRef}
+        style={{ display: "none" }}
         type="file"
         accept="image/*"
         onChange={(e) => {
-          setUser({ ...user, profilePic: e.target.files[0] });
+          const file = e.target.files && e.target.files[0];
+          if (file) {
+            // revoke previous blob URL if any
+            if (
+              user.avatar &&
+              typeof user.avatar === "string" &&
+              user.avatar.startsWith("blob:")
+            ) {
+              URL.revokeObjectURL(user.avatar);
+            }
+            const url = URL.createObjectURL(file);
+            setUser({
+              ...user,
+              profilePic: e.target.files[0],
+              avatarToShow: url,
+            });
+          }
         }}
       />
-      <br />
-      <button onClick={handleSubmit}>Enviar</button>
+      <button onClick={handleSubmit}>Registrar</button>
+      <p className="login-link" onClick={() => navigate("/botecorats/login")}>
+        Login
+      </p>
     </div>
   );
 };

@@ -1,108 +1,86 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "./hooks/useAuth";
-import { addPersonalDrink, getMyGroups } from "./functions";
+import { addPersonalDrink, getUserInfo } from "./functions";
 import { drinkList } from "./drinkList";
+import BotecoSidebar from "./components/sidebar";
+import { SidebarProvider } from "./hooks/useSidebar";
+import Loader from "../components/loader";
+import Calendar from "./components/Calendar";
 
 const BotecoRatsDashboard = () => {
-  const { user, drinks, loading, logout } = useAuth();
-  const [groups, setGroups] = useState([]);
+  return (
+    <SidebarProvider>
+      <BotecoRatsDashboardContent />
+    </SidebarProvider>
+  );
+};
+
+const BotecoRatsDashboardContent = () => {
+  const [loading, setLoading] = useState(true);
+  const [userInfos, setUserInfos] = useState(null);
   const [drinkToAdd, setDrinkToAdd] = useState(drinkList[0].name);
   const [typeToAdd, setTypeToAdd] = useState(drinkList[0].types[0]);
-  const [amountToAdd, setAmountToAdd] = useState(1);
+
+  const fetchUserInfo = async () => {
+    setLoading(true);
+    const res = await getUserInfo();
+    setUserInfos(res.res);
+    console.log(res);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    if (!loading && user?._id) {
-      getMyGroups(user._id).then((res) => {
-        setGroups(res.res.groups || []);
-        console.log(res.res.groups);
-      });
+    const savedUser = JSON.parse(localStorage.getItem("botecoRatsUser"));
+    if (savedUser?._id) {
+      fetchUserInfo();
     }
-  }, [loading, user]);
-
-  if (loading) {
-    return <p>Carregando...</p>;
-  }
-
-  const navigateToGroup = (groupId) => {
-    window.location.href = `/botecorats/group/${groupId}`;
-  };
+  }, []);
 
   const handleSendDrink = async () => {
     const res = await addPersonalDrink({
-      userId: user._id,
+      userId: userInfos.user._id,
       name: drinkToAdd,
       type: typeToAdd,
-      amount: amountToAdd,
+      amount: 1,
     });
     console.log(res);
   };
 
   return (
-    <div>
-      <h1>BotecoRats</h1>
-      <h2>Welcome, {user.user}!</h2>
-
-      {user.avatarUrl && <img src={user.avatarUrl} alt="Profile" width="200" />}
-
-      <button onClick={logout}>Sair</button>
-
-      <hr />
-      <h2>Bibidas</h2>
-
-      <h3>Adicionar:</h3>
-      <input
-        placeholder="Qtd"
-        type="number"
-        value={amountToAdd}
-        onChange={(e) => setAmountToAdd(Number(e.target.value))}
-      />
-      <select onChange={(e) => setDrinkToAdd(e.target.value)}>
-        {drinkList.map((i) => {
-          return <option value={i.name}>{i.name}</option>;
-        })}
-      </select>
-      <select onChange={(e) => setTypeToAdd(e.target.value)}>
-        {drinkList
-          .find((i) => i.name === drinkToAdd)
-          .types.map((i) => {
-            return <option value={i}>{i}</option>;
-          })}
-      </select>
-      <button onClick={handleSendDrink}>Adicionar</button>
-
-      {drinks && drinks.length > 0 && (
-        <div>
-          <h3>Minhas Bebidas:</h3>
-          <ul>
-            {drinks.map((i, index) => (
-              <li key={index}>
-                {i.amount}x {i.name} ({i.type})
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <hr />
-
-      <h3>Meus Grupos</h3>
-
-      {groups.length === 0 ? (
-        <p>Você ainda não participa de nenhum grupo</p>
+    <div className="boteco-home">
+      {loading ? (
+        <Loader />
       ) : (
-        <ul>
-          {groups.map((group) => (
-            <li key={group._id} onClick={() => navigateToGroup(group._id)}>
-              <img
-                src={group.avatarUrl}
-                alt={group.name}
-                width="40"
-                style={{ borderRadius: "50%", marginRight: "8px" }}
-              />
-              {group.name}
-            </li>
-          ))}
-        </ul>
+        <>
+          <BotecoSidebar />
+          <div className="user-header">
+            <h2>{userInfos.user.user}</h2>
+            <img
+              className="user-image"
+              src={userInfos.user.avatarUrl}
+              alt="Profile"
+            />
+          </div>
+
+          <Calendar drinks={userInfos.drinks} />
+          <div className="quick-add">
+            <h3>Quick add</h3>
+            <div>
+              <select onChange={(e) => setDrinkToAdd(e.target.value)}>
+                {drinkList.map((i) => {
+                  return <option value={i.name}>{i.name}</option>;
+                })}
+              </select>
+              <select onChange={(e) => setTypeToAdd(e.target.value)}>
+                {drinkList
+                  .find((i) => i.name === drinkToAdd)
+                  .types.map((i) => {
+                    return <option value={i}>{i}</option>;
+                  })}
+              </select>
+            </div>
+            <button onClick={handleSendDrink}>Adicionar</button>
+          </div>
+        </>
       )}
     </div>
   );
