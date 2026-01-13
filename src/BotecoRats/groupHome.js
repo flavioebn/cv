@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getGroupDetails } from "./functions";
+import { getGroupDetails, joinLeaveGroup } from "./functions";
 import Loader from "../components/loader";
 import BotecoSidebar from "./components/sidebar";
 import { formatMongoDate } from "../utils/utils";
+import { calculateLiters } from "./drinkList";
 
 const GroupHome = () => {
   const { groupId } = useParams();
@@ -11,11 +12,17 @@ const GroupHome = () => {
   const [groupDrinks, setGroupDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const userInGroup = groupDetails?.members.find(
+    (m) => m._id === JSON.parse(localStorage.getItem("botecoRatsUser"))._id
+  );
+
   const fetchGroup = async () => {
     setLoading(true);
     const res = await getGroupDetails(groupId);
     setGroupDetails(res.res.group);
-    setGroupDrinks(res.res.drinks);
+    setGroupDrinks(
+      res.res.drinks.filter((i) => res.res.group.drinksFilter.includes(i.name))
+    );
     setLoading(false);
   };
 
@@ -62,6 +69,14 @@ const GroupHome = () => {
     });
   };
 
+  const handleJoinLeave = async () => {
+    setLoading(true);
+    const action = userInGroup ? "leave" : "join";
+    await joinLeaveGroup({ groupId, action });
+    await fetchGroup();
+    setLoading(false);
+  };
+
   useEffect(() => {
     if (groupId) {
       fetchGroup();
@@ -79,6 +94,9 @@ const GroupHome = () => {
             <img src={groupDetails?.avatarUrl} alt={groupDetails?.name} />
           </div>
           <BotecoSidebar />
+          <div onClick={handleJoinLeave}>
+            <button>{userInGroup ? "Sair do grupo" : "Entrar no grupo"}</button>
+          </div>
 
           <div className="members-thumbs-container">
             {groupDetails.members.map((i) => {
@@ -139,7 +157,11 @@ const GroupHome = () => {
             </div>
             <div className="card big">
               <label>Litragem</label>
-              <p>23.4L</p>
+              <p>{calculateLiters(groupDrinks).liters}</p>
+            </div>
+            <div className="card">
+              <label>Pontuação</label>
+              <p>{calculateLiters(groupDrinks).points}</p>
             </div>
           </div>
           <div className="group-history">

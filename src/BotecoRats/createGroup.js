@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { registerBotecoGroup } from "./functions";
 import groupPlaceholderIcon from "../assets/icons/edit.svg";
 import { useNavigate } from "react-router-dom";
+import { drinkList } from "./drinkList";
 
 const BotecoRatsCreateGroup = () => {
   const navigate = useNavigate();
@@ -9,11 +10,23 @@ const BotecoRatsCreateGroup = () => {
     name: "",
     avatar: "",
     groupStartDate: "",
+    groupEndDate: "",
     avatarToShow: "",
+    drinksFilter: [],
   });
   const fileInputRef = useRef(null);
 
   useEffect(() => {
+    const lastDayOfYearDate = new Date(new Date().getFullYear(), 11, 31);
+    const lastDayOfYear = lastDayOfYearDate.toISOString().split("T")[0];
+
+    setGroup((prev) => {
+      return {
+        ...prev,
+        groupStartDate: new Date().toISOString().split("T")[0],
+        groupEndDate: lastDayOfYear,
+      };
+    });
     return () => {
       // revoke preview URL when component unmounts
       if (
@@ -29,11 +42,29 @@ const BotecoRatsCreateGroup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await registerBotecoGroup(group);
-    console.log(res);
+    if (res?.code === 201) {
+      alert("Grupo criado com sucesso!");
+      navigate(`/botecorats/mygroups`, { replace: true });
+    }
   };
 
   const goBack = () => {
     navigate("/botecorats/mygroups", { replace: true });
+  };
+
+  const handleCheckCount = (item) => {
+    console.log("click");
+    if (!group.drinksFilter.includes(item)) {
+      setGroup({
+        ...group,
+        drinksFilter: [...group.drinksFilter, item],
+      });
+    } else {
+      setGroup({
+        ...group,
+        drinksFilter: group.drinksFilter.filter((i) => i !== item),
+      });
+    }
   };
 
   return (
@@ -57,14 +88,6 @@ const BotecoRatsCreateGroup = () => {
           alt="group"
         />
       </div>
-      <p>Nome do grupo</p>
-      <input
-        type="text"
-        placeholder="Nome"
-        value={group.name}
-        onChange={(e) => setGroup({ ...group, name: e.target.value })}
-      />
-      <p>Data pra começar a contar a litragem</p>
       <input
         ref={fileInputRef}
         style={{ display: "none" }}
@@ -90,11 +113,38 @@ const BotecoRatsCreateGroup = () => {
           }
         }}
       />
+      <p>Nome do grupo</p>
+      <input
+        type="text"
+        placeholder="Nome"
+        value={group.name}
+        onChange={(e) => setGroup({ ...group, name: e.target.value })}
+      />
+      <p>Data pra começar e fim da litragem</p>
       <input
         type="date"
         value={group.groupStartDate}
         onChange={(e) => setGroup({ ...group, groupStartDate: e.target.value })}
       />
+      <input
+        type="date"
+        value={group.groupEndDate}
+        onChange={(e) => setGroup({ ...group, groupEndDate: e.target.value })}
+      />
+      <p>Contabilizado nesse grupo:</p>
+      <div className="group-count-allowed">
+        {drinkList.map((i) => {
+          return (
+            <div key={i.name} onClick={() => handleCheckCount(i.name)}>
+              <input
+                checked={group.drinksFilter.includes(i.name)}
+                type="checkbox"
+              />
+              <label>{i.name}</label>
+            </div>
+          );
+        })}
+      </div>
       <div className="finish-buttons">
         <button className="red" onClick={goBack}>
           Cancelar

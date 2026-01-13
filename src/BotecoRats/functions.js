@@ -23,7 +23,7 @@ const registerBotecoUser = async (body) => {
 };
 
 const registerBotecoGroup = async (body) => {
-  const { name, avatar: file, groupStartDate } = body;
+  const { name, avatar: file, groupStartDate, drinksFilter } = body;
 
   const owner = JSON.parse(localStorage.getItem("botecoRatsUser"));
 
@@ -32,13 +32,24 @@ const registerBotecoGroup = async (body) => {
   formData.append("avatar", file);
   formData.append("groupStartDate", groupStartDate);
   formData.append("owner", JSON.stringify(owner));
+  formData.append("drinksFilter", JSON.stringify(drinksFilter));
+
+  console.log(formData);
 
   const response = await fetch(`${URL}/botecoRats/createGroup`, {
     method: "POST",
     body: formData,
   });
 
-  return response.json();
+  const code = response.status;
+  const res = await response.json();
+
+  if (code !== 201) {
+    alert(res.msg);
+    return { error: `Deu erro ${code}` };
+  }
+
+  return { res, code };
 };
 
 const loginBotecoUser = async (body) => {
@@ -145,6 +156,25 @@ const getMyDrinks = async () => {
   return { res, code };
 };
 
+const joinLeaveGroup = async (body) => {
+  const { groupId, action } = body;
+  const user = getFromStorage("botecoRatsUser");
+  const response = await fetch(`${URL}/botecoRats/group/joinLeave/${groupId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ action, user }),
+  });
+  const code = response.status;
+  const res = await response.json();
+  if (code !== 200) {
+    alert(res.msg);
+    return { error: `Fetch failed with status code ${code}` };
+  }
+  return { res, code };
+};
+
 export {
   registerBotecoUser,
   loginBotecoUser,
@@ -154,4 +184,5 @@ export {
   addPersonalDrink,
   getMyDrinks,
   getUserInfo,
+  joinLeaveGroup,
 };

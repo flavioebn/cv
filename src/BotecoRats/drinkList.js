@@ -116,5 +116,5 @@ export const calculateLiters = (arr) => {
       totalPoints += liters[name][type] * (defaultAbv[name] * 1000) * amount;
     }
   });
-  return { liters: totalLiters, points: totalPoints };
+  return { liters: totalLiters.toFixed(2), points: totalPoints.toFixed(2) };
 };
