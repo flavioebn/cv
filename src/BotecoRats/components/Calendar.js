@@ -84,7 +84,7 @@ const Calendar = ({ year, month, drinks }) => {
           <label>Pontos</label>
           <p>{calculateLiters(getThisMonthDrinks()).points}</p>
         </div>
-        <div className="card big">
+        <div className="card">
           <label>Litragem</label>
           <p>{calculateLiters(getThisMonthDrinks()).liters}L</p>
         </div>

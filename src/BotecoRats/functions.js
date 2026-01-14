@@ -70,7 +70,11 @@ const loginBotecoUser = async (body) => {
 };
 
 const getUserInfo = async () => {
-  const userId = getFromStorage("botecoRatsUser")._id;
+  const user = localStorage.getItem("botecoRatsUser");
+  if (!user) {
+    return { error: "No user in local storage" };
+  }
+  const userId = JSON.parse(user)._id;
   const response = await fetch(`${URL}/botecoRats/userInfo/${userId}`, {
     method: "GET",
     headers: {

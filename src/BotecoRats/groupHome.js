@@ -3,17 +3,23 @@ import { useParams } from "react-router-dom";
 import { getGroupDetails, joinLeaveGroup } from "./functions";
 import Loader from "../components/loader";
 import BotecoSidebar from "./components/sidebar";
-import { formatMongoDate } from "../utils/utils";
+import { copyToClipboard, formatMongoDate } from "../utils/utils";
 import { calculateLiters } from "./drinkList";
+import infoIcon from "../assets/icons/info.svg";
+import shareIcon from "../assets/icons/share.svg";
+import leaveIcon from "../assets/icons/leave.svg";
+import joinIcon from "../assets/icons/join.svg";
+import Modal from "../components/modal";
 
 const GroupHome = () => {
   const { groupId } = useParams();
   const [groupDetails, setGroupDetails] = useState(null);
   const [groupDrinks, setGroupDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [infosModalVisible, setInfosModalVisible] = useState(false);
 
   const userInGroup = groupDetails?.members.find(
-    (m) => m._id === JSON.parse(localStorage.getItem("botecoRatsUser"))._id
+    (m) => m._id === JSON.parse(localStorage.getItem("botecoRatsUser"))?._id
   );
 
   const fetchGroup = async () => {
@@ -70,11 +76,22 @@ const GroupHome = () => {
   };
 
   const handleJoinLeave = async () => {
-    setLoading(true);
+    const confirm = window.confirm(
+      `Você tem certeza que deseja ${
+        userInGroup ? "sair do" : "entrar no"
+      } grupo ${groupDetails.name}?`
+    );
     const action = userInGroup ? "leave" : "join";
-    await joinLeaveGroup({ groupId, action });
-    await fetchGroup();
+    if (confirm) {
+      setLoading(true);
+      await joinLeaveGroup({ groupId, action });
+      await fetchGroup();
+    }
     setLoading(false);
+  };
+
+  const handleInfosModalVisibility = () => {
+    setInfosModalVisible(!infosModalVisible);
   };
 
   useEffect(() => {
@@ -89,61 +106,43 @@ const GroupHome = () => {
         <Loader />
       ) : (
         <div className="boteco-group-home">
+          {infosModalVisible && (
+            <Modal close={handleInfosModalVisibility}>
+              <h1>{groupDetails?.name}</h1>
+              <p>Membros: {groupDetails?.members.length}</p>
+              <p>Começou em: {formatMongoDate(groupDetails?.groupStartDate)}</p>
+              <p>E vai até: {formatMongoDate(groupDetails?.groupEndDate)}</p>
+              <p>Bebidas válidas: {groupDetails?.drinksFilter.join(", ")}</p>
+            </Modal>
+          )}
           <div className="group-header">
             <h2>{groupDetails?.name}</h2>
             <img src={groupDetails?.avatarUrl} alt={groupDetails?.name} />
           </div>
           <BotecoSidebar />
-          <div onClick={handleJoinLeave}>
-            <button>{userInGroup ? "Sair do grupo" : "Entrar no grupo"}</button>
+          <div className="group-actions">
+            <button onClick={handleJoinLeave}>
+              <img
+                src={userInGroup ? leaveIcon : joinIcon}
+                alt="leave/joinIcon"
+              />
+            </button>
+            <button
+              onClick={() => {
+                copyToClipboard(
+                  `https://flavioebn.com/botecorats/group/${groupId}`
+                );
+                alert("Link do grupo copiado para a área de transferência!");
+              }}
+            >
+              <img src={shareIcon} alt="shareIcon" />
+            </button>
+            <button onClick={handleInfosModalVisibility}>
+              <img src={infoIcon} alt="infoIcon" />
+            </button>
           </div>
 
           <div className="members-thumbs-container">
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
-            {groupDetails.members.map((i) => {
-              return (
-                <img className="member-thumb" src={i.avatarUrl} alt={i.user} />
-              );
-            })}
             {groupDetails.members.map((i) => {
               return (
                 <img className="member-thumb" src={i.avatarUrl} alt={i.user} />

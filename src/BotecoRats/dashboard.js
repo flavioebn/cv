@@ -26,16 +26,26 @@ const BotecoRatsDashboardContent = () => {
   const fetchUserInfo = async () => {
     setLoading(true);
     const res = await getUserInfo();
+    if (res.code !== 200) {
+      navigate("/botecorats/login", { replace: true });
+      localStorage.removeItem("botecoRatsUser");
+      setLoading(false);
+      return;
+    }
     setUserInfos(res.res);
-    console.log(res);
     setLoading(false);
   };
 
   useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem("botecoRatsUser"));
+    const savedUser = localStorage.getItem("botecoRatsUser");
+    if (!savedUser) {
+      navigate("/botecorats/login", { replace: true });
+      return;
+    }
+    const parsed = JSON.parse(localStorage.getItem("botecoRatsUser"));
     setDrinkToAdd(drinkList[0].name);
     setTypeToAdd(drinkList[0].types[0]);
-    if (savedUser?._id) {
+    if (parsed?._id) {
       fetchUserInfo();
     } else {
       navigate("/botecorats/login", { replace: true });
@@ -79,12 +89,6 @@ const BotecoRatsDashboardContent = () => {
           <div className="quick-add">
             <h3>Quick add</h3>
             <div>
-              {/* <input
-                type="number"
-                min={1}
-                value={amountToAdd}
-                onChange={(e) => setAmountToAdd(e.target.value)}
-              /> */}
               <select
                 value={amountToAdd}
                 onChange={(e) => setAmountToAdd(e.target.value)}
