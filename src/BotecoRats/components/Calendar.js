@@ -4,6 +4,8 @@ import rightAngleIcon from "../../assets/icons/angle-right.svg";
 import { calculateLiters } from "../drinkList";
 import Modal from "../../components/modal";
 import AddDrink from "./AddDrink";
+import trashIcon from "../../assets/icons/trash-thin.svg";
+import { deletePersonalDrink } from "../functions";
 
 const weekdays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 const months = [
@@ -97,6 +99,16 @@ const Calendar = ({ year, month, drinks, userInfos, setUserInfos }) => {
     });
   };
 
+  const handleDeleteDrink = async (drinkId) => {
+    const res = await deletePersonalDrink(drinkId);
+    if (res.code === 200) {
+      setUserInfos({
+        ...userInfos,
+        drinks: userInfos.drinks.filter((d) => d._id !== drinkId),
+      });
+    }
+  };
+
   return (
     <>
       {modalVisible && (
@@ -107,9 +119,14 @@ const Calendar = ({ year, month, drinks, userInfos, setUserInfos }) => {
           <div className="boteco-calendar-drinks">
             {getThisDayDrinks().map((i) => {
               return (
-                <p>
-                  • {i.amount}x {i.name} ({i.type})
-                </p>
+                <div key={i._id} className="drink-item">
+                  <p>
+                    • {i.amount}x {i.name} ({i.type})
+                  </p>
+                  <button onClick={() => handleDeleteDrink(i._id)}>
+                    <img src={trashIcon} alt="Delete" />
+                  </button>
+                </div>
               );
             })}
           </div>

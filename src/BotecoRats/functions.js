@@ -156,6 +156,25 @@ const addPersonalDrink = async (body) => {
   return { res, code };
 };
 
+const deletePersonalDrink = async (drinkId) => {
+  const response = await fetch(
+    `${URL}/botecoRats/deletePersonalDrink/${drinkId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const code = response.status;
+  const res = await response.json();
+  if (code !== 200) {
+    alert(res.msg);
+    return { error: `Fetch failed with status code ${code}` };
+  }
+  return { res, code };
+};
+
 const getMyDrinks = async () => {
   const userId = getFromStorage("botecoRatsUser")._id;
   const response = await fetch(`${URL}/botecoRats/mydrinks/${userId}`, {
@@ -202,4 +221,5 @@ export {
   getMyDrinks,
   getUserInfo,
   joinLeaveGroup,
+  deletePersonalDrink,
 };

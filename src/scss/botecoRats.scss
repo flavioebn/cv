@@ -252,9 +252,26 @@
   margin-bottom: 24px;
   width: 100%;
 
-  p {
-    margin: 0px;
+  .drink-item {
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
     margin-bottom: 8px;
+
+    p {
+      margin: 0px;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 }
 
