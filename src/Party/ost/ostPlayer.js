@@ -12,7 +12,6 @@ const OstPlayer = ({ title, id, single }) => {
 
   // Função para tocar a música inteira a partir de um ponto inicial
   const playFullAudio = async () => {
-    console.log("Playing audio:", title);
     if (audioRef.current) {
       if (audioRef.current.volume === 0) audioRef.current.volume = 0.5;
       await audioRef.current.play(); // Toca o áudio

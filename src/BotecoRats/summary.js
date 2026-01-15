@@ -9,7 +9,6 @@ const BotecoRatsSummary = () => {
   const fetchDrinks = async () => {
     const res = await getMyDrinks();
     setDrinks(res.res.drinks);
-    console.log(res);
   };
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const BotecoRatsSummary = () => {
   const filterDrinksFromLastWeek = () => {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    return drinks.filter((drink) => new Date(drink.created_at) >= oneWeekAgo);
+    return drinks.filter((drink) => new Date(drink.date) >= oneWeekAgo);
   };
 
   const filterDrinksFromLastMonth = () => {
@@ -31,7 +30,7 @@ const BotecoRatsSummary = () => {
       .filter((i) => {
         return drinksFromLastweek.indexOf(i) < 0;
       })
-      .filter((drink) => new Date(drink.created_at) >= oneMonthAgo);
+      .filter((drink) => new Date(drink.date) >= oneMonthAgo);
   };
 
   const filterDrinksFromOlder = () => {
@@ -49,8 +48,8 @@ const BotecoRatsSummary = () => {
   const RenderArray = (arr) => {
     return arr.map((i) => {
       return (
-        <p>
-          {formatMongoDate(i.created_at)} {i.amount}x {i.name} ({i.type})
+        <p key={`${i.name}-${i.type}`}>
+          {formatMongoDate(i.date)} {i.amount}x {i.name} ({i.type})
         </p>
       );
     });
@@ -72,8 +71,8 @@ const BotecoRatsSummary = () => {
   };
 
   return (
-    <div>
-      <h1>Totais</h1>
+    <div className="boteco-summary">
+      <h1>Resumão</h1>
       <BotecoSidebar />
 
       {drinks.length > 0 && (

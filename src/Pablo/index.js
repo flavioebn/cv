@@ -11,7 +11,6 @@ const Pablo = () => {
   const [current, setCurrent] = useState(0);
 
   const handleSelect = (e) => {
-    console.log(e);
     // setCurrent(e.title);
   };
 

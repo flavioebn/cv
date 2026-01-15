@@ -34,7 +34,6 @@ const PokeDash = () => {
       if (response.ok) {
         const result = await response.json(); // Converte a resposta para JSON
         setUserInfo(result);
-        console.log(result);
       } else {
         console.error(`Erro: Código da resposta ${statusCode}`);
         const errorResult = await response.json(); // Converte a resposta de erro para JSON

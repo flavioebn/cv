@@ -17,6 +17,7 @@ const GroupHome = () => {
   const [groupDrinks, setGroupDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [infosModalVisible, setInfosModalVisible] = useState(false);
+  const [membersModal, setMembersModal] = useState(false);
 
   const userInGroup = groupDetails?.members.find(
     (m) => m._id === JSON.parse(localStorage.getItem("botecoRatsUser"))?._id
@@ -26,29 +27,50 @@ const GroupHome = () => {
     setLoading(true);
     const res = await getGroupDetails(groupId);
     setGroupDetails(res.res.group);
-    setGroupDrinks(
-      res.res.drinks.filter((i) => res.res.group.drinksFilter.includes(i.name))
+    const allowedDrinks = res.res.drinks.filter((i) =>
+      res.res.group.drinksFilter.includes(i.name)
     );
+    const onDateDrinks = allowedDrinks.filter((i) => {
+      const drinkDate = new Date(i.date);
+      const groupStartDate = new Date(res.res.group.groupStartDate);
+      const groupEndDate = new Date(res.res.group.groupEndDate).setDate(
+        new Date(res.res.group.groupEndDate).getDate() + 1
+      );
+      return drinkDate >= groupStartDate && drinkDate <= groupEndDate;
+    });
+    if (res.res.group.weekendOnly) {
+      const weekendDrinks = onDateDrinks.filter((i) => {
+        const drinkDate = new Date(i.date);
+        return (
+          drinkDate.getDay() === 0 ||
+          drinkDate.getDay() === 6 ||
+          drinkDate.getDay() === 5
+        );
+      });
+      setGroupDrinks(weekendDrinks);
+    } else {
+      setGroupDrinks(onDateDrinks);
+    }
     setLoading(false);
   };
 
   const RenderArray = (arr) => {
-    return arr.map((i) => {
-      return (
-        <p>
-          • {formatMongoDate(i.created_at)} {i.amount}x {i.name} {i.type} (
-          {groupDetails.members.find((m) => m._id === i.userId)?.user})
-        </p>
-      );
-    });
+    return arr
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .map((i) => {
+        return (
+          <p>
+            • {formatMongoDate(new Date(i.date))} {i.amount}x {i.name} {i.type}{" "}
+            ({groupDetails.members.find((m) => m._id === i.userId)?.user})
+          </p>
+        );
+      });
   };
 
   const filterDrinksFromLastWeek = () => {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    return groupDrinks.filter(
-      (drink) => new Date(drink.created_at) >= oneWeekAgo
-    );
+    return groupDrinks.filter((drink) => new Date(drink.date) >= oneWeekAgo);
   };
 
   const filterDrinksFromLastMonth = () => {
@@ -60,7 +82,7 @@ const GroupHome = () => {
       .filter((i) => {
         return drinksFromLastweek.indexOf(i) < 0;
       })
-      .filter((drink) => new Date(drink.created_at) >= oneMonthAgo);
+      .filter((drink) => new Date(drink.date) >= oneMonthAgo);
   };
 
   const filterDrinksFromOlder = () => {
@@ -100,6 +122,10 @@ const GroupHome = () => {
     }
   }, [groupId]);
 
+  const handleMembersModal = () => {
+    setMembersModal(!membersModal);
+  };
+
   return (
     <div>
       {loading ? (
@@ -107,12 +133,66 @@ const GroupHome = () => {
       ) : (
         <div className="boteco-group-home">
           {infosModalVisible && (
-            <Modal close={handleInfosModalVisibility}>
+            <Modal close={handleInfosModalVisibility} classes={"boteco"}>
               <h1>{groupDetails?.name}</h1>
               <p>Membros: {groupDetails?.members.length}</p>
-              <p>Começou em: {formatMongoDate(groupDetails?.groupStartDate)}</p>
-              <p>E vai até: {formatMongoDate(groupDetails?.groupEndDate)}</p>
+              <p>
+                Começou em:
+                {groupDetails?.groupStartDate
+                  .slice(0, 10)
+                  .split("-")
+                  .reverse()
+                  .join("/")}
+              </p>
+              <p>
+                E vai até:{" "}
+                {groupDetails?.groupEndDate
+                  .slice(0, 10)
+                  .split("-")
+                  .reverse()
+                  .join("/")}
+              </p>
+              {groupDetails?.weekendOnly && <p>CONTA SÓ FIM DE SEMANA</p>}
               <p>Bebidas válidas: {groupDetails?.drinksFilter.join(", ")}</p>
+            </Modal>
+          )}
+          {membersModal && (
+            <Modal close={handleMembersModal} classes={"boteco"}>
+              <h1>Membros</h1>
+              <div className="members-container">
+                {groupDetails?.members.map((i) => {
+                  return (
+                    <div className="member-card">
+                      <img
+                        className="member-thumb"
+                        src={i.avatarUrl}
+                        alt={i.user}
+                      />
+                      <div className="member-infos">
+                        <span>{i.user}</span>
+                        <p>
+                          Drinks:{" "}
+                          {
+                            groupDrinks.filter(
+                              (drink) => drink.userId === i._id
+                            ).length
+                          }
+                        </p>
+                        <p>
+                          Litragem:{" "}
+                          {
+                            calculateLiters(
+                              groupDrinks.filter(
+                                (drink) => drink.userId === i._id
+                              )
+                            ).liters
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </Modal>
           )}
           <div className="group-header">
@@ -142,7 +222,10 @@ const GroupHome = () => {
             </button>
           </div>
 
-          <div className="members-thumbs-container">
+          <div
+            className="members-thumbs-container"
+            onClick={handleMembersModal}
+          >
             {groupDetails.members.map((i) => {
               return (
                 <img className="member-thumb" src={i.avatarUrl} alt={i.user} />

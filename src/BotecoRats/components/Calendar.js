@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import leftAngleIcon from "../../assets/icons/angle-left.svg";
 import rightAngleIcon from "../../assets/icons/angle-right.svg";
 import { calculateLiters } from "../drinkList";
+import Modal from "../../components/modal";
+import AddDrink from "./AddDrink";
 
 const weekdays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 const months = [
@@ -19,13 +21,15 @@ const months = [
   "Dezembro",
 ];
 
-const Calendar = ({ year, month, drinks }) => {
+const Calendar = ({ year, month, drinks, userInfos, setUserInfos }) => {
   const [monthToShow, setMonthToShow] = useState(
     month || new Date().getMonth()
   );
   const [yearToShow, setYearToShow] = useState(
     year || new Date().getFullYear()
   );
+  const [currentDay, setCurrentDay] = useState(new Date().getDate());
+  const [modalVisible, setModalVisible] = useState(false);
 
   const first = new Date(yearToShow, monthToShow, 1);
   const startDay = first.getDay();
@@ -40,7 +44,7 @@ const Calendar = ({ year, month, drinks }) => {
   const dayHasDrink = (date) => {
     if (!date) return false;
     return drinks.some((drink) => {
-      const drinkDate = new Date(drink.created_at);
+      const drinkDate = new Date(drink.date);
       return (
         drinkDate.getDate() === date.getDate() &&
         drinkDate.getMonth() === date.getMonth() &&
@@ -69,8 +73,24 @@ const Calendar = ({ year, month, drinks }) => {
 
   const getThisMonthDrinks = () => {
     return drinks.filter((drink) => {
-      const drinkDate = new Date(drink.created_at);
+      const drinkDate = new Date(drink.date);
       return (
+        drinkDate.getMonth() === monthToShow &&
+        drinkDate.getFullYear() === yearToShow
+      );
+    });
+  };
+
+  const handleCalendarClick = (date) => {
+    setCurrentDay(date.getDate());
+    setModalVisible(true);
+  };
+
+  const getThisDayDrinks = () => {
+    return drinks.filter((drink) => {
+      const drinkDate = new Date(drink.date);
+      return (
+        drinkDate.getDate() === currentDay &&
         drinkDate.getMonth() === monthToShow &&
         drinkDate.getFullYear() === yearToShow
       );
@@ -79,6 +99,28 @@ const Calendar = ({ year, month, drinks }) => {
 
   return (
     <>
+      {modalVisible && (
+        <Modal classes="boteco" close={() => setModalVisible(false)}>
+          <h1>
+            {currentDay}/{monthToShow + 1}/{yearToShow}
+          </h1>
+          <div className="boteco-calendar-drinks">
+            {getThisDayDrinks().map((i) => {
+              return (
+                <p>
+                  • {i.amount}x {i.name} ({i.type})
+                </p>
+              );
+            })}
+          </div>
+          <AddDrink
+            removeMargin={true}
+            userInfos={userInfos}
+            setUserInfos={setUserInfos}
+            customDate={new Date(yearToShow, monthToShow, currentDay)}
+          />
+        </Modal>
+      )}
       <div className="info-cards">
         <div className="card">
           <label>Pontos</label>
@@ -93,9 +135,7 @@ const Calendar = ({ year, month, drinks }) => {
           <p>
             {
               new Set([
-                ...getThisMonthDrinks().map((drink) =>
-                  drink.created_at.slice(0, 10)
-                ),
+                ...getThisMonthDrinks().map((drink) => drink.date.slice(0, 10)),
               ]).size
             }
           </p>
@@ -120,7 +160,10 @@ const Calendar = ({ year, month, drinks }) => {
         ))}
 
         {cells.map((date, idx) => (
-          <div className="day-container">
+          <div
+            className="day-container"
+            onClick={() => handleCalendarClick(date)}
+          >
             <p
               key={idx}
               className={`day ${dayHasDrink(date) ? "has-drink" : ""}`}

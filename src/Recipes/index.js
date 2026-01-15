@@ -221,7 +221,6 @@ const Recipes = () => {
         }
       });
     });
-    console.log(allIngredients);
     allIngredients.sort();
     const byRecipe = [];
     allIngredients.forEach((i) => {
@@ -318,7 +317,6 @@ const Recipes = () => {
                 >
                   De outras receitas:
                 </p>
-                {console.log(shoppingList.extra)}
                 {shoppingList.extra.map((i) => {
                   return (
                     <p style={{ marginTop: "4px", marginBottom: "4px" }}>

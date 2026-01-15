@@ -318,7 +318,6 @@ const InitView = () => {
   };
 
   const handleAddMonster = (e) => {
-    console.log(e);
     let m = {};
     if (e.custom) {
       m.name = e.name;
@@ -505,7 +504,6 @@ const InitView = () => {
         response.push(<span className="tt-span">At will:</span>);
         response.push(<br />);
         pc.spellcasting[0].will.forEach((i) => {
-          console.log(removeSelfOnly(removeThings(i)));
           response.push(
             <li>
               <a

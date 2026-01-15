@@ -101,7 +101,6 @@ const MtgGrid = () => {
         break;
     }
 
-    console.log(checkCmc);
     if (!checkCmc || !response.type_line.includes(type) || !colors) {
       window.alert("ERROOOOOO");
     } else {

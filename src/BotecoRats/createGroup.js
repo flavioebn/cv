@@ -3,6 +3,7 @@ import { registerBotecoGroup } from "./functions";
 import groupPlaceholderIcon from "../assets/icons/edit.svg";
 import { useNavigate } from "react-router-dom";
 import { drinkList } from "./drinkList";
+import Loader from "../components/loader";
 
 const BotecoRatsCreateGroup = () => {
   const navigate = useNavigate();
@@ -13,22 +14,26 @@ const BotecoRatsCreateGroup = () => {
     groupEndDate: "",
     avatarToShow: "",
     drinksFilter: [],
+    weekendOnly: false,
   });
   const fileInputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const lastDayOfYearDate = new Date(new Date().getFullYear(), 11, 31);
-    const lastDayOfYear = lastDayOfYearDate.toISOString().split("T")[0];
+    const lastDayOfCurrentMonth = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() + 1,
+      0
+    );
 
     setGroup((prev) => {
       return {
         ...prev,
         groupStartDate: new Date().toISOString().split("T")[0],
-        groupEndDate: lastDayOfYear,
+        groupEndDate: lastDayOfCurrentMonth.toISOString().split("T")[0],
       };
     });
     return () => {
-      // revoke preview URL when component unmounts
       if (
         group.avatar &&
         typeof group.avatar === "string" &&
@@ -37,11 +42,13 @@ const BotecoRatsCreateGroup = () => {
         URL.revokeObjectURL(group.avatar);
       }
     };
-  }, [group.avatar]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res = await registerBotecoGroup(group);
+    setLoading(false);
     if (res?.code === 201) {
       alert("Grupo criado com sucesso!");
       navigate(`/botecorats/mygroups`, { replace: true });
@@ -53,7 +60,6 @@ const BotecoRatsCreateGroup = () => {
   };
 
   const handleCheckCount = (item) => {
-    console.log("click");
     if (!group.drinksFilter.includes(item)) {
       setGroup({
         ...group,
@@ -69,6 +75,7 @@ const BotecoRatsCreateGroup = () => {
 
   return (
     <div className="boteco-create-group">
+      {loading && <Loader />}
       <div
         className="group-image"
         onClick={() => fileInputRef.current && fileInputRef.current.click()}
@@ -131,6 +138,16 @@ const BotecoRatsCreateGroup = () => {
         value={group.groupEndDate}
         onChange={(e) => setGroup({ ...group, groupEndDate: e.target.value })}
       />
+      <div className="weekendCheck">
+        <input
+          type="checkbox"
+          checked={group.weekendOnly}
+          onChange={(e) =>
+            setGroup({ ...group, weekendOnly: e.target.checked })
+          }
+        />
+        <p>Contabilizar apenas finais de semana</p>
+      </div>
       <p>Contabilizado nesse grupo:</p>
       <div className="group-count-allowed">
         {drinkList.map((i) => {

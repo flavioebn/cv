@@ -19,7 +19,6 @@ const MTGdle = () => {
       `https://api.scryfall.com/cards/search?q=!"${response.data[randomIndex].name}" is:firstprinting`
     ).then((response) => response.json());
     setCardToGuess(card.data[0]);
-    console.log(card.data[0]);
   };
 
   const getSpecificCard = async (card) => {
@@ -28,7 +27,6 @@ const MTGdle = () => {
       `https://api.scryfall.com/cards/search?q=!"${card}" is:firstprinting`
     ).then((response) => response.json());
 
-    console.log(response.data[0]);
     if (card === cardToGuess.name) {
       setFound(true);
     }

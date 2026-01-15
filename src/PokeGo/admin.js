@@ -58,7 +58,6 @@ const PokeAdmin = () => {
     myHeaders.append("Content-Type", "application/json");
 
     const codesArray = codes.codes.split("\n");
-    console.log(codesArray);
 
     const requestOptions = {
       method: "POST",

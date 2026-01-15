@@ -32,6 +32,10 @@ export const drinkList = [
     types: ["Limão", "Morango", "Vinho"],
   },
   {
+    name: "Drink",
+    types: ["Aperol", "Moscow Mule", "Negroni"],
+  },
+  {
     name: "Outros",
     types: [
       "Ice",
@@ -83,6 +87,11 @@ const liters = {
     Morango: 0.3,
     Vinho: 0.3,
   },
+  Drink: {
+    Aperol: 0.25,
+    "Moscow Mule": 0.25,
+    Negroni: 0.25,
+  },
   Outros: {
     Ice: 0.355,
     "Skol beats": 0.355,
@@ -101,6 +110,7 @@ const defaultAbv = {
   Gin: 0.4,
   Shot: 0.4,
   Caipirinha: 0.18,
+  Drink: 0.18,
   Outros: 0.1,
 };
 

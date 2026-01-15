@@ -38,8 +38,6 @@ const DragNDrop = () => {
             jsonData.phrases.splice(i, 1);
           });
         }
-        console.log("Arquivo filtdrado com sucesso:", jsonData);
-        // Faça o que quiser com o objeto jsonData aqui.
         localStorage.setItem("drag-phrases", JSON.stringify(jsonData));
         setPhrases(jsonData.phrases);
         setAllPhrases(jsonData.phrases);
@@ -77,13 +75,11 @@ const DragNDrop = () => {
 
   const reset = () => {
     if (allPhrases.length === 0) {
-      console.log(allPhrases);
       return;
     }
     const newPhrases = [...phrases];
     const randomNumber = Math.floor(Math.random() * newPhrases.length);
     const randomPhrase = newPhrases[randomNumber];
-    console.log("removed: ", newPhrases[randomNumber]);
     newPhrases.splice(randomNumber, 1);
     if (newPhrases.length === 0) newPhrases.push(...allPhrases);
     const words = shuffle(randomPhrase.split(" "));

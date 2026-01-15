@@ -41,7 +41,6 @@ const PokeInfos = () => {
       if (response.ok) {
         const result = await response.json(); // Converte a resposta para JSON
         setUserInfo(result);
-        console.log(result);
         setNewInfo({
           team: result.team,
           friend_code: result.friend_code,

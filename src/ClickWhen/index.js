@@ -187,11 +187,6 @@ const ClickWhen = () => {
         </div>
       </div>
       <h1 onClick={() => setModal(!modal)}>Clica aqui quando...</h1>
-      {console.log(
-        labels.map((i) => {
-          return { label: i, content: "" };
-        })
-      )}
       <p>• ...receber esse link</p>
       {labels
         .sort((a, b) => a.label.localeCompare(b.label))

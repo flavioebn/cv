@@ -23,7 +23,6 @@ export const postPastebin = async (body) => {
     requestOptions
   )
     .then((res) => res.text())
-    // .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
 
   return response;

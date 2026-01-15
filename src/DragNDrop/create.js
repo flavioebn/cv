@@ -19,7 +19,6 @@ const CreatePhrases = () => {
   }, []);
 
   const handleUpdate = (e) => {
-    console.log(e.target.value);
     setSelected({
       ...selected,
       phrases: e.target.value.split("\n"),
@@ -58,7 +57,6 @@ const CreatePhrases = () => {
   };
 
   const downloadJSON = (obj, fileName) => {
-    // console.log(selected);
     const jsonString = JSON.stringify(selected);
     const blob = new Blob([jsonString], { type: "application/json" });
     const url = URL.createObjectURL(blob);

@@ -200,8 +200,6 @@ const PartyView = () => {
 
     fileInput.addEventListener("change", function () {
       uploadFile(this, function (jsonData) {
-        console.log("Arquivo carregado com sucesso:", jsonData);
-        // Faça o que quiser com o objeto jsonData aqui.
         setParty(jsonData);
       });
     });

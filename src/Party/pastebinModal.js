@@ -61,9 +61,7 @@ const PastebinModal = ({ close }) => {
         break;
     }
     if (body.length > 0) {
-      console.log("body: ", body);
       const response = await postPastebin(body);
-      console.log(response);
       setPastebins({
         ...pastebins,
         [type]: response.slice(21, response.length),
