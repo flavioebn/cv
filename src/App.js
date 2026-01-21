@@ -22,7 +22,7 @@ import PokeInfos from "./PokeGo/info";
 import Pablo from "./Pablo";
 import ClickWhen from "./ClickWhen";
 import YearList from "./YearList";
-import CustomGuests from "./CustomGuests";
+// import CustomGuests from "./CustomGuests";
 import Underbingo from "./Underbingo";
 import InstaFollowers from "./InstaFollowers";
 import NachoCia from "./NachoCia";
@@ -62,7 +62,7 @@ function App() {
       <Route path="/pablo" element={<Pablo />} />
       <Route path="/yearlist" element={<YearList />} />
       <Route path="/clickwhen" element={<ClickWhen />} />
-      <Route path="/customguests" element={<CustomGuests />} />
+      {/* <Route path="/customguests" element={<CustomGuests />} /> */}
       <Route path="/underbingo" element={<Underbingo />} />
       <Route path="/instacheck" element={<InstaFollowers />} />
       <Route path="/nachoecia" element={<NachoCia />} />

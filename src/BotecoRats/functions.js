@@ -30,6 +30,9 @@ const registerBotecoGroup = async (body) => {
     drinksFilter,
     groupEndDate,
     weekendOnly,
+    type,
+    goalType,
+    goalValue,
   } = body;
 
   const owner = JSON.parse(localStorage.getItem("botecoRatsUser"));
@@ -42,6 +45,9 @@ const registerBotecoGroup = async (body) => {
   formData.append("drinksFilter", JSON.stringify(drinksFilter));
   formData.append("groupEndDate", groupEndDate);
   formData.append("weekendOnly", weekendOnly);
+  formData.append("type", type);
+  formData.append("goalType", goalType);
+  formData.append("goalValue", goalValue);
 
   const response = await fetch(`${URL}/botecoRats/createGroup`, {
     method: "POST",
@@ -164,7 +170,7 @@ const deletePersonalDrink = async (drinkId) => {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   );
   const code = response.status;
   const res = await response.json();

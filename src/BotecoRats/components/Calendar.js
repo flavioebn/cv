@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import leftAngleIcon from "../../assets/icons/angle-left.svg";
 import rightAngleIcon from "../../assets/icons/angle-right.svg";
 import { calculateLiters } from "../drinkList";
@@ -23,12 +23,20 @@ const months = [
   "Dezembro",
 ];
 
-const Calendar = ({ year, month, drinks, userInfos, setUserInfos }) => {
+const Calendar = ({
+  year,
+  month,
+  drinks,
+  userInfos,
+  setUserInfos,
+  allowEdit = true,
+  infoCards = true,
+}) => {
   const [monthToShow, setMonthToShow] = useState(
-    month || new Date().getMonth()
+    month || new Date().getMonth(),
   );
   const [yearToShow, setYearToShow] = useState(
-    year || new Date().getFullYear()
+    year || new Date().getFullYear(),
   );
   const [currentDay, setCurrentDay] = useState(new Date().getDate());
   const [modalVisible, setModalVisible] = useState(false);
@@ -89,6 +97,48 @@ const Calendar = ({ year, month, drinks, userInfos, setUserInfos }) => {
   };
 
   const getThisDayDrinks = () => {
+    if (!allowEdit) {
+      const todayDrinks = drinks.filter((drink) => {
+        const drinkDate = new Date(drink.date);
+        return (
+          drinkDate.getDate() === currentDay &&
+          drinkDate.getMonth() === monthToShow &&
+          drinkDate.getFullYear() === yearToShow
+        );
+      });
+      let res = [];
+      const uniqueDrinks = [...new Set(todayDrinks.map((i) => i.name))];
+      const uniqueUsers = [...new Set(todayDrinks.map((i) => i.user))];
+      uniqueDrinks.forEach((drinkName) => {
+        let drinkObj = { name: drinkName, types: [] };
+        const uniqueTypes = [
+          ...new Set(
+            todayDrinks.filter((j) => drinkName === j.name).map((j) => j.type),
+          ),
+        ];
+        uniqueTypes.forEach((typeName) => {
+          const typeDrinks = todayDrinks.filter(
+            (j) => drinkName === j.name && typeName === j.type,
+          );
+          const total = typeDrinks.reduce(
+            (acc, curr) => acc + Number(curr.amount),
+            0,
+          );
+          let usersArr = [];
+          uniqueUsers.forEach((userName) => {
+            const userTotal = typeDrinks
+              .filter((j) => j.user === userName)
+              .reduce((acc, curr) => acc + Number(curr.amount), 0);
+            if (userTotal > 0) {
+              usersArr.push({ user: userName, userTotal });
+            }
+          });
+          drinkObj.types.push({ type: typeName, total, users: usersArr });
+        });
+        res.push(drinkObj);
+      });
+      return res;
+    }
     return drinks.filter((drink) => {
       const drinkDate = new Date(drink.date);
       return (
@@ -118,47 +168,86 @@ const Calendar = ({ year, month, drinks, userInfos, setUserInfos }) => {
           </h1>
           <div className="boteco-calendar-drinks">
             {getThisDayDrinks().map((i) => {
-              return (
-                <div key={i._id} className="drink-item">
-                  <p>
-                    • {i.amount}x {i.name} ({i.type})
-                  </p>
-                  <button onClick={() => handleDeleteDrink(i._id)}>
-                    <img src={trashIcon} alt="Delete" />
-                  </button>
-                </div>
-              );
+              if (!allowEdit) {
+                return (
+                  <div
+                    key={i._id}
+                    className="drink-item"
+                    style={{
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <p style={{ fontWeight: "bold" }}>
+                      • {i.types.reduce((a, b) => a + b.total, 0)}x {i.name}
+                    </p>
+                    {i.types.map((t) => {
+                      return (
+                        <Fragment key={`${i._id}-${t.type}`}>
+                          <p style={{ marginLeft: "12px" }}>
+                            {t.total}x {t.type}
+                          </p>
+                          <p style={{ marginLeft: "36px" }}>
+                            {t.users
+                              .map((u) => `${u.user} (${u.userTotal})`)
+                              .join(", ")}
+                          </p>
+                        </Fragment>
+                      );
+                    })}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={i._id} className="drink-item">
+                    <p>
+                      • {i.amount}x {i.name} ({i.type}){" "}
+                    </p>
+                    {allowEdit && (
+                      <button onClick={() => handleDeleteDrink(i._id)}>
+                        <img src={trashIcon} alt="Delete" />
+                      </button>
+                    )}
+                  </div>
+                );
+              }
             })}
           </div>
-          <AddDrink
-            removeMargin={true}
-            userInfos={userInfos}
-            setUserInfos={setUserInfos}
-            customDate={new Date(yearToShow, monthToShow, currentDay)}
-          />
+          {allowEdit && (
+            <AddDrink
+              removeMargin={true}
+              userInfos={userInfos}
+              setUserInfos={setUserInfos}
+              customDate={new Date(yearToShow, monthToShow, currentDay)}
+            />
+          )}
         </Modal>
       )}
-      <div className="info-cards">
-        <div className="card">
-          <label>Pontos</label>
-          <p>{calculateLiters(getThisMonthDrinks()).points}</p>
+      {infoCards && (
+        <div className="info-cards">
+          <div className="card">
+            <label>Pontos</label>
+            <p>{calculateLiters(getThisMonthDrinks()).points}</p>
+          </div>
+          <div className="card">
+            <label>Litragem</label>
+            <p>{calculateLiters(getThisMonthDrinks()).liters}L</p>
+          </div>
+          <div className="card">
+            <label>Checkins</label>
+            <p>
+              {
+                new Set([
+                  ...getThisMonthDrinks().map((drink) =>
+                    drink.date.slice(0, 10),
+                  ),
+                ]).size
+              }
+            </p>
+          </div>
         </div>
-        <div className="card">
-          <label>Litragem</label>
-          <p>{calculateLiters(getThisMonthDrinks()).liters}L</p>
-        </div>
-        <div className="card">
-          <label>Checkins</label>
-          <p>
-            {
-              new Set([
-                ...getThisMonthDrinks().map((drink) => drink.date.slice(0, 10)),
-              ]).size
-            }
-          </p>
-        </div>
-      </div>
-      <div className="calendar-controls">
+      )}
+      <div className="boteco-calendar-controls">
         <button onClick={handlePrevMonth}>
           <img src={leftAngleIcon} alt="Previous Month" />
         </button>
@@ -169,7 +258,7 @@ const Calendar = ({ year, month, drinks, userInfos, setUserInfos }) => {
           <img src={rightAngleIcon} alt="Next Month" />
         </button>
       </div>
-      <div className="calendar">
+      <div className="boteco-calendar">
         {weekdays.map((w) => (
           <div className="weekday" key={w}>
             {w}
@@ -179,6 +268,7 @@ const Calendar = ({ year, month, drinks, userInfos, setUserInfos }) => {
         {cells.map((date, idx) => (
           <div
             className="day-container"
+            key={date + idx}
             onClick={() => handleCalendarClick(date)}
           >
             <p

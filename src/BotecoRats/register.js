@@ -26,6 +26,17 @@ const BotecoRatsRegister = () => {
     setLoading(false);
   };
 
+  const getButtonLabel = () => {
+    let res;
+    if (!user.user) res = "Falta nome";
+    else if (!user.password) res = "Falta senha";
+    else if (!user.confirmPassword) res = "Confirma a senha";
+    else if (user.password !== user.confirmPassword) res = "Senhas não batem";
+    else if (!user.profilePic) res = "Falta foto de perfil";
+    else res = "Cadastrar";
+    return res;
+  };
+
   return (
     <div className="register-container">
       {loading && <Loader />}
@@ -61,6 +72,12 @@ const BotecoRatsRegister = () => {
         onChange={(e) => setUser({ ...user, password: e.target.value })}
       />
       <input
+        type="password"
+        placeholder="Confirma a Senha"
+        value={user.confirmPassword}
+        onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
+      />
+      <input
         ref={fileInputRef}
         style={{ display: "none" }}
         type="file"
@@ -87,9 +104,16 @@ const BotecoRatsRegister = () => {
       />
       <button
         onClick={handleSubmit}
-        disabled={!user.user || !user.password || !user.profilePic}
+        disabled={
+          !user.user ||
+          !user.password ||
+          !user.confirmPassword ||
+          !user.profilePic ||
+          user.password !== user.confirmPassword ||
+          loading
+        }
       >
-        Registrar
+        {getButtonLabel()}
       </button>
       <p className="login-link" onClick={() => navigate("/botecorats/login")}>
         Login
