@@ -15,15 +15,19 @@ const BotecoRatsCreateGroup = () => {
     avatarToShow: "",
     drinksFilter: [],
     weekendOnly: false,
+    type: "goal",
+    goalType: "totalLiters",
+    goalValue: 0,
   });
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [noEndDate, setNoEndDate] = useState(false);
 
   useEffect(() => {
     const lastDayOfCurrentMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() + 1,
-      0
+      0,
     );
 
     setGroup((prev) => {
@@ -47,7 +51,10 @@ const BotecoRatsCreateGroup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const res = await registerBotecoGroup(group);
+    const res = await registerBotecoGroup({
+      ...group,
+      groupEndDate: noEndDate ? null : group.groupEndDate,
+    });
     setLoading(false);
     if (res?.code === 201) {
       alert("Grupo criado com sucesso!");
@@ -60,17 +67,37 @@ const BotecoRatsCreateGroup = () => {
   };
 
   const handleCheckCount = (item) => {
-    if (!group.drinksFilter.includes(item)) {
+    if (!group.drinksFilter.some((i) => i.name === item)) {
       setGroup({
         ...group,
-        drinksFilter: [...group.drinksFilter, item],
+        drinksFilter: [
+          ...group.drinksFilter,
+          { name: item, types: drinkList.find((i) => i.name === item).types },
+        ],
       });
     } else {
       setGroup({
         ...group,
-        drinksFilter: group.drinksFilter.filter((i) => i !== item),
+        drinksFilter: group.drinksFilter.filter((i) => i.name !== item),
       });
     }
+  };
+
+  const handleTypeCount = (drinkName, typeName) => {
+    const drinkIndex = group.drinksFilter.findIndex(
+      (i) => i.name === drinkName,
+    );
+    if (drinkIndex === -1) return;
+    const typeIndex = group.drinksFilter[drinkIndex].types.indexOf(typeName);
+    let newTypes = [...group.drinksFilter[drinkIndex].types];
+    if (typeIndex === -1) {
+      newTypes.push(typeName);
+    } else {
+      newTypes.splice(typeIndex, 1);
+    }
+    const newDrinksFilter = [...group.drinksFilter];
+    newDrinksFilter[drinkIndex].types = newTypes;
+    setGroup({ ...group, drinksFilter: newDrinksFilter });
   };
 
   return (
@@ -127,17 +154,30 @@ const BotecoRatsCreateGroup = () => {
         value={group.name}
         onChange={(e) => setGroup({ ...group, name: e.target.value })}
       />
-      <p>Data pra começar e fim da litragem</p>
-      <input
-        type="date"
-        value={group.groupStartDate}
-        onChange={(e) => setGroup({ ...group, groupStartDate: e.target.value })}
-      />
-      <input
-        type="date"
-        value={group.groupEndDate}
-        onChange={(e) => setGroup({ ...group, groupEndDate: e.target.value })}
-      />
+      <p>Período do grupo</p>
+      <div style={{ display: "flex", gap: "4px" }}>
+        <input
+          type="date"
+          value={group.groupStartDate}
+          onChange={(e) =>
+            setGroup({ ...group, groupStartDate: e.target.value })
+          }
+        />
+        <input
+          type="date"
+          disabled={noEndDate}
+          value={group.groupEndDate}
+          onChange={(e) => setGroup({ ...group, groupEndDate: e.target.value })}
+        />
+      </div>
+      <div className="weekendCheck" style={{ marginTop: "8px" }}>
+        <input
+          type="checkbox"
+          checked={noEndDate}
+          onChange={(e) => setNoEndDate(e.target.checked)}
+        />
+        <p>Grupo sem data de fim</p>
+      </div>
       <div className="weekendCheck">
         <input
           type="checkbox"
@@ -148,17 +188,76 @@ const BotecoRatsCreateGroup = () => {
         />
         <p>Contabilizar apenas finais de semana</p>
       </div>
-      <p>Contabilizado nesse grupo:</p>
+      <p style={{ fontSize: "16px", marginBottom: "8px" }}>
+        Esse vai ser um grupo:
+      </p>
+      <select
+        value={group.type}
+        onChange={(e) => setGroup({ ...group, type: e.target.value })}
+      >
+        <option value="goal">Cooperativo (Com uma meta)</option>
+        <option value="competitive">Competitivo (Quem bebe mais)</option>
+      </select>
+      <div className="goal-container">
+        <p>{group.type === "goal" ? "Meta de:" : "Competir por:"}</p>
+        <div>
+          {group.type === "goal" && (
+            <input
+              type="number"
+              value={group.goalValue}
+              placeholder="Qtd"
+              onChange={(e) =>
+                setGroup({ ...group, goalValue: e.target.value })
+              }
+            />
+          )}
+          <select
+            value={group.goalType}
+            onChange={(e) => setGroup({ ...group, goalType: e.target.value })}
+          >
+            <option value="totalLiters">Litros</option>
+            <option value="totalPoints">Pontos</option>
+            <option value="totalAmount">Quantidade</option>
+          </select>
+        </div>
+      </div>
+      <p>Permitido nesse grupo:</p>
       <div className="group-count-allowed">
         {drinkList.map((i) => {
           return (
-            <div key={i.name} onClick={() => handleCheckCount(i.name)}>
-              <input
-                checked={group.drinksFilter.includes(i.name)}
-                type="checkbox"
-              />
-              <label>{i.name}</label>
-            </div>
+            <>
+              <div key={i.name} onClick={() => handleCheckCount(i.name)}>
+                <div>
+                  <input
+                    checked={group.drinksFilter.some(
+                      (drink) => drink.name === i.name,
+                    )}
+                    type="checkbox"
+                  />
+                  <label>{i.name}</label>
+                </div>
+                {group.drinksFilter.some((drink) => drink.name === i.name) && (
+                  <div className="types">
+                    {drinkList
+                      .find((drink) => drink.name === i.name)
+                      .types.map((j) => {
+                        return (
+                          <div>
+                            <input
+                              type="checkbox"
+                              onChange={() => handleTypeCount(i.name, j)}
+                              checked={group.drinksFilter
+                                .find((drink) => drink.name === i.name)
+                                .types.includes(j)}
+                            />
+                            <label>{j}</label>
+                          </div>
+                        );
+                      })}
+                  </div>
+                )}
+              </div>
+            </>
           );
         })}
       </div>

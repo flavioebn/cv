@@ -279,8 +279,26 @@
       margin-top: 0px;
     }
 
+    .group-infos {
+      width: 100%;
+      .group-info-row {
+        display: flex;
+        gap: 4px;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        p {
+          margin: 0px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+
     .members-container {
-      display: flex;
       flex-direction: column;
       gap: 12px;
       margin-top: 16px;
@@ -294,6 +312,29 @@
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         border-radius: 8px;
         padding: 8px;
+        overflow: hidden;
+        margin-bottom: 12px;
+
+        &.closed {
+          max-height: 68px;
+          transition: max-height 0.3s ease;
+
+          .drinks-container {
+            color: white;
+            transition: color 0.3s ease;
+          }
+        }
+
+        &.open {
+          transition: max-height 0.3s ease;
+          max-height: 400px;
+          overflow: scroll;
+
+          .drinks-container {
+            color: black;
+            transition: color 0.3s ease;
+          }
+        }
 
         .member-thumb {
           width: 64px;
@@ -303,21 +344,35 @@
         }
 
         .member-infos {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          justify-content: center;
-          margin-left: 12px;
+          padding-top: 6px;
+          .member-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: center;
+            margin-left: 12px;
 
-          span {
-            grid-area: 1 / 1 / 2 / 3;
-            column-span: 2;
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin: 0px;
+            span {
+              grid-area: 1 / 1 / 2 / 3;
+              column-span: 2;
+              font-weight: bold;
+              font-size: 1.5rem;
+              margin: 0px;
+            }
+
+            p {
+              margin: 0px;
+            }
           }
 
-          p {
-            margin: 0px;
+          .drinks-container {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            margin-left: 14px;
+
+            p {
+              margin: 0px;
+            }
           }
         }
       }
