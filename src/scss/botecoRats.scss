@@ -818,3 +818,162 @@
     }
   }
 }
+
+.edit-group-modal {
+  justify-content: flex-start;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 80%;
+  padding-bottom: 32px;
+
+  margin: auto;
+
+  p {
+    margin-bottom: 0px;
+  }
+
+  h1 {
+    align-self: center;
+  }
+
+  input,
+  select,
+  option {
+    font-family: "Quicksand", sans-serif;
+  }
+
+  .group-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    background-color: rgb(170, 170, 170);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 42px;
+    margin-top: 0px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      &.placeholder {
+        width: 50%;
+        height: 50%;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  input,
+  select {
+    padding: 8px;
+    border: 1px solid $base-purple;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  input[type="text"],
+  select {
+    width: 90%;
+  }
+
+  .finish-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    button {
+      padding: 10px;
+      font-size: 1.15rem;
+      background-color: $base-purple;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 16px;
+      width: 30%;
+      font-weight: bold;
+
+      &.red {
+        background-color: $soft-red;
+      }
+    }
+  }
+  .group-count-allowed {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+
+    div {
+      div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      input {
+        width: 40px;
+        height: 20px;
+        cursor: pointer;
+        margin: 0px;
+      }
+
+      label {
+        font-size: 1.15rem;
+        margin: 0px;
+      }
+
+      .types {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 8px;
+
+        gap: 4px;
+      }
+    }
+  }
+
+  .goal-container {
+    p {
+      margin-bottom: 8px;
+      margin-top: 0px;
+    }
+
+    div {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 8px;
+
+      input {
+        width: 80%;
+      }
+    }
+  }
+
+  .weekendCheck {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+
+    p {
+      font-size: 16px;
+      margin: 0px;
+    }
+
+    input {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      margin: 0px;
+    }
+  }
+}

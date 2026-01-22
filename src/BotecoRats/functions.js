@@ -65,6 +65,26 @@ const registerBotecoGroup = async (body) => {
   return { res, code };
 };
 
+const updateBotecoGroup = async (body) => {
+  const response = await fetch(`${URL}/botecoRats/updateGroup/${body._id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  const code = response.status;
+  const res = await response.json();
+
+  if (code !== 200) {
+    alert(res.msg);
+    return { error: `Deu erro ${code}` };
+  }
+
+  return { res, code };
+};
+
 const loginBotecoUser = async (body) => {
   const response = await fetch(`${URL}/botecoRats/login`, {
     method: "POST",
@@ -228,4 +248,5 @@ export {
   getUserInfo,
   joinLeaveGroup,
   deletePersonalDrink,
+  updateBotecoGroup,
 };

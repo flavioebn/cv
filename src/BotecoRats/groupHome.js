@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getGroupDetails, joinLeaveGroup } from "./functions";
+import {
+  getGroupDetails,
+  joinLeaveGroup,
+  updateBotecoGroup,
+} from "./functions";
 import Loader from "../components/loader";
 import BotecoSidebar from "./components/sidebar";
 import { copyToClipboard } from "../utils/utils";
@@ -9,6 +13,7 @@ import infoIcon from "../assets/icons/info.svg";
 import shareIcon from "../assets/icons/share.svg";
 import leaveIcon from "../assets/icons/leave.svg";
 import joinIcon from "../assets/icons/join.svg";
+import cogIcon from "../assets/icons/cog.svg";
 import Modal from "../components/modal";
 import Calendar from "./components/Calendar";
 
@@ -19,6 +24,10 @@ const GroupHome = () => {
   const [loading, setLoading] = useState(true);
   const [infosModalVisible, setInfosModalVisible] = useState(false);
   const [membersModal, setMembersModal] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [groupEditInfos, setGroupEditInfos] = useState(null);
+  const [groupEditNoEndDate, setGroupEditNoEndDate] = useState(false);
+  const user = JSON.parse(localStorage.getItem("botecoRatsUser"));
 
   let drinksByMember = groupDetails?.members?.map((i) => {
     const memberDrinks = groupDrinks.filter((drink) => drink.userId === i._id);
@@ -49,6 +58,12 @@ const GroupHome = () => {
     setLoading(true);
     const res = await getGroupDetails(groupId);
     setGroupDetails(res.res.group);
+    setGroupEditInfos({
+      ...res.res.group,
+      groupStartDate: res.res.group.groupStartDate.slice(0, 10) || "",
+      groupEndDate: res.res.group.groupEndDate?.slice(0, 10) || null,
+    });
+    if (res.res.group.groupEndDate === null) setGroupEditNoEndDate(true);
     const { drinks: resDrinks } = res.res;
     const { group: resGroup } = res.res;
     const { drinksFilter } = resGroup;
@@ -260,6 +275,66 @@ const GroupHome = () => {
     }
   };
 
+  const handleEditModalVisibility = () => {
+    setEditModalVisible(!editModalVisible);
+  };
+
+  const handleCheckCount = (item) => {
+    if (!groupEditInfos.drinksFilter.some((i) => i.name === item)) {
+      setGroupEditInfos({
+        ...groupEditInfos,
+        drinksFilter: [
+          ...groupEditInfos.drinksFilter,
+          { name: item, types: drinkList.find((i) => i.name === item).types },
+        ],
+      });
+    } else {
+      setGroupEditInfos({
+        ...groupEditInfos,
+        drinksFilter: groupEditInfos.drinksFilter.filter(
+          (i) => i.name !== item,
+        ),
+      });
+    }
+  };
+
+  const handleTypeCount = (drinkName, typeName) => {
+    const drinkIndex = groupEditInfos.drinksFilter.findIndex(
+      (i) => i.name === drinkName,
+    );
+    if (drinkIndex === -1) return;
+    const typeIndex =
+      groupEditInfos.drinksFilter[drinkIndex].types.indexOf(typeName);
+    let newTypes = [...groupEditInfos.drinksFilter[drinkIndex].types];
+    if (typeIndex === -1) {
+      newTypes.push(typeName);
+    } else {
+      newTypes.splice(typeIndex, 1);
+    }
+    const newDrinksFilter = [...groupEditInfos.drinksFilter];
+    newDrinksFilter[drinkIndex].types = newTypes;
+    setGroupEditInfos({ ...groupEditInfos, drinksFilter: newDrinksFilter });
+  };
+
+  const handleUpdateGroup = async () => {
+    setLoading(true);
+    const newGroupEndDate = groupEditNoEndDate
+      ? null
+      : groupEditInfos.groupEndDate;
+    const groupEditInfosFinal = {
+      ...groupEditInfos,
+      groupEndDate: newGroupEndDate,
+    };
+    const response = await updateBotecoGroup(groupEditInfosFinal);
+    setLoading(false);
+    if (response.code !== 200) {
+      alert("Erro ao atualizar grupo");
+    } else {
+      alert("Grupo atualizado com sucesso!");
+      window.location.reload();
+    }
+  };
+
   return (
     <div>
       {loading ? (
@@ -333,6 +408,170 @@ const GroupHome = () => {
               </div>
             </Modal>
           )}
+          {editModalVisible && (
+            <Modal
+              close={handleEditModalVisibility}
+              classes={"boteco edit-group-modal"}
+            >
+              <h1>Editar Grupo</h1>
+              <label>Nome</label>
+              <input
+                type="text"
+                value={groupEditInfos?.name || ""}
+                onChange={(e) =>
+                  setGroupEditInfos({
+                    ...groupEditInfos,
+                    name: e.target.value,
+                  })
+                }
+              />
+              <p style={{ marginTop: "0px" }}>Período do grupo</p>
+              <div style={{ display: "flex", gap: "4px" }}>
+                <input
+                  type="date"
+                  value={groupEditInfos.groupStartDate}
+                  onChange={(e) =>
+                    setGroupEditInfos({
+                      ...groupEditInfos,
+                      groupStartDate: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="date"
+                  disabled={groupEditNoEndDate}
+                  value={groupEditInfos.groupEndDate}
+                  onChange={(e) =>
+                    setGroupEditInfos({
+                      ...groupEditInfos,
+                      groupEndDate: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="weekendCheck" style={{ marginTop: "8px" }}>
+                <input
+                  type="checkbox"
+                  checked={groupEditNoEndDate}
+                  onChange={(e) => setGroupEditNoEndDate(e.target.checked)}
+                />
+                <p>Grupo sem data de fim</p>
+              </div>
+              <div className="weekendCheck">
+                <input
+                  type="checkbox"
+                  checked={groupEditInfos.weekendOnly}
+                  onChange={(e) =>
+                    setGroupEditInfos({
+                      ...groupEditInfos,
+                      weekendOnly: e.target.checked,
+                    })
+                  }
+                />
+                <p>Contabilizar apenas finais de semana</p>
+              </div>
+              <p style={{ fontSize: "16px", marginTop: "12px" }}>
+                Esse é um grupo:
+              </p>
+              <select
+                value={groupEditInfos.type}
+                style={{ marginBottom: "0px" }}
+                onChange={(e) =>
+                  setGroupEditInfos({ ...groupEditInfos, type: e.target.value })
+                }
+              >
+                <option value="goal">Cooperativo (Com uma meta)</option>
+                <option value="competitive">
+                  Competitivo (Quem bebe mais)
+                </option>
+              </select>
+              <p style={{ marginTop: "8px" }}>
+                {groupEditInfos.type === "goal" ? "Meta de:" : "Competir por:"}
+              </p>
+              <div style={{ width: "100%", display: "flex", gap: "4px" }}>
+                {groupEditInfos.type === "goal" && (
+                  <input
+                    style={{ width: "20%" }}
+                    type="number"
+                    value={groupEditInfos.goalValue}
+                    placeholder="Qtd"
+                    onChange={(e) =>
+                      setGroupEditInfos({
+                        ...groupEditInfos,
+                        goalValue: e.target.value,
+                      })
+                    }
+                  />
+                )}
+                <select
+                  value={groupEditInfos.goalType}
+                  style={{
+                    width: groupEditInfos.type === "goal" ? "60%" : "90%",
+                  }}
+                  onChange={(e) =>
+                    setGroupEditInfos({
+                      ...groupEditInfos,
+                      goalType: e.target.value,
+                    })
+                  }
+                >
+                  <option value="totalLiters">Litros</option>
+                  <option value="totalPoints">Pontos</option>
+                  <option value="totalAmount">Quantidade</option>
+                </select>
+              </div>
+              <p>Permitido nesse grupo:</p>
+              <div className="group-count-allowed">
+                {drinkList.map((i) => {
+                  return (
+                    <>
+                      <div
+                        key={i.name}
+                        onClick={() => handleCheckCount(i.name)}
+                      >
+                        <div>
+                          <input
+                            checked={groupEditInfos.drinksFilter.some(
+                              (drink) => drink.name === i.name,
+                            )}
+                            type="checkbox"
+                          />
+                          <label>{i.name}</label>
+                        </div>
+                        {groupEditInfos.drinksFilter.some(
+                          (drink) => drink.name === i.name,
+                        ) && (
+                          <div className="types">
+                            {drinkList
+                              .find((drink) => drink.name === i.name)
+                              .types.map((j) => {
+                                return (
+                                  <div>
+                                    <input
+                                      type="checkbox"
+                                      onChange={() =>
+                                        handleTypeCount(i.name, j)
+                                      }
+                                      checked={groupEditInfos.drinksFilter
+                                        .find((drink) => drink.name === i.name)
+                                        .types.includes(j)}
+                                    />
+                                    <label>{j}</label>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  );
+                })}
+              </div>
+              <div className="finish-buttons" style={{ width: "100%" }}>
+                <button onClick={handleUpdateGroup}>Enviar</button>
+              </div>
+            </Modal>
+          )}
           <div className="group-header">
             <h2>{groupDetails?.name}</h2>
             <img src={groupDetails?.avatarUrl} alt={groupDetails?.name} />
@@ -359,6 +598,11 @@ const GroupHome = () => {
             <button onClick={handleInfosModalVisibility}>
               <img src={infoIcon} alt="infoIcon" />
             </button>
+            {user?._id === groupDetails?.owner._id && (
+              <button onClick={handleEditModalVisibility}>
+                <img src={cogIcon} alt="cogIcon" />
+              </button>
+            )}
           </div>
 
           {groupDetails.type === "goal" ? (
