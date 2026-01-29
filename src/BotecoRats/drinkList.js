@@ -36,6 +36,10 @@ export const drinkList = [
     types: ["Aperol", "Moscow Mule", "Negroni"],
   },
   {
+    name: "Cigarro",
+    types: ["Lucky Strike", "Marlboro", "Camel", "Gudangzinho", "Sampoerna"],
+  },
+  {
     name: "Outros",
     types: [
       "Ice",
@@ -90,6 +94,13 @@ export const liters = {
     "Moscow Mule": 0.35,
     Negroni: 0.35,
   },
+  Cigarro: {
+    "Lucky Strike": 0,
+    Marlboro: 0,
+    Camel: 0,
+    Gudangzinho: 0,
+    Sampoerna: 0,
+  },
   Outros: {
     Ice: 0.35,
     "Skol beats": 0.35,
@@ -141,6 +152,13 @@ export const points = {
     Aperol: 3.5,
     "Moscow Mule": 3.5,
     Negroni: 3.5,
+  },
+  Cigarro: {
+    "Lucky Strike": 1,
+    Marlboro: 1,
+    Camel: 1,
+    Gudangzinho: 1,
+    Sampoerna: 1,
   },
   Outros: {
     Ice: 2,
