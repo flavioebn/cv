@@ -9,6 +9,7 @@ import hub8 from "../assets/images/hub8.png";
 import hub9 from "../assets/images/hub9.png";
 import hub10 from "../assets/images/hub10.png";
 import botecoRats from "../assets/images/botecoRatsLogo.png";
+import nachoLogo from "../assets/images/nachoCia.png";
 
 export const data = [
   {
@@ -18,10 +19,10 @@ export const data = [
     to: "/botecorats/login",
   },
   {
-    title: "Checklist",
-    desc: "A simple checklist app to keep track of what your things",
-    image: hub8,
-    to: "/checklist",
+    title: "Nacho & Cia",
+    desc: "O maior Site e Revista de coberturas fotográficas nas baladas, bares, restaurantes, pubs, lojas, praias de BC e região.",
+    image: nachoLogo,
+    to: "/nachoecia",
   },
   {
     title: "Recipes",
@@ -34,6 +35,12 @@ export const data = [
     desc: "My D&D 5e DM app to track my party details and initiative, and write my notes as the game goes on. *NOT mobile friendly*",
     image: hub6,
     to: "/party",
+  },
+  {
+    title: "Checklist",
+    desc: "A simple checklist app to keep track of what your things",
+    image: hub8,
+    to: "/checklist",
   },
   {
     title: "Me, myself & I",
