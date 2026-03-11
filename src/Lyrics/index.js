@@ -9,7 +9,7 @@ import {
 
 const Lyrics = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [req, setReq] = useState({ title: "milonga", band: "fresno" });
+  const [req, setReq] = useState({ title: "", band: "" });
   const [display, setDisplay] = useState({ title: "", band: "" });
   const [words, setWords] = useState({ unique: [], total: 0, found: 0 });
   const [lyrics, setLyrics] = useState([]);
