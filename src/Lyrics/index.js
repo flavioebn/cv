@@ -9,7 +9,7 @@ import {
 
 const Lyrics = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [req, setReq] = useState({ title: "", band: "" });
+  const [req, setReq] = useState({ title: "milonga", band: "fresno" });
   const [display, setDisplay] = useState({ title: "", band: "" });
   const [words, setWords] = useState({ unique: [], total: 0, found: 0 });
   const [lyrics, setLyrics] = useState([]);
@@ -41,14 +41,18 @@ const Lyrics = () => {
   };
 
   const getLyrics = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
     reset();
     if (req.title === "") return;
-    e.preventDefault();
     const response = await fetch(
-      `https://lyrist.vercel.app/api/${req.title}${
-        req.band ? `/${req.band}` : ""
-      }`
+      `https://pugilistically-nonbillable-sol.ngrok-free.dev/get-lyrics/${req.band}/${req.title}`,
+      {
+        method: "GET",
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      },
     ).then((res) => res.json());
 
     if (!response.title) {
@@ -57,18 +61,26 @@ const Lyrics = () => {
       return;
     }
 
-    let format = response.lyrics
-      .replace(/\[.*?\]/g, "")
-      .replace(/[(]/g, "( ")
-      .replace(/[)]/g, " )")
-      .replace(/[,!"'?:]/g, "")
-      .replace(/[...]/g, "")
-      .replace(/е/g, "e")
-      .split("\n")
-      .filter((str) => str !== "");
+    // let format = response.lyrics
+    //   .replace(/\[.*?\]/g, "")
+    //   .replace(/[(]/g, "( ")
+    //   .replace(/[)]/g, " )")
+    //   .replace(/[,!"'?:]/g, "")
+    //   .replace(/[...]/g, "")
+    //   .replace(/е/g, "e")
+    //   .split("\n")
+    //   .filter((str) => str !== "");
 
-    format = format.map((i) => {
-      return i.replace(/\s+/g, " ");
+    const format = response.lyrics.map((i) => {
+      console.log(i);
+      return i
+        .replace(/\s+/g, " ")
+        .replace(/\[.*?\]/g, "")
+        .replace(/[(]/g, "( ")
+        .replace(/[)]/g, " )")
+        .replace(/[,!"'?:]/g, "")
+        .replace(/[...]/g, "")
+        .replace(/е/g, "e");
     });
 
     setLyrics(format);
@@ -275,7 +287,7 @@ const Lyrics = () => {
                       j
                         .toLowerCase()
                         .normalize("NFD")
-                        .replace(/[\u0300-\u036f]/g, "")
+                        .replace(/[\u0300-\u036f]/g, ""),
                     )
                       ? j
                       : j.replace(/\S/g, "_")}
