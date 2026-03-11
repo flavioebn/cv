@@ -12,7 +12,7 @@ const events = [
   { name: "Joversário 2025", images: jo2025 },
   { name: "Gabiversário 2025", images: gabi2025 },
   { name: "Menachoversário 2025", images: menacho2025 },
-  { name: "Feijuca da Nic 2025", images: nic2025 },
+  { name: "Feijuca da Nic 2026", images: nic2025 },
 ];
 
 const NachoCia = () => {
