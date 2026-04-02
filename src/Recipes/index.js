@@ -7,14 +7,10 @@ import changeIcon from "../assets/icons/change.svg";
 import editIcon from "../assets/icons/edit.svg";
 import copyIcon from "../assets/icons/copy.svg";
 import trashIcon from "../assets/icons/trash-thin.svg";
-import qrCodeIcon from "../assets/icons/qrcode.svg";
 import checklistIcon from "../assets/icons/checklist.svg";
 import arrowUp from "../assets/icons/arrow-up.svg";
 import { copyToClipboard, getFromStorage, setStorage } from "../utils/utils";
 import { stolen } from "./stolen";
-import QRCode from "react-qr-code";
-import Modal from "../components/modal";
-import { postPastebin } from "../Party/pastebinRequest";
 
 const RecipeCard = ({ recipe, handleEdit, handleDelete, personalView }) => {
   // Função para gerar link de compartilhamento
@@ -28,18 +24,18 @@ const RecipeCard = ({ recipe, handleEdit, handleDelete, personalView }) => {
     }
   };
 
-  const handleShare = async () => {
-    const link = getShareLink();
-    try {
-      await navigator.clipboard.writeText(link);
-      setQrValue(link);
-      alert("Link copiado! Cole para compartilhar.");
-    } catch {
-      prompt("Copie o link:", link);
-    }
-  };
+  // const handleShare = async () => {
+  //   const link = getShareLink();
+  //   try {
+  //     await navigator.clipboard.writeText(link);
+  //     setQrValue(link);
+  //     alert("Link copiado! Cole para compartilhar.");
+  //   } catch {
+  //     prompt("Copie o link:", link);
+  //   }
+  // };
   const [open, setOpen] = useState(false);
-  const [qrValue, setQrValue] = useState("");
+  // const [qrValue, setQrValue] = useState("");
 
   const handleCopy = async () => {
     const textToCopy = `
