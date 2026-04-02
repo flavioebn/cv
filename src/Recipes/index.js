@@ -14,15 +14,15 @@ import { stolen } from "./stolen";
 
 const RecipeCard = ({ recipe, handleEdit, handleDelete, personalView }) => {
   // Função para gerar link de compartilhamento
-  const getShareLink = () => {
-    try {
-      const data = btoa(encodeURIComponent(JSON.stringify(recipe)));
-      return `${window.location.origin}${window.location.pathname}?data=${data}`;
-    } catch (e) {
-      alert("Erro ao gerar link de compartilhamento");
-      return "";
-    }
-  };
+  // const getShareLink = () => {
+  //   try {
+  //     const data = btoa(encodeURIComponent(JSON.stringify(recipe)));
+  //     return `${window.location.origin}${window.location.pathname}?data=${data}`;
+  //   } catch (e) {
+  //     alert("Erro ao gerar link de compartilhamento");
+  //     return "";
+  //   }
+  // };
 
   // const handleShare = async () => {
   //   const link = getShareLink();
@@ -189,35 +189,35 @@ Link: ${recipe.link}
   );
 };
 
-const RecipeToBuyCard = ({ recipe, recipesToBuy, setRecipesToBuy }) => {
-  const isSelected = recipesToBuy.includes(recipe);
-  return (
-    <div
-      onClick={() => {
-        if (isSelected) {
-          setRecipesToBuy((prev) => prev.filter((r) => r !== recipe));
-        } else {
-          setRecipesToBuy((prev) => [...prev, recipe]);
-        }
-      }}
-    >
-      <input type="checkbox" checked={isSelected} />
-      <span
-        key={recipe.name}
-        className={"select-recipe " + (isSelected ? "selected" : "")}
-        onClick={() => {
-          if (isSelected) {
-            setRecipesToBuy((prev) => prev.filter((r) => r !== recipe));
-          } else {
-            setRecipesToBuy((prev) => [...prev, recipe]);
-          }
-        }}
-      >
-        {recipe.name}
-      </span>
-    </div>
-  );
-};
+// const RecipeToBuyCard = ({ recipe, recipesToBuy, setRecipesToBuy }) => {
+//   const isSelected = recipesToBuy.includes(recipe);
+//   return (
+//     <div
+//       onClick={() => {
+//         if (isSelected) {
+//           setRecipesToBuy((prev) => prev.filter((r) => r !== recipe));
+//         } else {
+//           setRecipesToBuy((prev) => [...prev, recipe]);
+//         }
+//       }}
+//     >
+//       <input type="checkbox" checked={isSelected} />
+//       <span
+//         key={recipe.name}
+//         className={"select-recipe " + (isSelected ? "selected" : "")}
+//         onClick={() => {
+//           if (isSelected) {
+//             setRecipesToBuy((prev) => prev.filter((r) => r !== recipe));
+//           } else {
+//             setRecipesToBuy((prev) => [...prev, recipe]);
+//           }
+//         }}
+//       >
+//         {recipe.name}
+//       </span>
+//     </div>
+//   );
+// };
 
 const Recipes = () => {
   useEffect(() => {
