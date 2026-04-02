@@ -198,7 +198,9 @@
       overflow: hidden;
       opacity: 0;
       will-change: max-height, opacity;
-      transition: max-height 0.35s ease-out, opacity 0.35s ease-out;
+      transition:
+        max-height 0.35s ease-out,
+        opacity 0.35s ease-out;
       font-size: 1.2rem;
 
       &.open {
@@ -255,10 +257,10 @@
   background: white;
   color: black;
   z-index: 20;
-  border-radius: 0px 16px 16px 0px;
+  border-radius: 16px 0px 0px 16px;
   position: fixed;
   top: 64px;
-  left: 0;
+  right: 0;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -269,13 +271,13 @@
   scrollbar-width: none;
 
   &.closed {
-    left: -125vw;
-    transition: left 0.3s ease-in-out;
+    right: -125vw;
+    transition: right 0.3s ease-in-out;
   }
 
   &.open {
-    left: 0;
-    transition: left 0.3s ease-in-out;
+    right: 0;
+    transition: right 0.3s ease-in-out;
   }
 
   h1 {
@@ -305,6 +307,62 @@
       height: 48px;
       filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(77deg)
         brightness(103%) contrast(106%);
+    }
+  }
+
+  .select-recipes-to-buy-container {
+    .select-recipes-to-buy-header {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      img {
+        height: 1rem;
+
+        &.open {
+          transform: rotate(180deg);
+          transition: transform 0.3s ease-in-out;
+        }
+
+        &.closed {
+          transform: rotate(90deg);
+          transition: transform 0.3s ease-in-out;
+        }
+      }
+    }
+    .recipes-to-buy-list {
+      display: flex;
+      flex-direction: column;
+      max-height: 250px;
+      overflow: scroll;
+      gap: 8px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+
+      button {
+        width: 90%;
+        margin: auto;
+        background-color: transparent;
+        border: 0px;
+        color: black;
+        font-size: 1rem;
+        text-align: left;
+        padding: 4px 8px;
+        border-radius: 8px;
+        transition: background-color 0.1s ease-in-out;
+
+        &.selected {
+          background-color: $base-purple;
+          color: white;
+          font-weight: bold;
+        }
+
+        &:hover {
+          background-color: $base-purple;
+          color: white;
+          font-weight: bold;
+        }
+      }
     }
   }
 }

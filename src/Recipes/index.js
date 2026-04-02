@@ -7,13 +7,39 @@ import changeIcon from "../assets/icons/change.svg";
 import editIcon from "../assets/icons/edit.svg";
 import copyIcon from "../assets/icons/copy.svg";
 import trashIcon from "../assets/icons/trash-thin.svg";
+import qrCodeIcon from "../assets/icons/qrcode.svg";
 import checklistIcon from "../assets/icons/checklist.svg";
 import arrowUp from "../assets/icons/arrow-up.svg";
 import { copyToClipboard, getFromStorage, setStorage } from "../utils/utils";
 import { stolen } from "./stolen";
+import QRCode from "react-qr-code";
+import Modal from "../components/modal";
+import { postPastebin } from "../Party/pastebinRequest";
 
 const RecipeCard = ({ recipe, handleEdit, handleDelete, personalView }) => {
+  // Função para gerar link de compartilhamento
+  const getShareLink = () => {
+    try {
+      const data = btoa(encodeURIComponent(JSON.stringify(recipe)));
+      return `${window.location.origin}${window.location.pathname}?data=${data}`;
+    } catch (e) {
+      alert("Erro ao gerar link de compartilhamento");
+      return "";
+    }
+  };
+
+  const handleShare = async () => {
+    const link = getShareLink();
+    try {
+      await navigator.clipboard.writeText(link);
+      setQrValue(link);
+      alert("Link copiado! Cole para compartilhar.");
+    } catch {
+      prompt("Copie o link:", link);
+    }
+  };
   const [open, setOpen] = useState(false);
+  const [qrValue, setQrValue] = useState("");
 
   const handleCopy = async () => {
     const textToCopy = `
@@ -52,11 +78,11 @@ Link: ${recipe.link}
   const saveRecipe = () => {
     const savedRecipes = getFromStorage("my-recipes") || [];
     const alreadySaved = savedRecipes.some(
-      (r) => r.name === recipe.name && r.instructions === recipe.instructions
+      (r) => r.name === recipe.name && r.instructions === recipe.instructions,
     );
     if (alreadySaved) {
       const removed = savedRecipes.filter(
-        (r) => r.name !== recipe.name || r.instructions !== recipe.instructions
+        (r) => r.name !== recipe.name || r.instructions !== recipe.instructions,
       );
       setStorage("my-recipes", removed);
       setIsSaved(false);
@@ -71,7 +97,7 @@ Link: ${recipe.link}
   useEffect(() => {
     const savedRecipes = getFromStorage("my-recipes") || [];
     const alreadySaved = savedRecipes.some(
-      (r) => r.name === recipe.name && r.instructions === recipe.instructions
+      (r) => r.name === recipe.name && r.instructions === recipe.instructions,
     );
     setIsSaved(alreadySaved);
   }, [recipe]);
@@ -133,6 +159,14 @@ Link: ${recipe.link}
           >
             <img className="copy-icon" src={copyIcon} alt="copyIcon" />
           </button>
+          {/* <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleShare();
+            }}
+          >
+            <img className="qr-icon" src={qrCodeIcon} alt="qrIcon" />
+          </button> */}
           <button onClick={handleDelete}>
             <img className="trash-icon" src={trashIcon} alt="trashIcon" />
           </button>
@@ -146,12 +180,78 @@ Link: ${recipe.link}
             </button>
           )}
         </div>
+        {/* {qrValue && (
+          <QRCode
+            size={256}
+            style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+            value={qrValue}
+            viewBox={`0 0 256 256`}
+          />
+        )} */}
       </div>
     </div>
   );
 };
 
+const RecipeToBuyCard = ({ recipe, recipesToBuy, setRecipesToBuy }) => {
+  const isSelected = recipesToBuy.includes(recipe);
+  return (
+    <div
+      onClick={() => {
+        if (isSelected) {
+          setRecipesToBuy((prev) => prev.filter((r) => r !== recipe));
+        } else {
+          setRecipesToBuy((prev) => [...prev, recipe]);
+        }
+      }}
+    >
+      <input type="checkbox" checked={isSelected} />
+      <span
+        key={recipe.name}
+        className={"select-recipe " + (isSelected ? "selected" : "")}
+        onClick={() => {
+          if (isSelected) {
+            setRecipesToBuy((prev) => prev.filter((r) => r !== recipe));
+          } else {
+            setRecipesToBuy((prev) => [...prev, recipe]);
+          }
+        }}
+      >
+        {recipe.name}
+      </span>
+    </div>
+  );
+};
+
 const Recipes = () => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const data = params.get("data");
+    if (data) {
+      try {
+        const json = JSON.parse(decodeURIComponent(atob(data)));
+        const storedRecipes = getFromStorage("my-recipes") || [];
+        const exists = storedRecipes.some(
+          (r) => r.name === json.name && r.instructions === json.instructions,
+        );
+        if (!exists) {
+          const newList = [json, ...storedRecipes];
+          setStorage("my-recipes", newList);
+          setRecipes(newList);
+        } else {
+          setRecipes(storedRecipes);
+        }
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname,
+        );
+        alert("Receita importada!");
+      } catch {
+        // blablablalba
+      }
+    }
+  }, []);
   const [recipes, setRecipes] = useState([]);
   const [personalView, setPersonalView] = useState(true);
   const [view, setView] = useState("list");
@@ -166,6 +266,8 @@ const Recipes = () => {
   const [shoppingListOpen, setShoppingListOpen] = useState(false);
   const [shoppingList, setShoppingList] = useState({ personal: [], extra: [] });
   const [scrollPercent, setScrollPercent] = useState(0);
+  const [recipesToBuy, setRecipesToBuy] = useState([]);
+  const [selectRecipesToBuyView, setSelectRecipesToBuyView] = useState(false);
 
   const handlePageView = () => {
     setView(view === "list" ? "add" : "list");
@@ -187,8 +289,23 @@ const Recipes = () => {
   };
 
   useEffect(() => {
-    const storedRecipes = getFromStorage("my-recipes");
-    if (storedRecipes) setRecipes(storedRecipes);
+    const storedRecipes = getFromStorage("my-recipes") || [];
+    setRecipes(storedRecipes);
+    // Carregar lista de compras do storage, se existir
+    const storedToBuy = getFromStorage("recipes-to-buy");
+    if (storedToBuy && Array.isArray(storedToBuy) && storedToBuy.length > 0) {
+      // Filtra para garantir que só pegue receitas válidas
+      const validToBuy = storedToBuy
+        .map((r) =>
+          storedRecipes.find(
+            (s) => s.name === r.name && s.instructions === r.instructions,
+          ),
+        )
+        .filter(Boolean);
+      setRecipesToBuy(validToBuy);
+    } else {
+      setRecipesToBuy(storedRecipes);
+    }
 
     window.addEventListener("scroll", () => {
       const scrollTop = window.scrollY;
@@ -209,13 +326,26 @@ const Recipes = () => {
       });
   };
 
+  useEffect(() => {
+    getShoppingList();
+    // Salva a lista de compras no storage sempre que mudar
+    setStorage("recipes-to-buy", recipesToBuy);
+  }, [recipesToBuy]);
+
   const getShoppingList = () => {
     const allIngredients = [];
     const extra = [];
-    recipes.forEach((i) => {
+    recipesToBuy.forEach((i) => {
       i.ingredients.forEach((j) => {
         if (typeof j === "string") {
-          extra.push({ ingredient: j, withThis: [{ toRecipe: i.name }] });
+          const existing = extra.find((e) => e.ingredient === j);
+          if (existing) {
+            if (!existing.withThis.some((w) => w.toRecipe === i.name)) {
+              existing.withThis.push({ toRecipe: i.name });
+            }
+          } else {
+            extra.push({ ingredient: j, withThis: [{ toRecipe: i.name }] });
+          }
         } else {
           if (!allIngredients.includes(j.name)) allIngredients.push(j.name);
         }
@@ -225,36 +355,38 @@ const Recipes = () => {
     const byRecipe = [];
     allIngredients.forEach((i) => {
       let withThis = [];
-      recipes
+      recipesToBuy
         .filter((r) =>
           r.ingredients.some(
-            (ing) => ing?.name?.toLowerCase() === i.toLowerCase()
-          )
+            (ing) => ing?.name?.toLowerCase() === i.toLowerCase(),
+          ),
         )
         .forEach((r) => {
           withThis.push({
             toRecipe: r.name,
             qty: r.ingredients.find(
-              (ing) => ing?.name?.toLowerCase() === i.toLowerCase()
+              (ing) => ing?.name?.toLowerCase() === i.toLowerCase(),
             ).quantity,
           });
         });
       byRecipe.push({ ingredient: i, withThis });
     });
     setShoppingList({ personal: byRecipe, extra: extra });
-    setShoppingListOpen(true);
   };
 
   const copyShoppingList = async () => {
-    const textToCopy = shoppingList
-      .map(
-        (i) =>
-          `• ${i.ingredient} (${i.withThis
-            .map((j) => `${j.qty} pra ${j.toRecipe}`)
-            .join(", ")})`
-      )
-      .join("\n");
-    await copyToClipboard(textToCopy);
+    const list = [];
+    shoppingList.personal.forEach((i) =>
+      list.push(
+        `• ${i.ingredient} (${i.withThis
+          .map((j) => `${j.qty} pra ${j.toRecipe}`)
+          .join(", ")})`,
+      ),
+    );
+    shoppingList.extra.forEach((i) =>
+      list.push(`• ${i.ingredient} (${i.withThis[0].toRecipe})`),
+    );
+    await copyToClipboard(list.join("\n"));
   };
 
   const handleChangeList = () => {
@@ -276,7 +408,7 @@ const Recipes = () => {
       sortedRecipes.sort((a, b) => a.ingredients.length - b.ingredients.length);
     } else if (orderBy === "instructions") {
       sortedRecipes.sort(
-        (a, b) => a.instructions.length - b.instructions.length
+        (a, b) => a.instructions.length - b.instructions.length,
       );
     }
     setRecipes(sortedRecipes);
@@ -292,6 +424,77 @@ const Recipes = () => {
             }
           >
             <h1 style={{ marginTop: "0px" }}>Compruxas</h1>
+            <div className="select-recipes-to-buy-container">
+              <div
+                onClick={() =>
+                  setSelectRecipesToBuyView(!selectRecipesToBuyView)
+                }
+                className="select-recipes-to-buy-header"
+              >
+                <img
+                  src={arrowUp}
+                  className={`arrow ${selectRecipesToBuyView ? "open" : "closed"}`}
+                  alt="arrowUp"
+                />
+                <span>Selecionar receitas</span>
+              </div>
+              {selectRecipesToBuyView && (
+                <>
+                  <p
+                    style={{
+                      margin: "0px",
+                      marginBottom: "4px",
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                    }}
+                    onClick={() => setRecipesToBuy([])}
+                  >
+                    Limpar tudo
+                  </p>
+                  <div className="recipes-to-buy-list">
+                    {recipes.map((i) => {
+                      const isSelected = recipesToBuy.includes(i);
+                      return (
+                        <div
+                          onClick={() => {
+                            if (isSelected) {
+                              setRecipesToBuy((prev) =>
+                                prev.filter((r) => r !== i),
+                              );
+                            } else {
+                              setRecipesToBuy((prev) => [...prev, i]);
+                            }
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            readOnly
+                          />
+                          <span
+                            key={i.name}
+                            className={
+                              "select-recipe " + (isSelected ? "selected" : "")
+                            }
+                            onClick={() => {
+                              if (isSelected) {
+                                setRecipesToBuy((prev) =>
+                                  prev.filter((r) => r !== i),
+                                );
+                              } else {
+                                setRecipesToBuy((prev) => [...prev, i]);
+                              }
+                            }}
+                          >
+                            {i.name}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
             <p style={{ fontWeight: "bold", marginBottom: "8px" }}>
               Das minhas receitas:
             </p>
@@ -383,7 +586,10 @@ const Recipes = () => {
 
           {personalView && (
             <>
-              <button className="check-list" onClick={getShoppingList}>
+              <button
+                className="check-list"
+                onClick={() => setShoppingListOpen(true)}
+              >
                 <img src={checklistIcon} alt="checklistIcon" />
               </button>
 
@@ -450,7 +656,7 @@ const Recipes = () => {
       } else {
         setTimeout(() => {
           const items = document.querySelectorAll(
-            `.recipe-ingredient-item ${className}`
+            `.recipe-ingredient-item ${className}`,
           );
           items[items.length - 1]?.focus();
         }, 0);
