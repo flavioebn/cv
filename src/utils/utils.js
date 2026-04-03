@@ -170,3 +170,16 @@ export const formatWordCaseAndSpecials = (str) => {
     return replacements[char] || char; // eslint-disable-line no-control-regex
   }); // eslint-disable-line no-control-regex
 };
+
+export const formatFightDuration = (current) => {
+  const formatTime = (ms) => {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    const millis = ms % 1000;
+
+    return `${minutes}:${seconds.toString().padStart(2, "0")}.${millis}`;
+  };
+
+  return formatTime(current);
+};

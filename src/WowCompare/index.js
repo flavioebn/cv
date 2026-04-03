@@ -6,6 +6,7 @@ import DamageComparison from "./DamageComparison";
 import arrowRight from "../assets/icons/angle-right.svg";
 import arrowLeft from "../assets/icons/angle-left.svg";
 import arrowDown from "../assets/icons/arrow-down.svg";
+import { formatFightDuration } from "../utils/utils";
 
 const FETCH_URL = "https://pugilistically-nonbillable-sol.ngrok-free.dev/wlogs";
 
@@ -126,7 +127,7 @@ const WowCompare = () => {
     setToCompareChosen(false);
 
     const res = await fetch(
-      `${FETCH_URL}/getTopRanks?boss=${searchInfo.boss}&className=${searchInfo.className}&spec=${searchInfo.spec}&difficulty=${searchInfo.difficulty}`,
+      `${FETCH_URL}/getTopRanks?boss=${searchInfo.boss}&className=${searchInfo.className}&spec=${searchInfo.spec}&difficulty=${searchInfo.difficulty}&length=${personalReportData.buffs.totalTime}`,
       {
         method: "GET",
         headers: {
@@ -180,7 +181,6 @@ const WowCompare = () => {
       },
     ).then((res) => res.json());
 
-    console.log(res);
     setPersonalReportData(res);
     setPersonalFetched(true);
     setIsLoading(false);
@@ -192,29 +192,52 @@ const WowCompare = () => {
     return Math.max(personalDuration, toCompareDuration);
   };
 
+  const getIlvl = (data) => {
+    const gear = data.playerDetails.gear.filter((i) => i.itemLevel > 0);
+    const ilvl = gear.reduce((sum, i) => sum + i.itemLevel, 0) / gear.length;
+    return ilvl.toFixed(1);
+  };
+
+  const getDps = (data) => {
+    const arr = data.damagePerAbility.entries.map((e) => e.total);
+    const totalDamage = arr.reduce((sum, i) => sum + i, 0);
+    const fightLengthSec = data.damagePerAbility.totalTime / 1000;
+    return Math.floor(totalDamage / fightLengthSec).toLocaleString("en-US");
+  };
+
+  const getColor = (duration) => {
+    if (
+      duration + 2500 >= personalReportData.buffs.totalTime ||
+      duration - 2500 >= reportToCompareData.buffs.totalTime
+    )
+      return "green";
+    if (
+      duration + 7500 >= personalReportData.buffs.totalTime ||
+      duration - 7500 >= reportToCompareData.buffs.totalTime
+    )
+      return "yellow";
+    return "red";
+  };
+
   return (
     <div className="underCompare">
       {isLoading && <Loader />}
       <h1>UnderCompare</h1>
       {personalFetched && toCompareChosen && (
         <>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              textAlign: "center",
-              position: "sticky",
-              top: 0,
-              background: "#0e0e0e",
-              borderBottom: "1px solid #333",
-              lineHeight: "1rem",
-              marginBottom: "8px",
-              marginTop: "0px",
-              zIndex: "15",
-            }}
-          >
-            <h2>{personalReportData.playerName}</h2>
-            <h2>{toCompare}</h2>
+          <div className="nicks-header">
+            <div>
+              <h2>{personalReportData.playerName}</h2>
+              <p>
+                {getIlvl(personalReportData)} | {getDps(personalReportData)}
+              </p>
+            </div>
+            <div>
+              <h2>{toCompare}</h2>
+              <p>
+                {getIlvl(reportToCompareData)} | {getDps(reportToCompareData)}
+              </p>
+            </div>
           </div>
           <div>
             <Timeline
@@ -302,6 +325,19 @@ const WowCompare = () => {
             value={personalReportLink}
           />
           <button onClick={getPersonalReport}>Get personal report</button>
+
+          {!toCompareChosen && personalFetched && (
+            <div>
+              <h2>
+                Duração nessa tua luta: {personalReportData.buffs.totalTime}{" "}
+                <br />
+                {formatFightDuration(personalReportData.buffs.totalTime)}
+                <br />
+                (Os top logs vão levar esse tempo em consideração)
+              </h2>
+              <h2>Teu ilvl: {getIlvl(personalReportData)}</h2>
+            </div>
+          )}
         </div>
         <div>
           <h2>Buscar os melhores logs pra comparar</h2>
@@ -339,15 +375,26 @@ const WowCompare = () => {
           </select>
           <button onClick={handleSearch}>Buscar</button>
           {topRanks.length > 0 && !toCompareChosen && (
-            <div style={{ maxHeight: "600px", overflow: "scroll" }}>
+            <div className="top-rankings-container">
+              <div className="top-rankings-header">
+                <p>Nome</p>
+                <p>Dano</p>
+                <p>iLvl</p>
+                <p>Duração</p>
+              </div>
               {topRanks.map((i) => {
                 return (
-                  <p
+                  <div
+                    className="top-rankings-line"
                     onClick={() => getReportDetails(i.name)}
-                    style={{ cursor: "pointer" }}
                   >
-                    {i.name}, que bateu {i.amount}
-                  </p>
+                    <p>{i.name}</p>
+                    <p>{Math.floor(i.amount).toLocaleString("en-US")}</p>
+                    <p>{i.bracketData}</p>
+                    <p className={getColor(i.duration)}>
+                      {formatFightDuration(i.duration)}
+                    </p>
+                  </div>
                 );
               })}
             </div>
