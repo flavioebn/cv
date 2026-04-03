@@ -201,19 +201,19 @@ const WowCompare = () => {
   const getDps = (data) => {
     const arr = data.damagePerAbility.entries.map((e) => e.total);
     const totalDamage = arr.reduce((sum, i) => sum + i, 0);
-    const fightLengthSec = data.damagePerAbility.totalTime / 1000;
+    const fightLengthSec = data?.damagePerAbility?.totalTime / 1000;
     return Math.floor(totalDamage / fightLengthSec).toLocaleString("en-US");
   };
 
   const getColor = (duration) => {
     if (
-      duration + 2500 >= personalReportData.buffs.totalTime ||
-      duration - 2500 >= reportToCompareData.buffs.totalTime
+      duration + 2500 >= personalReportData?.buffs?.totalTime ||
+      duration - 2500 >= reportToCompareData?.buffs?.totalTime
     )
       return "green";
     if (
-      duration + 7500 >= personalReportData.buffs.totalTime ||
-      duration - 7500 >= reportToCompareData.buffs.totalTime
+      duration + 7500 >= personalReportData?.buffs?.totalTime ||
+      duration - 7500 >= reportToCompareData?.buffs?.totalTime
     )
       return "yellow";
     return "red";
@@ -329,9 +329,9 @@ const WowCompare = () => {
           {!toCompareChosen && personalFetched && (
             <div>
               <h2>
-                Duração nessa tua luta: {personalReportData.buffs.totalTime}{" "}
+                Duração nessa tua luta: {personalReportData?.buffs?.totalTime}{" "}
                 <br />
-                {formatFightDuration(personalReportData.buffs.totalTime)}
+                {formatFightDuration(personalReportData?.buffs?.totalTime)}
                 <br />
                 (Os top logs vão levar esse tempo em consideração)
               </h2>
