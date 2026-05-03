@@ -5,6 +5,7 @@ import {
   gabi2025,
   jo2025,
   nic2025,
+  mauda2026,
 } from "../assets/images/nachoecia";
 import ImageViewer from "../Home/imageViewer";
 
@@ -13,6 +14,7 @@ const events = [
   { name: "Gabiversário 2025", images: gabi2025 },
   { name: "Menachoversário 2025", images: menacho2025 },
   { name: "Feijuca da Nic 2026", images: nic2025 },
+  { name: "Maudaversário 2026", images: mauda2026 },
 ];
 
 const NachoCia = () => {

@@ -24,4 +24,8 @@ export const nic2025 = importAll(
   require.context("./feijunic2025", false, /\.(jpe?g|png|gif|svg)$/i),
 );
 
+export const mauda2026 = importAll(
+  require.context("./mauda2026", false, /\.(jpe?g|png|gif|svg)$/i),
+);
+
 // You can also export individual images by name if needed
