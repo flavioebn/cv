@@ -12,6 +12,10 @@ export const osts = [
     title: "TavernTalk",
   },
   {
+    src: require("./goblin.mp3"),
+    title: "Goblin",
+  },
+  {
     src: require("./fireplace.mp3"),
     title: "Campfire",
   },
