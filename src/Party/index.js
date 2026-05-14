@@ -15,7 +15,7 @@ const Party = () => {
   const [notesVisible, setNotesVisible] = useState(false);
   const [pastebinModal, setPastebinModal] = useState(false);
   const [diaryVisible, setDiaryVisible] = useState(false);
-  const [playerVisible, setPlayerVisible] = useState(true);
+  const [playerVisible, setPlayerVisible] = useState(false);
 
   let response;
 

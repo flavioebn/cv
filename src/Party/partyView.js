@@ -35,7 +35,9 @@ const RenderParty = ({
         onClick={() => openModal(idx)}
       />
       <div className="scrollable">
-        <h2 onClick={() => handleCondition(idx)}>{pc.name}</h2>
+        <h2 onClick={() => handleCondition(idx)} className="char-name">
+          {pc.name}
+        </h2>
         {pc.darkvision && (
           <img
             className="darkvision"
@@ -264,7 +266,7 @@ const PartyView = () => {
   const removeCondition = (e, idx) => {
     const tempParty = party;
     const indexToRemove = tempParty[idx].conditions.findIndex(
-      (i) => i.name === e.name
+      (i) => i.name === e.name,
     );
     tempParty[idx].conditions.splice(indexToRemove, 1);
     setParty(party);
