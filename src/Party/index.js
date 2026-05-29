@@ -9,6 +9,7 @@ import NotesModal from "./notesModal";
 import PastebinModal from "./pastebinModal";
 import DiaryModal from "./diaryModal";
 import YoutubeModal from "./youtubeModal";
+import { extraValues } from "./extravaslues";
 
 const Party = () => {
   const [party, setParty] = useState(true);
@@ -18,6 +19,29 @@ const Party = () => {
   const [playerVisible, setPlayerVisible] = useState(false);
 
   let response;
+
+  const format = extraValues.map(i => {
+    return {
+      wbs_code_id: i.wbs_code_id,
+      item_name: i.item_name,
+      created_at: i.created_at,
+      updated_at: i.updated_at,
+      building_id: i.building_id,
+      company_id: i.company_id,
+      history: [{
+        value: i.value,
+        installments: i.installments || 1,
+        installment_value: i.installment_value || i.value,
+        description: i.description,
+        updated_at: i.created_at,
+        start_date: i.start_date || i.created_at,
+        end_date: i.end_date || i.created_at,
+        isValid: true
+      }]
+    }
+  })
+
+  console.log(format)
 
   if (party) {
     response = <PartyView />;

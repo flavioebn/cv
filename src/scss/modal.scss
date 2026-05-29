@@ -29,7 +29,7 @@
   }
 
   &.hide {
-    bottom: -75%;
+    bottom: -135%;
   }
 
   .youtube-player {
@@ -70,8 +70,10 @@
 
       .songs {
         overflow: scroll;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
         display: flex;
         flex-direction: column;
 
@@ -107,8 +109,10 @@
       overflow-y: scroll;
       height: 350px;
       padding-bottom: 45px;
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
 
       .ost-player {
         display: flex;
@@ -140,7 +144,8 @@
   flex-direction: column;
   max-height: 60vh;
   overflow-x: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   scrollbar-width: none;
 
   &.flex {
@@ -153,6 +158,7 @@
     left: 240px;
     width: 450px;
     position: fixed;
+
     //
     h1 {
       margin-top: 0px;
@@ -172,8 +178,10 @@
       justify-content: left;
       align-items: baseline;
       overflow: scroll;
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
       padding-bottom: 50px;
 
       textarea {
@@ -215,6 +223,7 @@
       margin: 8px 0px;
       margin-right: 8px;
     }
+
     .two-columns {
       display: flex;
       gap: 15px;
@@ -233,13 +242,11 @@
         padding: 8px;
         resize: none;
         border-image-slice: 1;
-        border-image-source: linear-gradient(
-          140deg,
-          #000000,
-          #0e0e0e00,
-          #0e0e0e00,
-          #000000
-        );
+        border-image-source: linear-gradient(140deg,
+            #000000,
+            #0e0e0e00,
+            #0e0e0e00,
+            #000000);
 
         &::-webkit-scrollbar {
           display: none;
@@ -255,13 +262,11 @@
       input {
         padding: 8px;
         border-image-slice: 1;
-        border-image-source: linear-gradient(
-          15deg,
-          #000000,
-          #0e0e0e00,
-          #0e0e0e00,
-          #0e0e0e00
-        );
+        border-image-source: linear-gradient(15deg,
+            #000000,
+            #0e0e0e00,
+            #0e0e0e00,
+            #0e0e0e00);
 
         &[type="file"] {
           max-width: 185px;
@@ -281,6 +286,7 @@
 
     .group-infos {
       width: 100%;
+
       .group-info-row {
         display: flex;
         gap: 4px;
@@ -345,6 +351,7 @@
 
         .member-infos {
           padding-top: 6px;
+
           .member-header {
             display: grid;
             grid-template-columns: 1fr 1fr;
