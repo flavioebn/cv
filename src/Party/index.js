@@ -9,7 +9,6 @@ import NotesModal from "./notesModal";
 import PastebinModal from "./pastebinModal";
 import DiaryModal from "./diaryModal";
 import YoutubeModal from "./youtubeModal";
-import { extraValues } from "./extravaslues";
 
 const Party = () => {
   const [party, setParty] = useState(true);
