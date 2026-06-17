@@ -46,4 +46,8 @@ export const singles = [
     src: require("./thunder.mp3"),
     title: "Thunder",
   },
+  {
+    src: require("./AUUUUUUUU.mp3"),
+    title: "AUUUUUUUU",
+  },
 ];
