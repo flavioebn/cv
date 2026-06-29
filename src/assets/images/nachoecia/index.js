@@ -7,7 +7,6 @@ function importAll(r) {
   return images;
 }
 
-// Import all images from this folder
 export const menacho2025 = importAll(
   require.context("./menacho2025", false, /\.(jpe?g|png|gif|svg)$/i),
 );
@@ -28,4 +27,6 @@ export const mauda2026 = importAll(
   require.context("./mauda2026", false, /\.(jpe?g|png|gif|svg)$/i),
 );
 
-// You can also export individual images by name if needed
+export const junina2026 = importAll(
+  require.context("./junina2026", false, /\.(jpe?g|png|gif|svg)$/i),
+);
