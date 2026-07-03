@@ -1,6 +1,6 @@
 import { getFromStorage } from "../utils/utils";
 
-const URL = "https://pugilistically-nonbillable-sol.ngrok-free.dev";
+const URL = process.env.NGROK_URL || "http://localhost:3000";
 
 const registerBotecoUser = async (body) => {
   const { user, password, profilePic: file } = body;
