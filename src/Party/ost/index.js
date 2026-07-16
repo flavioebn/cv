@@ -47,6 +47,14 @@ export const singles = [
     title: "Thunder",
   },
   {
+    src: require("./dragon_roar.mp3"),
+    title: "Dragon Roar",
+  },
+  {
+    src: require("./dragon_growl.mp3"),
+    title: "Dragon Growl",
+  },
+  {
     src: require("./AUUUUUUUU.mp3"),
     title: "AUUUUUUUU",
   },

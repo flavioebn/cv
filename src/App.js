@@ -36,6 +36,7 @@ import GroupHome from "./BotecoRats/groupHome";
 import BotecoRatsSummary from "./BotecoRats/summary";
 import BotecoUserGroups from "./BotecoRats/myGroups";
 import WowCompare from "./WowCompare";
+import Playground from "./Playground";
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
       />
       <Route path="/botecorats/group/:groupId" element={<GroupHome />} />
       <Route path="/undercompare" element={<WowCompare />} />
+      <Route path="/playground" element={<Playground />} />
     </Routes>
   );
 }

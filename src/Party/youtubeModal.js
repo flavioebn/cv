@@ -3,38 +3,42 @@ import OstPlayer from "./ost/ostPlayer";
 import { osts, singles as singleShots } from "./ost";
 
 const mixes = [
-  { title: 'Quircky Combat', id: 'QnX4rkyygOg' },
+  { title: "Quircky Combat", id: "QnX4rkyygOg" },
   { title: "Battle", id: "w0sUw735gRw" },
   { title: "Battle 2", id: "t3B802PIuB0" },
-  { title: 'Fiend Fight', id: 'ZXXGpziGgs4' },
-  { title: 'Combat', id: '1P9tY69ZO8s' },
-  { title: 'Combat Deadly', id: 'm-1S1V1PZHA' },
+  { title: "Fiend Fight", id: "ZXXGpziGgs4" },
+  { title: "Combat", id: "1P9tY69ZO8s" },
+  { title: "Combat Deadly", id: "m-1S1V1PZHA" },
   { title: "Battle Heavy", id: "CLAa1urufGE" },
   { title: "Dark Dungeon", id: "W2NAblVD70Q" },
   { title: "Tense", id: "fv_7EurNAss" },
   { title: "Chase", id: "fq8OSrIUST4" },
   { title: "Ruins", id: "205meIww0zg" },
+  { title: "Panic Crowd", id: "whtz44p9oII" },
   { title: "Dark & Mistery", id: "CDWtH8eHeEU" },
-  { title: 'Dark Horror', id: 'w4g2c-FudpU' },
-  { title: 'Abyss', id: '7-pWjbIxaUU' },
-  { title: 'Tense', id: 'RPkHu8M_U4c' },
+  { title: "Dark Horror", id: "w4g2c-FudpU" },
+  { title: "Abyss", id: "7-pWjbIxaUU" },
+  { title: "Tense", id: "RPkHu8M_U4c" },
   { title: "Ominous", id: "3FNuE_sBquk" },
-  { title: 'Sorrow', id: 'fXA8zHLdYF0' },
+  { title: "Sorrow", id: "fXA8zHLdYF0" },
   { title: "Suspense", id: "EApZmmYg_oQ" },
   { title: "Deep waters", id: "MhiSjz0c7MI" },
-  { title: 'Heist', id: 'WW4bdFhcZgw' },
+  { title: "Heist", id: "WW4bdFhcZgw" },
   { title: "Calm & Explore", id: "sHA_4wfQhE8" },
-  { title: 'Small City', id: 'lFBS_dMtoO4' },
+  { title: "Cozy Tavern", id: "orgikrTCKTc" },
+  { title: "Bonfire Rest", id: "ugTluz9d3eg" },
+  { title: "Quiet and Focus", id: "xxYJONmXE8w" },
+  { title: "Small City", id: "lFBS_dMtoO4" },
   { title: "Tavern", id: "vyg5jJrZ42s" },
-  { title: 'Marketplace', id: '-r9cvBWjGKM' },
-  { title: 'Gala Night', id: 'ulplqXTp4R0' },
-  { title: 'Harbour', id: 't0AmfPQMs4k' },
-  { title: 'Feast', id: 'JL3DTrP_tUI' },
-  { title: 'Peace', id: 'ewceCUF4qtU' },
+  { title: "Marketplace", id: "-r9cvBWjGKM" },
+  { title: "Gala Night", id: "ulplqXTp4R0" },
+  { title: "Harbour", id: "t0AmfPQMs4k" },
+  { title: "Feast", id: "JL3DTrP_tUI" },
+  { title: "Peace", id: "ewceCUF4qtU" },
   { title: "Adventure", id: "quVtvaDT_mM" },
   { title: "Strixhaven", id: "eIiuFWSobnQ" },
   { title: "Whimsical", id: "dmlqoxtxeFc" },
-  { title: 'City Temple', id: '6H2JbT4BRDU' },
+  { title: "City Temple", id: "6H2JbT4BRDU" },
   { title: "Festival", id: "8u9ZC8WLIiU" },
   { title: "Snow", id: "mDn-DNVfr-o" },
   { title: "Xmas", id: "PPZ6fMdjQC4" },
@@ -55,15 +59,15 @@ const YoutubeModal = ({ visible }) => {
   const [youtubeId, setYoutubeId] = useState("rKyuLzadyFY");
   const [list, setList] = useState(mixes);
   const playerRef = useRef(null); // reference to YT player
-  const seekRef = useRef(null);   // reference to the seek slider
+  const seekRef = useRef(null); // reference to the seek slider
   const intervalRef = useRef(null);
   const [volume, setVolume] = useState(50);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
 
     if (!window.YT) {
@@ -77,11 +81,9 @@ const YoutubeModal = ({ visible }) => {
     };
   }, []);
 
-
-
   const initPlayer = () => {
     window.YT.ready(function () {
-      playerRef.current = new window.YT.Player('yt-player', {
+      playerRef.current = new window.YT.Player("yt-player", {
         videoId: youtubeId,
         width: "480",
         height: "200",
@@ -95,9 +97,7 @@ const YoutubeModal = ({ visible }) => {
           },
         },
       });
-    })
-
-
+    });
   };
 
   const onPlayerReady = () => {
@@ -121,11 +121,8 @@ const YoutubeModal = ({ visible }) => {
 
   return (
     <div className={`media-modal ${visible ? "visible" : "hide"}`}>
-
       <div className="youtube-player">
-        <div className="youtube-player" id="yt-player">
-
-        </div>
+        <div className="youtube-player" id="yt-player"></div>
         <input
           type="range"
           min="0"
@@ -137,22 +134,28 @@ const YoutubeModal = ({ visible }) => {
             setVolume(val);
             playerRef.current.setVolume(val);
           }}
-          style={{ appearance: 'slider-vertical', width: '24px', height: '150px' }}
+          style={{
+            appearance: "slider-vertical",
+            width: "24px",
+            height: "150px",
+          }}
         />
         <div className="list">
           <div className="selectors">
             <p
               onClick={() => setList(mixes)}
-              className={`${mixes.filter((i) => i.id === youtubeId).length > 0 && "selected"
-                }`}
+              className={`${
+                mixes.filter((i) => i.id === youtubeId).length > 0 && "selected"
+              }`}
             >
               Mixes
             </p>
             <p
               onClick={() => setList(singles)}
-              className={`${singles.filter((i) => i.id === youtubeId).length === 1 &&
+              className={`${
+                singles.filter((i) => i.id === youtubeId).length === 1 &&
                 "selected"
-                }`}
+              }`}
             >
               Singles
             </p>
