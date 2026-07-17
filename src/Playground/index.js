@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { graph } from "./graph";
 
 const Playground = () => {
   const [graphData, setGraphData] = useState([]);
