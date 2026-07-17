@@ -1,45 +1,6 @@
 import { useState } from "react";
 import { graph } from "./graph";
 
-const idTest = "yq1znk_kdPO-V4lI5rtp-14";
-
-const initialItem = graph.find((i) => i.id === idTest);
-
-const parents = [];
-
-const nodes = graph.filter((i) => i.type === "node");
-
-const looseItems = nodes.filter((i) => {
-  const goingTo = graph.filter((j) => j.source === i.id);
-  const comingFrom = graph.filter((j) => j.target === i.id);
-  if (goingTo.length === 0 && comingFrom.length === 0) {
-    return true;
-  }
-  return false;
-});
-
-const idsToIgnore = looseItems.map((i) => i.id);
-
-const filteredNodes = nodes.filter((i) => !idsToIgnore.includes(i.id));
-
-const arrows = graph.filter((i) => i.type === "edge");
-
-filteredNodes.forEach((i) => {
-  const arrow = arrows.find((a) => a.target === i.id);
-  if (!arrow) {
-    console.log(i.label);
-  }
-});
-
-const links = graph
-  .filter((i) => i.type === "edge")
-  .map((i) => {
-    return {
-      from: i.source,
-      to: i.target,
-    };
-  });
-
 const Playground = () => {
   const [graphData, setGraphData] = useState([]);
   const [mainNodes, setMainNodes] = useState([]);
