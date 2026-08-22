@@ -30,3 +30,7 @@ export const mauda2026 = importAll(
 export const junina2026 = importAll(
   require.context("./junina2026", false, /\.(jpe?g|png|gif|svg)$/i),
 );
+
+export const krikki2026 = importAll(
+  require.context("./krikki2026", false, /\.(jpe?g|png|gif|svg)$/i),
+);
