@@ -28,7 +28,7 @@ const NachoCia = () => {
 
   useEffect(() => {
     // Get all images and convert them to the format ImageViewer expects
-    const imageList = Object.values(jo2025).map(
+    const imageList = Object.values(events[0].images).map(
       (value) => value.default || value, // ImageViewer expects just the image URLs
     );
     setImages(imageList);
