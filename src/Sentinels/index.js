@@ -22,6 +22,7 @@ const Sentinels = () => {
   const [playerImage, setPlayerImage] = useState(null);
   const [previousPlayerId, setPreviousPlayerId] = useState(null);
   const [lost, setLost] = useState(false);
+  const [streak, setStreak] = useState(0);
 
   const [timerKey, setTimerKey] = useState(0);
   const [timerDuration, setTimerDuration] = useState(5);
@@ -64,6 +65,7 @@ const Sentinels = () => {
 
   const handleImageClick = (item) => {
     const requiredImage = requiredByPlayer[playerImage.id];
+    setStreak((prev) => prev + 1);
 
     if (item.type.id === requiredImage) {
       setTimerDuration((prev) =>
@@ -73,6 +75,7 @@ const Sentinels = () => {
       generateRound();
 
       setTimerKey((prev) => prev + 1);
+      setStreak((prev) => prev + 1);
     } else {
       setLost(true);
     }
@@ -80,9 +83,9 @@ const Sentinels = () => {
 
   const handleReset = () => {
     setLost(false);
-    setTimerDuration(5);
+    setTimerDuration(3);
     generateRound();
-    setTimerKey(5);
+    setTimerKey(3);
   };
 
   return (
@@ -96,6 +99,7 @@ const Sentinels = () => {
 
       {lost ? (
         <>
+          <span>teu streak: {streak}</span>
           <img width="1250" src={morreu} alt="Morreu" onClick={handleReset} />
         </>
       ) : (
