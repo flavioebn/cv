@@ -37,6 +37,7 @@ import BotecoRatsSummary from "./BotecoRats/summary";
 import BotecoUserGroups from "./BotecoRats/myGroups";
 import WowCompare from "./WowCompare";
 import Playground from "./Playground";
+import Sentinels from "./Sentinels";
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function App() {
       <Route path="/botecorats/group/:groupId" element={<GroupHome />} />
       <Route path="/undercompare" element={<WowCompare />} />
       <Route path="/playground" element={<Playground />} />
+      <Route path="/sentinels" element={<Sentinels />} />
     </Routes>
   );
 }
