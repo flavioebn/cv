@@ -78,6 +78,7 @@ const Sentinels = () => {
       setStreak((prev) => prev + 1);
     } else {
       setLost(true);
+      setStreak(0);
     }
   };
 
