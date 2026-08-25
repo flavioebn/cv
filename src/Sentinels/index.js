@@ -80,9 +80,9 @@ const Sentinels = () => {
 
   const handleReset = () => {
     setLost(false);
-    setTimerDuration(30);
+    setTimerDuration(5);
     generateRound();
-    setTimerKey(30);
+    setTimerKey(5);
   };
 
   return (
