@@ -78,15 +78,15 @@ const Sentinels = () => {
       setStreak((prev) => prev + 1);
     } else {
       setLost(true);
-      setStreak(0);
     }
   };
 
   const handleReset = () => {
     setLost(false);
-    setTimerDuration(3);
+    setTimerDuration(5);
     generateRound();
-    setTimerKey(3);
+    setTimerKey(5);
+    setStreak(0);
   };
 
   return (
