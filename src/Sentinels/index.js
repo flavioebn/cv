@@ -65,17 +65,21 @@ const Sentinels = () => {
 
   const handleImageClick = (item) => {
     const requiredImage = requiredByPlayer[playerImage.id];
-    setStreak((prev) => prev + 1);
 
     if (item.type.id === requiredImage) {
-      setTimerDuration((prev) =>
-        Math.max(prev - 1, 1) < 5 ? 5 : Math.max(prev - 1, 1),
-      );
+      setStreak((prev) => {
+        const newStreak = prev + 1;
+
+        // A cada 5 acertos, reduz 0.5s
+        const newDuration = Math.max(1, 5 - Math.floor(newStreak / 5) * 0.5);
+
+        setTimerDuration(newDuration);
+
+        return newStreak;
+      });
 
       generateRound();
-
       setTimerKey((prev) => prev + 1);
-      setStreak((prev) => prev + 1);
     } else {
       setLost(true);
     }
