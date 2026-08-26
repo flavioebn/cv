@@ -1,8 +1,92 @@
 import "./App.scss";
 import Home from "./Home";
+import Hub from "./Hub";
+import Scrap from "./Scrap";
+import Converter from "./Converter";
+import ReflexCounter from "./Reflex";
+import Expiry from "./Expiry";
+import Party from "./Party";
+import { Navigate, Route, Routes } from "react-router-dom";
+import DragNDrop from "./DragNDrop";
+import CreatePhrases from "./DragNDrop/create";
+import Checklist from "./Checklist";
+import MtgGrid from "./MtgGrid";
+import Lyrics from "./Lyrics";
+import MTGdle from "./MTGdle";
+import PokeLogin from "./PokeGo/login";
+import PokeDash from "./PokeGo/dash";
+import PokeAdmin from "./PokeGo/admin";
+import PokeInfos from "./PokeGo/info";
+// import Player from "./Player";
+// import CreatePlayer from "./Player/create";
+import Pablo from "./Pablo";
+import ClickWhen from "./ClickWhen";
+import YearList from "./YearList";
+// import CustomGuests from "./CustomGuests";
+import Underbingo from "./Underbingo";
+import InstaFollowers from "./InstaFollowers";
+import NachoCia from "./NachoCia";
+import CoordCalc from "./CoordCalc";
+import Recipes from "./Recipes";
+import BotecoRatsRegister from "./BotecoRats/register";
+import BotecoRatsLogin from "./BotecoRats/login";
+import BotecoRatsDashboard from "./BotecoRats/dashboard";
+import BotecoRatsCreateGroup from "./BotecoRats/createGroup";
+import GroupHome from "./BotecoRats/groupHome";
+import BotecoRatsSummary from "./BotecoRats/summary";
+import BotecoUserGroups from "./BotecoRats/myGroups";
+import WowCompare from "./WowCompare";
+import Playground from "./Playground";
+import Sentinels from "./Sentinels";
 
 function App() {
-  return <Home />;
+  return (
+    <Routes>
+      <Route path="*" element={<Navigate to="/hub" replace />} />
+      <Route path="/" index exact element={<Home />} />
+      <Route path="/hub" exact element={<Hub />} />
+      <Route path="/scrap" exact element={<Scrap />} />
+      <Route path="/reflex" exact element={<ReflexCounter />} />
+      <Route path="/cardcaptorcami" exact element={<Converter />} />
+      <Route path="/expiry" exact element={<Expiry />} />
+      <Route path="/party" element={<Party />} />
+      <Route path="/drag" element={<DragNDrop />} />
+      <Route path="/drag/create" element={<CreatePhrases />} />
+      <Route path="/checklist" element={<Checklist />} />
+      <Route path="/mtggrid" element={<MtgGrid />} />
+      <Route path="/lyrics" element={<Lyrics />} />
+      <Route path="/mtgdle" element={<MTGdle />} />
+      <Route path="/pokelogin" element={<PokeLogin />} />
+      <Route path="/pokedash" element={<PokeDash />} />
+      <Route path="/pokeadmin" element={<PokeAdmin />} />
+      <Route path="/pokeinfos" element={<PokeInfos />} />
+      {/* <Route path="/player" element={<Player />} />
+      <Route path="/player/create" element={<CreatePlayer />} /> */}
+      <Route path="/pablo" element={<Pablo />} />
+      <Route path="/yearlist" element={<YearList />} />
+      <Route path="/clickwhen" element={<ClickWhen />} />
+      {/* <Route path="/customguests" element={<CustomGuests />} /> */}
+      <Route path="/underbingo" element={<Underbingo />} />
+      <Route path="/instacheck" element={<InstaFollowers />} />
+      <Route path="/nachoecia" element={<NachoCia />} />
+      <Route path="/coordcalc" element={<CoordCalc />} />
+      <Route path="/recipes" element={<Recipes />} />
+      <Route path="/botecorats" element={<BotecoRatsDashboard />} />
+      <Route path="/botecorats/register" element={<BotecoRatsRegister />} />
+      <Route path="/botecorats/login" element={<BotecoRatsLogin />} />
+      <Route path="/botecorats/home" element={<BotecoRatsDashboard />} />
+      <Route path="/botecorats/summary" element={<BotecoRatsSummary />} />
+      <Route path="/botecorats/mygroups" element={<BotecoUserGroups />} />
+      <Route
+        path="/botecorats/groups/create"
+        element={<BotecoRatsCreateGroup />}
+      />
+      <Route path="/botecorats/group/:groupId" element={<GroupHome />} />
+      <Route path="/undercompare" element={<WowCompare />} />
+      <Route path="/playground" element={<Playground />} />
+      <Route path="/sentinels" element={<Sentinels />} />
+    </Routes>
+  );
 }
 
 export default App;

@@ -1,14 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Headerbar from "./headerbar";
-import euDem from "../assets/dem.png";
+import euDem from "../assets/images/dem.png";
 import { projects, thingsIKnow as things } from "./data";
 import ImageViewer from "./imageViewer";
-import linkedinIcon from "../icons/linkedin.svg";
-import instagram from "../icons/instagram.svg";
-import gmail from "../icons/email.svg";
-import github from "../icons/github.svg";
+import linkedinIcon from "../assets/icons/linkedin.svg";
+import instagram from "../assets/icons/instagram.svg";
+import gmail from "../assets/icons/email.svg";
+import github from "../assets/icons/github.svg";
 import { getText } from "./text";
 import LangToggle from "./langToggle";
+import link from "../assets/icons/link.svg";
 
 const BuildThings = ({ thing }) => {
   return (
@@ -23,18 +24,23 @@ const BuildThings = ({ thing }) => {
   );
 };
 
-const RenderProject = ({ project, index, lang }) => {
+const RenderProject = ({ project, index, lang, sys }) => {
   return (
     <div className="project">
       {project.link ? (
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noreferrer"
-          className="title"
-        >
-          {project.title}
-        </a>
+        <>
+          <a
+            href={
+              project.mobile && sys === "ios" ? project.linkIos : project.link
+            }
+            target={project.description === "hub" ? "" : "_blank"}
+            rel="noreferrer"
+            className="title"
+          >
+            {project.title}
+            <img className="title-link" src={link} alt="link-img" />
+          </a>
+        </>
       ) : (
         <h2 className="title">{project.title}</h2>
       )}
@@ -71,14 +77,28 @@ const RenderProject = ({ project, index, lang }) => {
 const Home = () => {
   const [pre, setPre] = useState();
   const [lang, setLang] = useState("EN");
+  const [sys, setSys] = useState("");
+  const [mobile, setMobile] = useState(true);
 
   React.useEffect(() => {
     setPre(document.querySelector("pre"));
+
+    if (
+      /iPad|iPhone|iPod/.test(navigator.userAgent || navigator.vendor) &&
+      !window.MSStream
+    ) {
+      setSys("ios");
+    }
+    if (window.innerWidth > 800) {
+      setMobile(false);
+    }
   }, []);
 
-  document.addEventListener("mousemove", (e) => {
-    rotateElement(e, pre);
-  });
+  if (window.innerWidth > 800) {
+    document.addEventListener("mousemove", (e) => {
+      rotateElement(e, pre);
+    });
+  }
 
   function rotateElement(event, element) {
     // get mouse position
@@ -93,8 +113,8 @@ const Home = () => {
 
     // get offset from middle as a percentage
     // and tone it down a little
-    const offsetX = ((x - middleX) / middleX) * 20;
-    const offsetY = ((y - middleY) / middleY) * 20;
+    const offsetX = ((x - middleX) / middleX) * 10;
+    const offsetY = ((y - middleY) / middleY) * 10;
     // console.log(offsetX, offsetY);
 
     // set rotation
@@ -148,7 +168,9 @@ const Home = () => {
       <div id="projects" className="projects-container">
         <h1>{handleText("professionalHeader")}</h1>
         {projects.map((i, idx) => {
-          return <RenderProject project={i} index={idx} lang={lang} />;
+          return (
+            <RenderProject project={i} index={idx} lang={lang} sys={sys} />
+          );
         })}
       </div>
       <div id="contact" className="contact">
@@ -162,7 +184,7 @@ const Home = () => {
             target="_blank"
           >
             <img src={gmail} alt="contact-email" />
-            <span>Gmail</span>
+            <span>{mobile ? "flavioebn@gmail.com" : "Gmail"}</span>
           </a>
           <a
             className="effect-link linkedin"
@@ -171,7 +193,7 @@ const Home = () => {
             target="_blank"
           >
             <img src={linkedinIcon} alt="contact-email" />
-            <span>LinkedIn</span>
+            <span>{mobile ? "in/flavioebn" : "LinkedIn"}</span>
           </a>
           <a
             className="effect-link github"
@@ -180,7 +202,7 @@ const Home = () => {
             target="_blank"
           >
             <img src={github} alt="contact-email" />
-            <span>Github</span>
+            <span>{mobile ? "flavioebn" : "Github"}</span>
           </a>
           <a
             className="effect-link instagram"
@@ -189,7 +211,7 @@ const Home = () => {
             target="_blank"
           >
             <img src={instagram} alt="contact-email" />
-            <span>Instagram</span>
+            <span>{mobile ? "@flavioebn" : "Instagram"}</span>
           </a>
         </div>
       </div>
