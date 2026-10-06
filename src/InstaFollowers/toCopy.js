@@ -1,90 +1,145 @@
 export const getFollowersText = (username) => {
   return `
-let followers = [];
+  let followers = [];
 let followings = [];
 let dontFollowMeBack = [];
 let iDontFollowBack = [];
 
 (async () => {
   try {
-    console.log(\`Pegando as informações, ESPERA EU FALAR QUE ACABOU\`);
+    console.log('Pegando as informações, ESPERA EU FALAR QUE ACABOU');
+
+    // ============================================================
+    // 1. Descobrir o ID do usuário
+    // ============================================================
 
     const userQueryRes = await fetch(
-      \`https://www.instagram.com/web/search/topsearch/?query=${username}\`
+      '/web/search/topsearch/?query=flavioebn'
     );
 
     const userQueryJson = await userQueryRes.json();
 
-    const userId = userQueryJson.users.map(u => u.user)
-                                      .filter(
-                                        u => u.username === "${username}"
-                                       )[0].pk;
+    const user = userQueryJson.users
+      .map((u) => u.user)
+      .find((u) => u.username === "flavioebn");
 
-    let after = null;
-    let has_next = true;
-
-    while (has_next) {
-      await fetch(
-        \`https://www.instagram.com/graphql/query/?query_hash=c76146de99bb02f6415203be841dd25a&variables=\` +
-          encodeURIComponent(
-            JSON.stringify({
-              id: userId,
-              include_reel: true,
-              fetch_mutual: true,
-              first: 50,
-              after: after,
-            })
-          )
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          has_next = res.data.user.edge_followed_by.page_info.has_next_page;
-          after = res.data.user.edge_followed_by.page_info.end_cursor;
-          followers = followers.concat(
-            res.data.user.edge_followed_by.edges.map(({ node }) => {
-              return {
-                username: node.username,
-                full_name: node.full_name,
-              };
-            })
-          );
-        });
+    if (!user) {
+      throw new Error("Não foi possível encontrar o usuário flavioebn.");
     }
 
+    const userId = user.pk;
+
+    console.log('Usuário encontrado. ID: ${userId}');
+
+    // ============================================================
+    // Headers necessários para a API atual do Instagram
+    // ============================================================
+
+    const csrfToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("csrftoken="))
+      ?.split("=")[1];
+
+    const headers = {
+      accept: "*/*",
+      "x-asbd-id": "359341",
+      "x-csrftoken": csrfToken || "",
+      "x-ig-app-id": "936619743392459",
+      "x-ig-max-touch-points": "0",
+      "x-requested-with": "XMLHttpRequest",
+    };
+
+    // ============================================================
+    // Função genérica para buscar uma lista inteira
+    // ============================================================
+
+    const getAllUsers = async (type) => {
+      let users = [];
+      let maxId = null;
+      let page = 1;
+      let hasMore = true;
+
+      while (hasMore) {
+        let url =
+          '/api/v1/friendships/${userId}/${type}/?count=12&search_surface=follow_list_page';
+
+        if (maxId) {
+          url += `&max_id=${encodeURIComponent(maxId)}`;
+        }
+
+        console.log(
+          'Pegando ${type === "followers" ? "seguidores" : "seguindo"} - página ${page}...'
+        );
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers,
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            'Erro ao buscar ${type}: HTTP ${response.status}'
+          );
+        }
+
+        const data = await response.json();
+
+        if (data.status !== "ok") {
+          throw new Error(
+            'Instagram retornou erro ao buscar ${type}: ${JSON.stringify(data)}'
+          );
+        }
+
+        const pageUsers = data.users || [];
+
+        users = users.concat(
+          pageUsers.map((user) => ({
+            username: user.username,
+            full_name: user.full_name,
+          }))
+        );
+
+        console.log(
+          'Página ${page}: +${pageUsers.length} usuários | Total: ${users.length}'
+        );
+
+        maxId = data.next_max_id || null;
+        hasMore = data.has_more === true && !!maxId;
+
+        page++;
+
+        // Pequena pausa para evitar fazer centenas de requests
+        // instantaneamente.
+        if (hasMore) {
+          await new Promise((resolve) => setTimeout(resolve, 300));
+        }
+      }
+
+      return users;
+    };
+
+    // ============================================================
+    // 2. Pegar seguidores
+    // ============================================================
+
+    followers = await getAllUsers("followers");
+
+    console.log('Seguidores encontrados: ${followers.length}');
     console.log({ followers });
 
-    after = null;
-    has_next = true;
+    // ============================================================
+    // 3. Pegar quem você segue
+    // ============================================================
 
-    while (has_next) {
-      await fetch(
-        \`https://www.instagram.com/graphql/query/?query_hash=d04b0a864b4b54837c0d870b0e77e076&variables=\` +
-          encodeURIComponent(
-            JSON.stringify({
-              id: userId,
-              include_reel: true,
-              fetch_mutual: true,
-              first: 50,
-              after: after,
-            })
-          )
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          has_next = res.data.user.edge_follow.page_info.has_next_page;
-          after = res.data.user.edge_follow.page_info.end_cursor;
-          followings = followings.concat(
-            res.data.user.edge_follow.edges.map(({ node }) => {
-              return {
-                username: node.username,
-                full_name: node.full_name,
-              };
-            })
-          );
-        });
-    }
+    followings = await getAllUsers("following");
 
+    console.log('Seguindo encontrados: ${followings.length}');
     console.log({ followings });
+
+    // ============================================================
+    // 4. Quem você segue mas não segue você
+    // ============================================================
 
     dontFollowMeBack = followings.filter((following) => {
       return !followers.find(
@@ -92,7 +147,13 @@ let iDontFollowBack = [];
       );
     });
 
-    console.log({ dontFollowMeBack });
+    console.log({
+      dontFollowMeBack,
+    });
+
+    // ============================================================
+    // 5. Quem segue você mas você não segue
+    // ============================================================
 
     iDontFollowBack = followers.filter((follower) => {
       return !followings.find(
@@ -100,26 +161,50 @@ let iDontFollowBack = [];
       );
     });
 
-    console.log({ iDontFollowBack });
+    console.log({
+      iDontFollowBack,
+    });
 
-    // Make variables globally available for copy() function
+    // ============================================================
+    // 6. Disponibilizar tudo globalmente
+    // ============================================================
+
     window.followers = followers;
     window.followings = followings;
     window.dontFollowMeBack = dontFollowMeBack;
     window.iDontFollowBack = iDontFollowBack;
+
     const CLICA_COM_O_DA_DIREITA_AQUI = {
-        followers,
-        followings,
-        dontFollowMeBack,
-        iDontFollowBack
+      followers,
+      followings,
+      dontFollowMeBack,
+      iDontFollowBack,
     };
+
+    window.CLICA_COM_O_DA_DIREITA_AQUI =
+      CLICA_COM_O_DA_DIREITA_AQUI;
+
+    // ============================================================
+    // 7. Finalização
+    // ============================================================
+
     window.alert("Acabou! Segue o que ta ali no console agora ->");
-    console.log(\`Acabou!\`);
-    console.log({ CLICA_COM_O_DA_DIREITA_AQUI });
-    console.log(\`Clica aqui na linha de cima com o botão da direita e clica em copiar objeto/copy object pra pegar os resultados, e volta pro meu site pra colar eles na etapa 3\`);
+
+    console.log('Acabou!');
+
+    console.log({
+      CLICA_COM_O_DA_DIREITA_AQUI,
+    });
+
+    console.log(
+      'Clica aqui na linha de cima com o botão da direita e clica em copiar objeto/copy object pra pegar os resultados, e volta pro meu site pra colar eles na etapa 3'
+    );
   } catch (err) {
-    console.log({ err });
+    console.error("ERRO:", err);
+    console.log({
+      err,
+    });
   }
 })();
-`;
+  `;
 };

@@ -35,6 +35,10 @@ export const bosses = [
     id: 3306,
     name: "Chimaerus",
   },
+  {
+    id: 3421,
+    name: "Twin fangs",
+  },
 ];
 
 export const classes = [

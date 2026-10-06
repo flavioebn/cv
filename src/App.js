@@ -82,7 +82,7 @@ function App() {
         element={<BotecoRatsCreateGroup />}
       />
       <Route path="/botecorats/group/:groupId" element={<GroupHome />} />
-      <Route path="/undercompare" element={<WowCompare />} />
+      <Route path="/wowcompare" element={<WowCompare />} />
       <Route path="/playground" element={<Playground />} />
       <Route path="/sentinels" element={<Sentinels />} />
     </Routes>
