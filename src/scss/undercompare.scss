@@ -1,0 +1,259 @@
+.underCompare {
+  width: 90%;
+  max-width: 2160px;
+  margin: auto;
+
+  .nicks-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    background: #0e0e0e;
+    border-bottom: 1px solid #333;
+    line-height: 1rem;
+    margin-bottom: 8px;
+    margin-top: 0px;
+    z-index: 15;
+  }
+
+  p,
+  span {
+    font-size: 18px;
+  }
+
+  h2 {
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+  .timeline-controls {
+    display: flex;
+    justify-content: center;
+  }
+  .timeline-wrapper {
+    height: 600px; /* ou o que quiser */
+    overflow-y: auto;
+    border: 1px solid #333;
+    width: 90%;
+    margin: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  /* timeline interna */
+  .timeline {
+    position: relative;
+    width: 100%;
+  }
+
+  /* linha central */
+  .line {
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: #555;
+    transform: translateX(-50%);
+  }
+
+  /* ticks */
+  .tick {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #aaa;
+  }
+
+  .tick span {
+    position: absolute;
+    left: 8px;
+  }
+
+  /* eventos */
+  .event {
+    position: absolute;
+    width: 47%;
+  }
+
+  .event.left {
+    left: 0;
+    text-align: right;
+    font-size: 14px;
+
+    span {
+      font-size: 14px;
+    }
+
+    &.double {
+      height: 95%;
+    }
+  }
+
+  .event.right {
+    right: 0;
+    text-align: left;
+    span {
+      font-size: 14px;
+    }
+  }
+
+  .event-item {
+    display: inline-block;
+    background: #222;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 16px;
+    white-space: nowrap;
+    position: relative;
+
+    &.double {
+      height: 48px;
+    }
+
+    &:hover {
+      background: #444;
+      scale: 1.02;
+      z-index: 5;
+    }
+  }
+
+  .damageComparison {
+    width: 90%;
+    margin: auto;
+    margin-top: 14px;
+
+    .damage-comp {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 20px 1fr;
+      align-items: center;
+    }
+
+    .center-line {
+      width: 2px;
+      height: 100%;
+      background: #444;
+      justify-self: center;
+    }
+
+    .side {
+      position: relative;
+      height: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* LEFT SIDE */
+    .side.left {
+      justify-content: flex-end;
+    }
+
+    .left .bar-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .left-bar {
+      height: 24px;
+      background: #4caf50;
+      margin-left: auto;
+    }
+
+    /* RIGHT SIDE */
+    .side.right {
+      justify-content: flex-start;
+    }
+
+    .right .bar-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .right-bar {
+      height: 24px;
+      background: #2196f3;
+    }
+
+    /* LABEL */
+    .label {
+      position: absolute;
+      top: 0;
+      font-size: 16px;
+      color: white;
+      pointer-events: none;
+    }
+
+    .side.left .label {
+      right: 4px;
+    }
+
+    .side.right .label {
+      left: 4px;
+    }
+  }
+
+  .statsCompare {
+    text-align: center;
+
+    .statsContainer {
+      display: flex;
+      text-align: center;
+      gap: 10px;
+      justify-content: center;
+      transition: all 0.3s ease;
+
+      &:hover {
+        scale: 1.3;
+        background-color: #222;
+        transition: all 0.3s ease;
+      }
+
+      p {
+        margin: 0px;
+      }
+    }
+  }
+
+  .top-rankings-container {
+    max-height: 600px;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .green {
+      color: #338036;
+    }
+    .yellow {
+      color: #c7b82e;
+    }
+    .red {
+      color: #e75e0e;
+    }
+  }
+
+  .top-rankings-header {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 2fr;
+    text-align: center;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background-color: #222;
+  }
+
+  .top-rankings-line {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 2fr;
+    text-align: center;
+  }
+}

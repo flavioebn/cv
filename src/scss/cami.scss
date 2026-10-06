@@ -1,0 +1,74 @@
+.container-cami {
+  text-align: center;
+  background-color: #131512;
+  padding: 0px;
+  color: white;
+  margin: 0px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    margin-top: 0px;
+    padding-top: 10px;
+  }
+
+  .currency {
+    color: #ffc6c4;
+  }
+
+  .yens-container {
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  input {
+    font-weight: bold;
+    font-size: 22px;
+    width: 40%;
+    background-color: transparent;
+    border: 2px solid grey;
+    text-align: center;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  .rate {
+    position: fixed;
+    bottom: 10px;
+    width: 100vw;
+    color: rgb(46, 46, 46);
+  }
+
+  .yen {
+    position: relative;
+    top: -46px;
+    left: -55px;
+    font-size: 22px;
+    font-weight: bold;
+    pointer-events: none;
+    color: grey;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  .arroba {
+    position: fixed;
+    bottom: 140px;
+    width: 100vw;
+    color: rgb(85, 85, 85);
+    font-weight: bold;
+    font-size: 20px;
+  }
+}

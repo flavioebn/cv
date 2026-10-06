@@ -1,0 +1,144 @@
+.mtg-daily {
+  padding: 16px;
+
+  @media (max-width: 800px) {
+    // overflow: scroll;
+    max-width: 100vw;
+  }
+
+  .header {
+    text-align: center;
+
+    img {
+      height: 250px;
+      border-radius: 12px;
+    }
+  }
+
+  h1 {
+    margin: 0px;
+  }
+
+  .input {
+    background-color: white;
+    border-radius: 4px;
+    width: 350px;
+    max-width: 80%;
+    margin: auto;
+    margin-bottom: 16px;
+    margin-top: 16px;
+  }
+
+  .vertical-scroll {
+    @media (max-width: 800px) {
+      overflow: scroll;
+      max-width: 90vw;
+    }
+  }
+
+  .guesses-container {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 525px;
+    margin: auto;
+
+    &.little {
+      .card-guess {
+        div {
+          height: 35px;
+          border: 1px solid transparent;
+
+          p {
+            // text-decoration: underline white;
+            border-bottom: 1px solid white;
+          }
+        }
+      }
+    }
+  }
+
+  .card-guess {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 8px;
+    text-align: center;
+
+    .image-wrapper {
+      position: absolute;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-wrapper img {
+      width: auto;
+      position: absolute;
+      width: 60%;
+      opacity: 100%;
+      object-fit: cover;
+    }
+
+    div {
+      margin: 0px;
+      border: 1px solid white;
+      width: 75px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .label {
+        position: absolute;
+        text-align: center;
+        bottom: 0px;
+      }
+
+      .tip {
+        font-size: 22px;
+        &.year {
+          font-size: 22px;
+          // top: 27px;
+        }
+
+        &.type {
+          font-size: 16px;
+          // overflow-wrap: break-word;
+          // word-break: break-all;
+        }
+      }
+
+      &.name {
+        align-items: center;
+        padding: 0px 8px;
+        width: 90px;
+
+        img {
+          max-height: 100%;
+          max-width: 100%;
+          position: absolute;
+          z-index: -1;
+          overflow: hidden;
+          opacity: 35%;
+        }
+      }
+
+      &.right {
+        background-color: rgb(75, 167, 75);
+      }
+
+      &.wrong {
+        background-color: rgb(167, 75, 75);
+      }
+
+      &.kinda {
+        background-color: rgb(218, 218, 70);
+      }
+
+      p {
+        margin: 0px;
+      }
+    }
+  }
+}

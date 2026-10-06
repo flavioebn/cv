@@ -1,0 +1,67 @@
+.hub-container {
+  padding: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  //   height: 100vh;
+
+  a {
+    color: white;
+    text-decoration: none;
+    width: 300px;
+    margin: 0px auto;
+  }
+
+  .hub-item {
+    border: 1px solid rgb(77, 77, 77);
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to bottom, #0e0e0e, #a467bd);
+    transition: scale 0.3s;
+
+    &:hover {
+      scale: 1.2;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .text {
+      padding: 0px 16px;
+      z-index: 4;
+    }
+  }
+
+  @media (max-width: 800px) {
+    padding: 50px;
+
+    .hub-item {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+    }
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      opacity: 0.1;
+    }
+
+    .text {
+      text-align: center;
+    }
+  }
+}
+
+.back-to-hub {
+  position: fixed;
+  text-decoration: none;
+  color: white;
+  opacity: 0.4;
+  bottom: 20px;
+  left: 20px;
+  z-index: 15;
+}

@@ -1,0 +1,81 @@
+.lyrics {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  overflow-x: hidden; /* Evita a rolagem horizontal */
+  height: 100vh;
+
+  .lyrics-left {
+    align-items: center;
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    text-align: center;
+    left: 0;
+    // width: 200px;
+    padding: 10px;
+    top: 0; /* Garante que a coluna fique fixa no topo */
+    z-index: 1;
+
+    input {
+      width: 40%;
+      min-width: 150px;
+      height: 30px;
+      border: 1px solid white;
+      color: white;
+      padding: 4px;
+      border-radius: 4px;
+      background-color: transparent;
+      margin-bottom: 8px;
+      margin: 0px 4px 8px 4px;
+    }
+
+    button {
+      width: 25%;
+      border: 0px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: 0.15s ease-in-out;
+      min-width: 100px;
+
+      &:hover {
+        background-color: rgb(88, 88, 88);
+        color: white;
+      }
+    }
+
+    .left-bottom {
+      margin-top: 16px;
+      .word-form {
+        input {
+          width: 40%;
+        }
+      }
+
+      .green {
+        color: rgb(13, 110, 0);
+      }
+    }
+
+    .open-records {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .lyrics-right {
+    flex: 1;
+    padding: 10px;
+  }
+
+  .lyric-line {
+    margin-bottom: 4px;
+
+    p {
+      display: inline-block;
+      margin: 0px;
+      margin-right: 8px;
+    }
+  }
+}

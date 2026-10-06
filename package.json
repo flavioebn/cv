@@ -1,18 +1,34 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
-  "homepage": "https://flavioebn.github.io/cv",
-  "private": true,
+  "homepage": "",
+  "engines": {
+    "node": ">=18"
+  },
+  "private": false,
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
+    "eslint": "^8.44.0",
+    "eslint-plugin-material-ui": "^1.0.1",
     "gh-pages": "^5.0.0",
-    "node-sass": "^9.0.0",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
+    "react-qr-code": "^2.0.18",
+    "react-router-dom": "^6.14.1",
+    "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.1",
+    "sass": "^1.77.6",
+    "tesseract.js": "^5.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -27,7 +43,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "off"
+    }
   },
   "browserslist": {
     "production": [

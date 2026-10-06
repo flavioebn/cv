@@ -1,0 +1,77 @@
+.mtg-grid {
+  background-color: white;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 2fr;
+  grid-template-rows: 1fr 2fr 2fr 2fr;
+  margin: auto;
+  gap: 0px;
+  width: 750px;
+  height: 700px;
+
+  .label {
+    height: 200px;
+    width: 100px;
+
+    p {
+      margin: 0px;
+    }
+  }
+
+  .card-square {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    justify-content: center;
+    text-align: center;
+
+    .card-name-container {
+      background-color: rgba(140, 255, 125, 0.484);
+      z-index: 5;
+      padding: 8px;
+      margin-bottom: 8px;
+      border-radius: 4px;
+
+      .card-name {
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        margin: 0px;
+      }
+    }
+
+    p {
+      color: black;
+      font-weight: bold;
+    }
+
+    &.half {
+      align-items: center;
+      width: 150px;
+    }
+
+    &.half-top {
+      align-items: center;
+      height: 100px;
+    }
+
+    .image-wrapper {
+      position: absolute;
+      overflow: hidden;
+      width: 200px;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-wrapper img {
+      top: 0;
+      width: auto;
+      height: 100%;
+      position: absolute;
+      opacity: 75%;
+      object-fit: cover;
+    }
+  }
+}
