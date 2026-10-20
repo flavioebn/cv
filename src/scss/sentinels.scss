@@ -1,0 +1,57 @@
+.countdown-progress {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-size: 28px;
+  }
+}
+
+.countdown-progress__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.countdown-progress__track {
+  width: 100%;
+  height: 24px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.countdown-progress__bar {
+  height: 100%;
+  transition:
+    width 1s linear,
+    background-color 1s linear;
+}
+
+.sentinels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sentinels-options {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    min-width: 300px;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+
+    img {
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}

@@ -1,0 +1,86 @@
+.insta-check {
+  padding: 0px 48px;
+  max-width: 1480px;
+  margin: auto;
+
+  .disclaimer {
+    font-size: 14px;
+    color: #818181;
+    font-style: italic;
+    margin-bottom: 32px;
+    margin-top: 0px;
+  }
+
+  h1 {
+    margin-bottom: 0px;
+  }
+
+  .instructions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+
+    div {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    input,
+    textarea {
+      border: 0px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      width: 300px;
+      font-family: "Quicksand", sans-serif;
+    }
+
+    label {
+      font-size: 32px;
+
+      &.inactive {
+        color: #818181;
+      }
+    }
+
+    button {
+      padding: 8px 16px;
+      border: 0px;
+      border-radius: 8px;
+      background-color: $base-purple;
+      width: 300px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: "Quicksand", sans-serif;
+
+      &:hover {
+        background-color: darken($base-purple, 10%);
+      }
+
+      &:disabled {
+        background-color: #818181;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    a {
+      color: $base-purple;
+      font-weight: bold;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

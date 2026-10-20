@@ -1,0 +1,154 @@
+.reflex-container {
+  h2 {
+    align-self: flex-start;
+  }
+
+  .modalBackground {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    /* transform: translate(-50%, -50%); */
+    position: fixed;
+  }
+
+  .modal {
+    width: 80%;
+    background: white;
+    color: black;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 1);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 0px 20px;
+  }
+
+  .colorBlocks {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .picker {
+    width: 90%;
+    margin: 18px 0px;
+  }
+
+  .intervalDiv {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14px;
+  }
+
+  .intervalDiv h2 {
+    margin: 0px;
+    align-self: center;
+  }
+
+  .intervalInput {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+  }
+
+  .helper {
+    margin-top: 0px;
+    font-size: 14px;
+    color: rgb(131, 131, 131);
+  }
+
+  input {
+    width: 17%;
+    margin-left: 8px;
+    font-size: 26px;
+    border: 0px;
+    height: 30px;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    @media (max-width: 800px) {
+      margin-top: 0px;
+    }
+  }
+
+  .timer {
+    font-size: 64px;
+    height: 80%;
+    display: flex;
+    align-items: center;
+  }
+
+  .timerOptions {
+    height: 40%;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    top: 20px;
+  }
+
+  .optionButton {
+    height: 10%;
+  }
+
+  .imageMid {
+    width: 72px;
+    height: 72px;
+  }
+
+  .imageSmall {
+    height: 48px;
+  }
+
+  button {
+    background: none;
+    border: 0px;
+    font-size: 18px;
+  }
+
+  .optionsIcon {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+  }
+
+  .colorsButtons {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .saveButton {
+    color: rgb(44, 110, 38);
+    font-weight: bold;
+  }
+
+  .cancelButton {
+    color: rgb(160, 160, 160);
+  }
+
+  .newColor {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    margin-bottom: 14px;
+  }
+}
