@@ -38,3 +38,7 @@ export const krikki2026 = importAll(
 export const hyram2026 = importAll(
   require.context("./hyram2026", false, /\.(jpe?g|png|gif|svg)$/i),
 );
+
+export const flavio2026 = importAll(
+  require.context("./flavio2026", false, /\.(jpe?g|png|gif|svg)$/i),
+);
